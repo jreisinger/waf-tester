@@ -13,15 +13,15 @@ type Target struct {
 	Scheme     string
 	Host       string
 	Path       string
-	Url        string
+	URL        string
 	Err        error
 	StatusCode int
 }
 
 func (t *Target) getStatusCode() {
-	t.Url = t.Scheme + "://" + t.Host + "/" + t.Path
+	t.URL = t.Scheme + "://" + t.Host + "/" + t.Path
 
-	req, err := http.NewRequest("GET", t.Url, nil)
+	req, err := http.NewRequest("GET", t.URL, nil)
 	if err != nil {
 		t.Err = err
 		return
@@ -100,9 +100,9 @@ func main() {
 			if t.Err != nil {
 				fmt.Printf("ERR  (%03.0f): %s\n", float64(t.StatusCode), t.Err)
 			} else if t.StatusCode != 403 {
-				fmt.Printf("FAIL (%03.0f): %s\n", float64(t.StatusCode), t.Url)
+				fmt.Printf("FAIL (%03.0f): %s\n", float64(t.StatusCode), t.URL)
 			} else {
-				fmt.Printf("OK   (%03.0f): %s\n", float64(t.StatusCode), t.Url)
+				fmt.Printf("OK   (%03.0f): %s\n", float64(t.StatusCode), t.URL)
 			}
 		}
 	}
