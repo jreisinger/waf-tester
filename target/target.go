@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Target represents a testing target.
 type Target struct {
 	Scheme     string
 	Host       string
@@ -12,6 +13,13 @@ type Target struct {
 	URL        string
 	Err        error
 	StatusCode int
+}
+
+// Test executes tests against a target. Can be run in concurrently.
+func Test(ch chan Target, scheme string, host string, path string) {
+	t := Target{Scheme: scheme, Host: host, Path: path}
+	t.getStatusCode()
+	ch <- t
 }
 
 func (t *Target) getStatusCode() {
@@ -37,10 +45,4 @@ func (t *Target) getStatusCode() {
 	t.StatusCode = resp.StatusCode
 
 	return
-}
-
-func Test(ch chan Target, scheme string, host string, path string) {
-	t := Target{Scheme: scheme, Host: host, Path: path}
-	t.getStatusCode()
-	ch <- t
 }
