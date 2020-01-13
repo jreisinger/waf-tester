@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"net/url"
+	_ "net/url"
 	"os"
 	"time"
 )
@@ -17,7 +17,7 @@ type Target struct {
 }
 
 func (t *Target) getStatusCode() {
-	t.Url = "https://" + t.Host + "/" + t.Path
+	t.Url = "http://" + t.Host + "/" + t.Path
 
 	req, err := http.NewRequest("GET", t.Url, nil)
 	if err != nil {
@@ -61,7 +61,7 @@ func main() {
 
 	for _, host := range hosts {
 		for _, path := range paths {
-			path = url.PathEscape(path)
+			//path = url.PathEscape(path)
 			go TargetChecker(ch, host, path)
 		}
 	}
