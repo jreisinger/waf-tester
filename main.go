@@ -1,12 +1,11 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	_ "net/url"
-	"os"
 
 	"github.com/jreisinger/waf-tester/target"
+	"github.com/jreisinger/waf-tester/util"
 )
 
 var paths = []string{
@@ -17,40 +16,14 @@ var paths = []string{
 	"?<script>",
 }
 
-//
-// Command line flags and usage message.
-//
-
-var scheme = flag.String("s", "http", "sheme")
-var help = flag.Bool("h", false, "print help")
-
-func init() {
-	flag.Usage = func() {
-		desc := `Test a WAF is blocking malicious requests.`
-		fmt.Fprintf(os.Stderr, "%s\n\nUsage: %s [options] host [host2 ...]\n", desc, os.Args[0])
-		flag.PrintDefaults()
-	}
-}
-
-//
-// Main.
-//
-
 func main() {
-	flag.Parse()
-
-	if *help {
-		flag.Usage()
-		os.Exit(0)
-	}
-
-	hosts := flag.Args()
 	ch := make(chan target.Target)
+	hosts := util.Flag()
 
 	for _, host := range hosts {
 		for _, path := range paths {
 			//path = url.PathEscape(path)
-			go target.TargetChecker(ch, *scheme, host, path)
+			go target.TargetChecker(ch, *util.Scheme, host, path)
 		}
 	}
 
