@@ -39,7 +39,7 @@ func (t *Target) getStatusCode() {
 	return
 }
 
-func TargetChecker(ch chan Target, scheme string, host string, path string) {
+func Test(ch chan Target, scheme string, host string, path string) {
 	t := Target{Scheme: scheme, Host: host, Path: path}
 	t.getStatusCode()
 	ch <- t

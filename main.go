@@ -23,7 +23,7 @@ func main() {
 	for _, host := range hosts {
 		for _, path := range paths {
 			//path = url.PathEscape(path)
-			go target.TargetChecker(ch, *util.Scheme, host, path)
+			go target.Test(ch, *util.Scheme, host, path)
 		}
 	}
 
