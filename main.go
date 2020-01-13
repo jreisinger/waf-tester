@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	_ "net/url"
@@ -9,15 +10,16 @@ import (
 )
 
 type Target struct {
+	Scheme     string
 	Host       string
 	Path       string
-	StatusCode int
-	Err        error
 	Url        string
+	Err        error
+	StatusCode int
 }
 
 func (t *Target) getStatusCode() {
-	t.Url = "http://" + t.Host + "/" + t.Path
+	t.Url = t.Scheme + "://" + t.Host + "/" + t.Path
 
 	req, err := http.NewRequest("GET", t.Url, nil)
 	if err != nil {
@@ -41,8 +43,8 @@ func (t *Target) getStatusCode() {
 	return
 }
 
-func TargetChecker(ch chan Target, host string, path string) {
-	t := Target{Host: host, Path: path}
+func TargetChecker(ch chan Target, scheme string, host string, path string) {
+	t := Target{Scheme: scheme, Host: host, Path: path}
 	t.getStatusCode()
 	ch <- t
 }
@@ -55,14 +57,40 @@ var paths = []string{
 	"?<script>",
 }
 
+//
+// Command line flags and usage message.
+//
+
+var scheme = flag.String("s", "http", "sheme")
+var help = flag.Bool("h", false, "print help")
+
+func init() {
+	flag.Usage = func() {
+		desc := `Test a WAF is blocking malicious requests.`
+		fmt.Fprintf(os.Stderr, "%s\n\nUsage: %s [options] host [host2 ...]\n", desc, os.Args[0])
+		flag.PrintDefaults()
+	}
+}
+
+//
+// Main.
+//
+
 func main() {
-	hosts := os.Args[1:]
+	flag.Parse()
+
+	if *help {
+		flag.Usage()
+		os.Exit(0)
+	}
+
+	hosts := flag.Args()
 	ch := make(chan Target)
 
 	for _, host := range hosts {
 		for _, path := range paths {
 			//path = url.PathEscape(path)
-			go TargetChecker(ch, host, path)
+			go TargetChecker(ch, *scheme, host, path)
 		}
 	}
 
