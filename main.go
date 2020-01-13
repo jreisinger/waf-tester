@@ -27,15 +27,17 @@ func main() {
 		}
 	}
 
+	format := "%s  (%03.0f): %s\n"
+
 	for range hosts {
 		for range paths {
 			t := <-ch
 			if t.Err != nil {
-				fmt.Printf("ERR  (%03.0f): %s\n", float64(t.StatusCode), t.Err)
+				fmt.Printf(format, "ERR", float64(t.StatusCode), t.Err)
 			} else if t.StatusCode != 403 {
-				fmt.Printf("FAIL (%03.0f): %s\n", float64(t.StatusCode), t.URL)
+				fmt.Printf(format, "FAIL", float64(t.StatusCode), t.URL)
 			} else {
-				fmt.Printf("OK   (%03.0f): %s\n", float64(t.StatusCode), t.URL)
+				fmt.Printf(format, "OK", float64(t.StatusCode), t.URL)
 			}
 		}
 	}
