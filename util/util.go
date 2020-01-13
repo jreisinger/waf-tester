@@ -10,9 +10,6 @@ import (
 // Command line flags and usage message.
 //
 
-var Scheme = flag.String("s", "http", "sheme")
-var help = flag.Bool("h", false, "print help")
-
 func init() {
 	flag.Usage = func() {
 		desc := `Test a WAF is blocking malicious requests.`
@@ -20,6 +17,9 @@ func init() {
 		flag.PrintDefaults()
 	}
 }
+
+var Scheme = flag.String("s", "http", "sheme")
+var help = flag.Bool("h", false, "print help")
 
 func Flag() []string {
 	flag.Parse()
