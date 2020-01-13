@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	_ "net/url"
+	_ "os"
 
 	"github.com/jreisinger/waf-tester/target"
 	"github.com/jreisinger/waf-tester/util"
@@ -17,6 +18,15 @@ var paths = []string{
 }
 
 func main() {
+	//yamls := util.ParseYamlFiles("yaml")
+
+	//for _, yaml := range yamls {
+	//	fmt.Printf("%s\n", yaml.Tests[0].Stages[0].Stage.Input.Method)
+	//	fmt.Printf("%s\n", yaml.Tests[0].Stages[0].Stage.Input.URI)
+	//}
+
+	//os.Exit(0)
+
 	ch := make(chan target.Target)
 	hosts := util.Flag()
 

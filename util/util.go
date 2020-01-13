@@ -3,7 +3,10 @@ package util
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
+
+	"gopkg.in/yaml.v2"
 )
 
 //
@@ -30,4 +33,67 @@ func Flag() []string {
 	}
 
 	return flag.Args()
+}
+
+type Yaml struct {
+	Tests []struct {
+		Desc   string
+		Stages []struct {
+			Stage struct {
+				Input struct {
+					DestAddr string `json:"dest_addr"`
+					Headers  struct {
+						FoobarHeader string
+						Host         string
+					}
+					Method string
+					URI    string
+				}
+			}
+		}
+		TestTitle string `json:"test_title"`
+	}
+}
+
+func ParseYamlFile(filename string) (Yaml, error) {
+	var yamlConfig Yaml
+
+	yamlFile, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return yamlConfig, err
+	}
+
+	err = yaml.Unmarshal(yamlFile, &yamlConfig)
+	if err != nil {
+		return yamlConfig, err
+	}
+
+	return yamlConfig, nil
+}
+
+func ParseYamlFiles(dirname string) []Yaml {
+	dir, err := os.Open(dirname)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	defer dir.Close()
+
+	var yamls []Yaml
+
+	fileInfos, err := dir.Readdir(-1) // -1 means return all entries
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
+	}
+	for _, fi := range fileInfos {
+		yaml, err := ParseYamlFile(dirname + "/" + fi.Name())
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "warn: %s\n", err)
+			continue
+		}
+		yamls = append(yamls, yaml)
+	}
+
+	return yamls
 }
