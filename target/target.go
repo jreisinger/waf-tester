@@ -11,6 +11,7 @@ type Target struct {
 	Host       string
 	Path       string
 	URL        string
+	Headers    map[string]string
 	Err        error
 	StatusCode int
 }

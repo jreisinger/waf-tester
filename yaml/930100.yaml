@@ -21,4 +21,3 @@
               uri: "/"
             output:
               log_contains: id "930100"
-

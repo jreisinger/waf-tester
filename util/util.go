@@ -41,13 +41,9 @@ type Yaml struct {
 		Stages []struct {
 			Stage struct {
 				Input struct {
-					DestAddr string `json:"dest_addr"`
-					Headers  struct {
-						FoobarHeader string
-						Host         string
-					}
-					Method string
-					URI    string
+					Headers map[string]string `json:"-"`
+					Method  string
+					URI     string
 				}
 			}
 		}
