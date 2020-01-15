@@ -5,6 +5,7 @@ import (
 
 	"github.com/jreisinger/waf-tester/target"
 	"github.com/jreisinger/waf-tester/util"
+	"github.com/jreisinger/waf-tester/yaml"
 )
 
 type Test struct {
@@ -16,7 +17,7 @@ type Test struct {
 
 func main() {
 	// Parse YAML files -> URI (Path, Headers)
-	yamls := util.ParseYamlFiles("yaml")
+	yamls := yaml.ParseFiles("yaml")
 
 	var tests []Test
 
