@@ -55,9 +55,10 @@ func ParseFiles(dirname string) []Yaml {
 		os.Exit(1)
 	}
 	for _, fi := range fileInfos {
-		yaml, err := ParseFile(dirname + "/" + fi.Name())
+		filename := dirname + "/" + fi.Name()
+		yaml, err := ParseFile(filename)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "warn: %s\n", err)
+			fmt.Fprintf(os.Stderr, "warn parsing %s: %s\n", filename, err)
 			continue
 		}
 		yamls = append(yamls, yaml)

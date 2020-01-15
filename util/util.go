@@ -18,10 +18,17 @@ func init() {
 	}
 }
 
-var Scheme = flag.String("s", "http", "sheme")
-var help = flag.Bool("h", false, "print help")
+type Flag struct {
+	Scheme    *string
+	ListTests *bool
+}
 
-func Flag() []string {
+func (f *Flag) Parse() []string {
+	f.Scheme = flag.String("s", "http", "sheme")
+	f.ListTests = flag.Bool("l", false, "list tests")
+
+	var help = flag.Bool("h", false, "print help")
+
 	flag.Parse()
 
 	if *help {

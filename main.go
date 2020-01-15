@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/jreisinger/waf-tester/target"
 	"github.com/jreisinger/waf-tester/util"
@@ -17,7 +18,7 @@ type Test struct {
 
 func main() {
 	// Parse YAML files -> URI (Path, Headers)
-	yamls := yaml.ParseFiles("yaml")
+	yamls := yaml.ParseFiles("tests")
 
 	var tests []Test
 
@@ -28,12 +29,21 @@ func main() {
 		}
 	}
 
+	flag := new(util.Flag)
+	hosts := flag.Parse()
+
+	if *flag.ListTests {
+		for _, t := range tests {
+			fmt.Printf("%s\n", t.Desc)
+		}
+		os.Exit(0)
+	}
+
 	ch := make(chan target.Target)
-	hosts := util.Flag()
 
 	for _, host := range hosts {
 		for _, t := range tests {
-			go target.Test(ch, *util.Scheme, host, t.URI, t.Headers)
+			go target.Test(ch, *flag.Scheme, host, t.URI, t.Headers)
 		}
 	}
 
