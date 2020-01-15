@@ -8,6 +8,7 @@ import (
 )
 
 type Test struct {
+	Desc    string
 	Method  string
 	URI     string
 	Headers map[string]string
@@ -21,7 +22,7 @@ func main() {
 
 	for _, yaml := range yamls {
 		for _, test := range yaml.Tests {
-			t := Test{Method: test.Stages[0].Stage.Input.Method, URI: test.Stages[0].Stage.Input.URI, Headers: test.Stages[0].Stage.Input.Headers}
+			t := Test{Desc: test.Desc, Method: test.Stages[0].Stage.Input.Method, URI: test.Stages[0].Stage.Input.URI, Headers: test.Stages[0].Stage.Input.Headers}
 			tests = append(tests, t)
 		}
 	}
@@ -31,7 +32,7 @@ func main() {
 
 	for _, host := range hosts {
 		for _, t := range tests {
-			go target.Test(ch, *util.Scheme, host, t.URI)
+			go target.Test(ch, *util.Scheme, host, t.URI, t.Headers)
 		}
 	}
 

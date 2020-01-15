@@ -47,7 +47,6 @@ type Yaml struct {
 				}
 			}
 		}
-		TestTitle string `json:"test_title"`
 	}
 }
 

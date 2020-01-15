@@ -17,8 +17,8 @@ type Target struct {
 }
 
 // Test executes tests against a target. Can be run in concurrently.
-func Test(ch chan Target, scheme string, host string, path string) {
-	t := Target{Scheme: scheme, Host: host, Path: path}
+func Test(ch chan Target, scheme string, host string, path string, headers map[string]string) {
+	t := Target{Scheme: scheme, Host: host, Path: path, Headers: headers}
 	t.getStatusCode()
 	ch <- t
 }
@@ -32,7 +32,9 @@ func (t *Target) getStatusCode() {
 		return
 	}
 
-	req.Header.Set("Cache-Control", "no-cache")
+	for k, v := range t.Headers {
+		req.Header.Set(k, v)
+	}
 
 	client := &http.Client{Timeout: time.Second * 10}
 
