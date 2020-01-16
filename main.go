@@ -2,54 +2,34 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/jreisinger/waf-tester/httptest"
 )
 
 func main() {
+	// Set up CLI tool style of logging.
+	log.SetPrefix(os.Args[0] + ": ")
+	log.SetFlags(0) // no timestamp
+
+	if !(len(os.Args) > 1) {
+		// write to stderr and call os.Exit(1)
+		log.Fatalf("usage: %s %s", os.Args[0], "host [host2...]")
+	}
+
+	hosts := os.Args[1:]
+
 	// Get list of tests to execute.
 	tests := httptest.GetTests("tests")
 	//spew.Dump(tests)
 
-	// Execute the tests and show results.
-	host := os.Args[1]
-	for _, test := range tests {
-		test.Execute(host)
-		//spew.Dump(test)
-		fmt.Printf("%03d %-4s %s\n", test.StatusCode, test.Method, test.URL)
+	// Execute the tests against the hosts and show results.
+	for _, host := range hosts {
+		for _, test := range tests {
+			test.Execute(host)
+			//spew.Dump(test)
+			fmt.Printf("%03d %-4s %s\n", test.StatusCode, test.Method, test.URL)
+		}
 	}
-
-	//	flag := new(util.Flag)
-	//	hosts := flag.Parse()
-	//
-	//	if *flag.ListTests {
-	//		for _, t := range tests {
-	//			fmt.Printf("%s\n", t.Desc)
-	//		}
-	//		os.Exit(0)
-	//	}
-	//
-	//	ch := make(chan target.Target)
-	//
-	//	for _, host := range hosts {
-	//		for _, t := range tests {
-	//			go target.Test(ch, *flag.Scheme, host, t.URI, t.Headers)
-	//		}
-	//	}
-	//
-	//	format := "%s  (%03.0f): %s\n"
-	//
-	//	for range hosts {
-	//		for range tests {
-	//			t := <-ch
-	//			if t.Err != nil {
-	//				fmt.Printf(format, "ERR", float64(t.StatusCode), t.Err)
-	//			} else if t.StatusCode != 403 {
-	//				fmt.Printf(format, "FAIL", float64(t.StatusCode), t.URL)
-	//			} else {
-	//				fmt.Printf(format, "OK", float64(t.StatusCode), t.URL)
-	//			}
-	//		}
-	//	}
 }

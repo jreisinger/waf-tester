@@ -1,3 +1,4 @@
+// Package httptest implements types and functions for testing WAFs.
 package httptest
 
 import (
@@ -7,6 +8,7 @@ import (
 	"github.com/jreisinger/waf-tester/yaml"
 )
 
+// Test represents an HTTP test. It contains both request and response fields.
 type Test struct {
 	Desc       string
 	Method     string
@@ -19,6 +21,7 @@ type Test struct {
 	StatusCode int
 }
 
+// GetTests returns the list of available tests.
 func GetTests(dirname string) []Test {
 	var tests []Test
 
@@ -38,6 +41,7 @@ func GetTests(dirname string) []Test {
 	return tests
 }
 
+// Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(host string) {
 	t.URL = "http" + "://" + host + "/" + t.Path
 

@@ -8,6 +8,7 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
+// Yaml represents a WAF test written in YAML format.
 type Yaml struct {
 	Tests []struct {
 		Desc   string
@@ -23,6 +24,7 @@ type Yaml struct {
 	}
 }
 
+// ParseFile parses a single YAML file.
 func ParseFile(filename string) (Yaml, error) {
 	var yamlConfig Yaml
 
@@ -39,6 +41,7 @@ func ParseFile(filename string) (Yaml, error) {
 	return yamlConfig, nil
 }
 
+// ParseFiles parses all YAML files in a directory.
 func ParseFiles(dirname string) []Yaml {
 	dir, err := os.Open(dirname)
 	if err != nil {
