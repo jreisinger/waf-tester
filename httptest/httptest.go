@@ -20,6 +20,7 @@ type Test struct {
 	Err        error
 	StatusCode int
 	Status     string
+	TestStatus string
 }
 
 // GetTests returns the list of available tests.
@@ -45,11 +46,11 @@ func GetTests(dirname string) []Test {
 func (t *Test) setFields() {
 	switch t.StatusCode {
 	case 403:
-		t.Status = "OK"
+		t.TestStatus = "OK"
 	case 0:
-		t.Status = "ERR"
+		t.TestStatus = "ERR"
 	default:
-		t.Status = "FAIL"
+		t.TestStatus = "FAIL"
 	}
 
 	if t.Desc == "" {
@@ -83,4 +84,5 @@ func (t *Test) Execute(host string) {
 	defer resp.Body.Close()
 
 	t.StatusCode = resp.StatusCode
+	t.Status = resp.Status
 }

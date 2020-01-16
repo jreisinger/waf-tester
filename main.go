@@ -47,7 +47,7 @@ func main() {
 				} else {
 					test.Print()
 				}
-			} else if test.Status != "OK" { // print only not OK tests
+			} else if test.TestStatus != "OK" { // print only not OK tests
 				if *verbose {
 					test.PrintVerbose()
 				} else {
