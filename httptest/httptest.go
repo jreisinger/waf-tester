@@ -13,6 +13,7 @@ type Test struct {
 	Scheme     string
 	Host       string
 	Path       string // URI
+	URL        string // scheme + host + Path
 	Headers    map[string]string
 	Err        error
 	StatusCode int
@@ -38,9 +39,9 @@ func GetTests(dirname string) []Test {
 }
 
 func (t *Test) Execute(host string) {
-	url := "https" + "://" + host + "/" + t.Path
+	t.URL = "http" + "://" + host + "/" + t.Path
 
-	req, err := http.NewRequest(t.Method, url, nil)
+	req, err := http.NewRequest(t.Method, t.URL, nil)
 	if err != nil {
 		t.Err = err
 		return

@@ -17,7 +17,7 @@ func main() {
 	for _, test := range tests {
 		test.Execute(host)
 		//spew.Dump(test)
-		fmt.Printf("%d %s %s\n", test.StatusCode, test.Method, test.Path)
+		fmt.Printf("%03d %-4s %s\n", test.StatusCode, test.Method, test.URL)
 	}
 
 	//	flag := new(util.Flag)
