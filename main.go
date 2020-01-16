@@ -41,20 +41,20 @@ func main() {
 		for _, test := range tests {
 			test.Execute(host)
 
-			format := "%-4s %-9s %s\n"
-			if *all { // print all tests
-				fmt.Printf(format, test.Status, test.Method, test.URL)
-			} else if test.Status != "OK" { // print only not OK tests
-				fmt.Printf(format, test.Status, test.Method, test.URL)
-			}
-
-			if *verbose {
-				//spew.Dump(test)
-				fmt.Printf("  %s\n", test.Desc)
-				for k, v := range test.Headers {
-					fmt.Printf("  %s: %v\n", k, v)
+			if (!*all) && (test.Status != "OK") { // print only not OK tests
+				if *verbose {
+					test.PrintVerbose()
+				} else {
+					test.Print()
+				}
+			} else if *all { // print all tests
+				if *verbose {
+					test.PrintVerbose()
+				} else {
+					test.Print()
 				}
 			}
+
 		}
 	}
 }
