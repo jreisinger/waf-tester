@@ -41,20 +41,19 @@ func main() {
 		for _, test := range tests {
 			test.Execute(host)
 
-			if (!*all) && (test.Status != "OK") { // print only not OK tests
+			if *all { // print all tests
 				if *verbose {
 					test.PrintVerbose()
 				} else {
 					test.Print()
 				}
-			} else if *all { // print all tests
+			} else if test.Status != "OK" { // print only not OK tests
 				if *verbose {
 					test.PrintVerbose()
 				} else {
 					test.Print()
 				}
 			}
-
 		}
 	}
 }
