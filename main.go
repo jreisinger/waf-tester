@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/davecgh/go-spew/spew"
+	//"github.com/davecgh/go-spew/spew"
 	"github.com/jreisinger/waf-tester/httptest"
 )
 
@@ -21,6 +21,7 @@ func init() {
 
 var help = flag.Bool("h", false, "print help")
 var verbose = flag.Bool("v", false, "be verbose")
+var all = flag.Bool("a", false, "print all tests")
 
 func main() {
 
@@ -39,9 +40,20 @@ func main() {
 	for _, host := range hosts {
 		for _, test := range tests {
 			test.Execute(host)
-			fmt.Printf("%03d %-9s %s\n", test.StatusCode, test.Method, test.URL)
+
+			format := "%-4s %-9s %s\n"
+			if *all { // print all tests
+				fmt.Printf(format, test.Status, test.Method, test.URL)
+			} else if test.Status != "OK" { // print only not OK tests
+				fmt.Printf(format, test.Status, test.Method, test.URL)
+			}
+
 			if *verbose {
-				spew.Dump(test)
+				//spew.Dump(test)
+				fmt.Printf("  %s\n", test.Desc)
+				for k, v := range test.Headers {
+					fmt.Printf("  %s: %v\n", k, v)
+				}
 			}
 		}
 	}

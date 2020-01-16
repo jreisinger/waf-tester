@@ -19,6 +19,7 @@ type Test struct {
 	Headers    map[string]string
 	Err        error
 	StatusCode int
+	Status     string
 }
 
 // GetTests returns the list of available tests.
@@ -41,9 +42,26 @@ func GetTests(dirname string) []Test {
 	return tests
 }
 
+func (t *Test) setFields() {
+	switch t.StatusCode {
+	case 403:
+		t.Status = "OK"
+	case 0:
+		t.Status = "ERR"
+	default:
+		t.Status = "FAIL"
+	}
+
+	if t.Desc == "" {
+		t.Desc = "No test description"
+	}
+}
+
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(host string) {
 	t.URL = "http" + "://" + host + "/" + t.Path
+
+	defer t.setFields()
 
 	req, err := http.NewRequest(t.Method, t.URL, nil)
 	if err != nil {
