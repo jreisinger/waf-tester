@@ -1,24 +1,35 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"log"
 	"os"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/jreisinger/waf-tester/httptest"
 )
 
-func main() {
-	// Set up CLI tool style of logging.
-	log.SetPrefix(os.Args[0] + ": ")
-	log.SetFlags(0) // no timestamp
-
-	if !(len(os.Args) > 1) {
-		// write to stderr and call os.Exit(1)
-		log.Fatalf("usage: %s %s", os.Args[0], "host [host2...]")
+func init() {
+	flag.Usage = func() {
+		desc := `Run HTTP tests against hosts protected by a WAF`
+		fmt.Fprintf(os.Stderr, "%s\n\nUsage: %s [options] host [host2 ...]\n", desc, os.Args[0])
+		flag.PrintDefaults()
 	}
 
-	hosts := os.Args[1:]
+	flag.Parse()
+}
+
+var help = flag.Bool("h", false, "print help")
+var verbose = flag.Bool("v", false, "be verbose")
+
+func main() {
+
+	if *help {
+		flag.Usage()
+		os.Exit(0)
+	}
+
+	hosts := flag.Args()
 
 	// Get list of tests to execute.
 	tests := httptest.GetTests("tests")
@@ -28,8 +39,10 @@ func main() {
 	for _, host := range hosts {
 		for _, test := range tests {
 			test.Execute(host)
-			//spew.Dump(test)
-			fmt.Printf("%03d %-4s %s\n", test.StatusCode, test.Method, test.URL)
+			fmt.Printf("%03d %-9s %s\n", test.StatusCode, test.Method, test.URL)
+			if *verbose {
+				spew.Dump(test)
+			}
 		}
 	}
 }
