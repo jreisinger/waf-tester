@@ -40,7 +40,6 @@ func main() {
 	}
 
 	tests := httptest.GetTests("tests")
-	//spew.Dump(tests)
 
 	// Execute the tests against the hosts and show results.
 	for _, host := range hosts {
@@ -56,6 +55,7 @@ func main() {
 			} else if test.TestStatus != "OK" { // print only not OK tests
 				if *verbose {
 					test.PrintVerbose()
+					//spew.Dump(test)
 				} else {
 					test.Print()
 				}
