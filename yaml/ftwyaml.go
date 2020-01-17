@@ -18,6 +18,7 @@ type Yaml struct {
 					Headers map[string]string `json:"-"`
 					Method  string
 					URI     string
+					Data    string
 				}
 			}
 		}

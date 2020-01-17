@@ -3,6 +3,7 @@ package httptest
 
 import (
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/jreisinger/waf-tester/yaml"
@@ -17,6 +18,7 @@ type Test struct {
 	Path       string // URI
 	URL        string // scheme + host + Path
 	Headers    map[string]string
+	Data       string
 	Err        error
 	StatusCode int
 	Status     string
@@ -35,6 +37,7 @@ func GetTests(dirname string) []Test {
 				Method:  test.Stages[0].Stage.Input.Method,
 				Path:    test.Stages[0].Stage.Input.URI,
 				Headers: test.Stages[0].Stage.Input.Headers,
+				Data:    test.Stages[0].Stage.Input.Data,
 			}
 			tests = append(tests, t)
 		}
@@ -64,7 +67,7 @@ func (t *Test) Execute(host string) {
 
 	defer t.setFields()
 
-	req, err := http.NewRequest(t.Method, t.URL, nil)
+	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(t.Data))
 	if err != nil {
 		t.Err = err
 		return
