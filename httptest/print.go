@@ -2,8 +2,10 @@ package httptest
 
 import "fmt"
 
-var format = "%-4s %-9s %s\n"
-var vformat = "  %-6s: %v\n"
+var (
+	format  = "%-4s %-9s %s\n"
+	vformat = "  %-6s: %v\n"
+)
 
 func (t *Test) PrintVerbose() {
 	fmt.Printf(format, t.TestStatus, t.Method, t.URL)
