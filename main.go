@@ -19,9 +19,11 @@ func init() {
 	flag.Parse()
 }
 
-var help = flag.Bool("h", false, "print help")
-var verbose = flag.Bool("v", false, "be verbose")
-var all = flag.Bool("a", false, "print all tests")
+var (
+	help    = flag.Bool("h", false, "print help")
+	verbose = flag.Bool("v", false, "be verbose")
+	all     = flag.Bool("a", false, "print all tests")
+)
 
 func main() {
 
@@ -32,7 +34,11 @@ func main() {
 
 	hosts := flag.Args()
 
-	// Get list of tests to execute.
+	if len(hosts) == 0 {
+		flag.Usage()
+		os.Exit(1)
+	}
+
 	tests := httptest.GetTests("tests")
 	//spew.Dump(tests)
 
