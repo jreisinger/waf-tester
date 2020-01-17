@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/davecgh/go-spew/spew"
+	//"github.com/davecgh/go-spew/spew"
 	"github.com/jreisinger/waf-tester/httptest"
 )
 
@@ -55,7 +55,7 @@ func main() {
 			} else if test.TestStatus != "OK" { // print only not OK tests
 				if *verbose {
 					test.PrintVerbose()
-					spew.Dump(test)
+					//spew.Dump(test)
 				} else {
 					test.Print()
 				}
