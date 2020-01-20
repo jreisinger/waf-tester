@@ -30,12 +30,19 @@ func ParseFile(filename string) (Yaml, error) {
 	return yamlConfig, nil
 }
 
+func isYaml(path string) bool {
+	return filepath.Ext(path) == ".yaml" ||
+		filepath.Ext(path) == ".yml" ||
+		filepath.Ext(path) == ".YAML" ||
+		filepath.Ext(path) == ".YML"
+}
+
 // ParseFiles parses all YAML files in a directory.
 func ParseFiles(dirname string) []Yaml {
 	var yamls []Yaml
 
 	walkFunc := func(path string, fi os.FileInfo, err error) error {
-		if !fi.IsDir() {
+		if !fi.IsDir() && isYaml(path) {
 			yaml, err := ParseFile(path)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "warn parsing %s: %s\n", path, err)
