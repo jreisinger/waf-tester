@@ -42,8 +42,12 @@ func (t *Test) setFields() {
 		t.TestStatus = "FAIL"
 	}
 
+	// Set a default value if nil.
 	if t.Desc == "" {
 		t.Desc = "No test description"
+	}
+	if t.Method == "" {
+		t.Method = "GET"
 	}
 }
 
