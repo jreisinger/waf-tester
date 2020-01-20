@@ -22,6 +22,12 @@ func ParseFile(filename string) (Yaml, error) {
 		return yamlConfig, err
 	}
 
+	//yamlConfig.Tests[0].File = filename
+
+	for i := range yamlConfig.Tests {
+		yamlConfig.Tests[i].File = filename
+	}
+
 	return yamlConfig, nil
 }
 

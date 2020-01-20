@@ -16,14 +16,15 @@ func GetTests(dirname string) []Test {
 	yamls := yaml.ParseFiles(dirname)
 	for _, yaml := range yamls {
 		for _, test := range yaml.Tests {
-			t := Test{
+			t := &Test{
+				File:    test.File,
 				Desc:    test.Desc,
 				Method:  test.Stages[0].Stage.Input.Method,
 				Path:    test.Stages[0].Stage.Input.URI,
 				Headers: test.Stages[0].Stage.Input.Headers,
 				Data:    test.Stages[0].Stage.Input.Data,
 			}
-			tests = append(tests, t)
+			tests = append(tests, *t)
 		}
 	}
 

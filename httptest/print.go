@@ -9,6 +9,7 @@ var (
 
 func (t *Test) PrintVerbose() {
 	fmt.Printf(format, t.TestStatus, t.Method, t.URL)
+	fmt.Printf(vformat, "FILE", t.File)
 	fmt.Printf(vformat, "DESC", t.Desc)
 	fmt.Printf(vformat, "STATUS", t.Status)
 	fmt.Printf(vformat, "ERROR", t.Err)

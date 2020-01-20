@@ -3,6 +3,7 @@ package yaml
 // Yaml represents a WAF test written in YAML format.
 type Yaml struct {
 	Tests []struct {
+		File   string
 		Desc   string
 		Stages []struct {
 			Stage struct {
