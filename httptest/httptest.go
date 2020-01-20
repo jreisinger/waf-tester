@@ -25,6 +25,7 @@ func GetTests(dirname string) []Test {
 				Headers: test.Stages[0].Stage.Input.Headers,
 				Data:    test.Stages[0].Stage.Input.Data,
 			}
+			t.setFields()
 			tests = append(tests, *t)
 		}
 	}
@@ -46,16 +47,14 @@ func (t *Test) setFields() {
 	if t.Desc == "" {
 		t.Desc = "No test description"
 	}
-	if t.Method == "" {
-		t.Method = "GET"
-	}
+	//if t.Method == "" {
+	//	t.Method = "XXX"
+	//}
 }
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(host string) {
 	t.URL = "http" + "://" + host + t.Path
-
-	defer t.setFields()
 
 	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(t.Data))
 	if err != nil {
