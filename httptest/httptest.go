@@ -17,13 +17,14 @@ func GetTests(dirname string) []Test {
 	for _, yaml := range yamls {
 		for _, test := range yaml.Tests {
 			t := &Test{
-				Title:   test.Title,
-				Desc:    test.Desc,
-				File:    test.File,
-				Method:  test.Stages[0].Stage.Input.Method,
-				Path:    test.Stages[0].Stage.Input.URI,
-				Headers: test.Stages[0].Stage.Input.Headers,
-				Data:    test.Stages[0].Stage.Input.Data,
+				Title:              test.Title,
+				Desc:               test.Desc,
+				File:               test.File,
+				Method:             test.Stages[0].Stage.Input.Method,
+				Path:               test.Stages[0].Stage.Input.URI,
+				Headers:            test.Stages[0].Stage.Input.Headers,
+				Data:               test.Stages[0].Stage.Input.Data,
+				ExpectedStatusCode: test.Stages[0].Stage.Output.Status,
 			}
 			t.setEmptyFields()
 			tests = append(tests, *t)
@@ -37,14 +38,14 @@ func (t *Test) setEmptyFields() {
 	if t.Desc == "" {
 		t.Desc = "No test description"
 	}
-	//if t.Method == "" {
-	//	t.Method = "XXX"
-	//}
+	if t.ExpectedStatusCode == 0 {
+		t.ExpectedStatusCode = 403
+	}
 }
 
 func (t *Test) setTestStatusField() {
 	switch t.StatusCode {
-	case 403:
+	case t.ExpectedStatusCode:
 		t.TestStatus = "OK"
 	case 0:
 		t.TestStatus = "ERR"

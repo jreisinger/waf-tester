@@ -14,6 +14,9 @@ type Yaml struct {
 					URI     string
 					Data    string
 				}
+				Output struct {
+					Status int
+				}
 			}
 		}
 	}
