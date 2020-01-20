@@ -17,8 +17,9 @@ func GetTests(dirname string) []Test {
 	for _, yaml := range yamls {
 		for _, test := range yaml.Tests {
 			t := &Test{
-				File:    test.File,
+				Title:   test.Title,
 				Desc:    test.Desc,
+				File:    test.File,
 				Method:  test.Stages[0].Stage.Input.Method,
 				Path:    test.Stages[0].Stage.Input.URI,
 				Headers: test.Stages[0].Stage.Input.Headers,

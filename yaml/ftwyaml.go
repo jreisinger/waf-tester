@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
+	//"github.com/davecgh/go-spew/spew"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -27,6 +28,8 @@ func ParseFile(filename string) (Yaml, error) {
 	for i := range yamlConfig.Tests {
 		yamlConfig.Tests[i].File = filename
 	}
+
+	//spew.Dump(yamlConfig)
 
 	return yamlConfig, nil
 }
