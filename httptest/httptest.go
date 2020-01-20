@@ -25,7 +25,7 @@ func GetTests(dirname string) []Test {
 				Headers: test.Stages[0].Stage.Input.Headers,
 				Data:    test.Stages[0].Stage.Input.Data,
 			}
-			t.setFields()
+			t.setEmptyFields()
 			tests = append(tests, *t)
 		}
 	}
@@ -33,17 +33,7 @@ func GetTests(dirname string) []Test {
 	return tests
 }
 
-func (t *Test) setFields() {
-	switch t.StatusCode {
-	case 403:
-		t.TestStatus = "OK"
-	case 0:
-		t.TestStatus = "ERR"
-	default:
-		t.TestStatus = "FAIL"
-	}
-
-	// Set a default value if nil.
+func (t *Test) setEmptyFields() {
 	if t.Desc == "" {
 		t.Desc = "No test description"
 	}
@@ -52,9 +42,22 @@ func (t *Test) setFields() {
 	//}
 }
 
+func (t *Test) setTestStatusField() {
+	switch t.StatusCode {
+	case 403:
+		t.TestStatus = "OK"
+	case 0:
+		t.TestStatus = "ERR"
+	default:
+		t.TestStatus = "FAIL"
+	}
+}
+
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(host string) {
 	t.URL = "http" + "://" + host + t.Path
+
+	defer t.setTestStatusField()
 
 	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(t.Data))
 	if err != nil {
