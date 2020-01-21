@@ -45,7 +45,7 @@ func main() {
 	// Execute the tests against the hosts and show results.
 	for _, host := range hosts {
 		for _, test := range tests {
-			if test.Title != *title {
+			if *title != "" && test.Title != *title {
 				continue
 			}
 
