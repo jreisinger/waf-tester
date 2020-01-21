@@ -15,7 +15,7 @@ type Yaml struct {
 					Data    string
 				}
 				Output struct {
-					Status int
+					Status []int `yaml:"-"`
 				}
 			}
 		}

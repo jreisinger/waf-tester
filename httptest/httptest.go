@@ -23,14 +23,14 @@ func GetTests(path string) ([]Test, error) {
 	for _, yaml := range yamls {
 		for _, test := range yaml.Tests {
 			t := &Test{
-				Title:              test.Title,
-				Desc:               test.Desc,
-				File:               test.File,
-				Method:             test.Stages[0].Stage.Input.Method,
-				Path:               test.Stages[0].Stage.Input.URI,
-				Headers:            test.Stages[0].Stage.Input.Headers,
-				Data:               test.Stages[0].Stage.Input.Data,
-				ExpectedStatusCode: test.Stages[0].Stage.Output.Status,
+				Title:               test.Title,
+				Desc:                test.Desc,
+				File:                test.File,
+				Method:              test.Stages[0].Stage.Input.Method,
+				Path:                test.Stages[0].Stage.Input.URI,
+				Headers:             test.Stages[0].Stage.Input.Headers,
+				Data:                test.Stages[0].Stage.Input.Data,
+				ExpectedStatusCodes: test.Stages[0].Stage.Output.Status,
 			}
 			t.setEmptyFields()
 			tests = append(tests, *t)
@@ -44,19 +44,28 @@ func (t *Test) setEmptyFields() {
 	if t.Desc == "" {
 		t.Desc = "No test description"
 	}
-	if t.ExpectedStatusCode == 0 {
-		t.ExpectedStatusCode = 403
+	if len(t.ExpectedStatusCodes) == 0 {
+		t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 403)
 	}
 	if t.Method == "" {
 		t.Method = "XXX"
 	}
 }
 
+func intInSlice(n int, slice []int) bool {
+	for _, m := range slice {
+		if n == m {
+			return true
+		}
+	}
+	return false
+}
+
 func (t *Test) setTestStatusField() {
-	switch t.StatusCode {
-	case t.ExpectedStatusCode:
+	switch {
+	case intInSlice(t.StatusCode, t.ExpectedStatusCodes):
 		t.TestStatus = "OK"
-	case 0:
+	case intInSlice(t.StatusCode, []int{0}):
 		t.TestStatus = "ERR"
 	default:
 		t.TestStatus = "FAIL"

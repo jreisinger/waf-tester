@@ -4,7 +4,7 @@ import "fmt"
 
 var (
 	format  = "%-4v %-9v %v\n"
-	vformat = "  %-8v %v\n"
+	vformat = "  %-9v %v\n"
 )
 
 func (t *Test) PrintVerbose() {
@@ -14,7 +14,7 @@ func (t *Test) PrintVerbose() {
 	fmt.Printf(vformat, "FILE", t.File)
 	fmt.Printf(vformat, "STATUS", t.Status)
 	fmt.Printf(vformat, "CODE", t.StatusCode)
-	fmt.Printf(vformat, "EXP_CODE", t.ExpectedStatusCode)
+	fmt.Printf(vformat, "EXP_CODES", t.ExpectedStatusCodes)
 	fmt.Printf(vformat, "ERROR", t.Err)
 	fmt.Printf(vformat, "DATA", t.Data)
 	fmt.Printf(vformat, "HEADERS", t.Data)
