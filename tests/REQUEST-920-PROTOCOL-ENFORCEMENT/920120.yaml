@@ -32,6 +32,7 @@
               protocol: "http"
             output:
               log_contains: "id \"920120\""
+              status: 400
     -
       test_title: 920120-2
       desc: Attempted multipart/form-data bypass (920120) from old modsec regressions
@@ -69,6 +70,7 @@
             - '-----------------------------627652292512397580456702590--'
           output:
             log_contains: id "920120"
+            status: 400
     -
       test_title: 920120-3
       desc: Invalid Request Body (920120)  from old modsec regressions
@@ -109,3 +111,4 @@
             - '-----------------------------265001916915724--'
           output:
             log_contains: id "920120"
+            status: 400
