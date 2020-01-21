@@ -3,12 +3,12 @@ package httptest
 import "fmt"
 
 var (
-	format  = "%-4v %-9v %v\n"
+	format  = "%-4v %-10v %-9v %v\n"
 	vformat = "  %-9v %v\n"
 )
 
 func (t *Test) PrintVerbose() {
-	fmt.Printf(format, t.TestStatus, t.Method, t.URL)
+	fmt.Printf(format, t.TestStatus, t.Title, t.Method, t.URL)
 	fmt.Printf(vformat, "TITLE", t.Title)
 	fmt.Printf(vformat, "DESC", t.Desc)
 	fmt.Printf(vformat, "FILE", t.File)
@@ -24,5 +24,5 @@ func (t *Test) PrintVerbose() {
 }
 
 func (t *Test) Print() {
-	fmt.Printf(format, t.TestStatus, t.Method, t.URL)
+	fmt.Printf(format, t.TestStatus, t.Title, t.Method, t.URL)
 }
