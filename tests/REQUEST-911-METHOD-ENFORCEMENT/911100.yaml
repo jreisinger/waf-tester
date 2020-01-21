@@ -32,6 +32,7 @@
                   Host: "localhost"
             output:
               no_log_contains: "id \"911100\""
+              status: 405
     -
       test_title: 911100-3
       stages:
@@ -46,6 +47,7 @@
                   Host: "localhost"
             output:
               no_log_contains: "id \"911100\""
+              status: 200
     -
       test_title: 911100-4
       stages:
@@ -62,6 +64,7 @@
               data: "test=value"
             output:
               no_log_contains: "id \"911100\""
+              status: 405
     -
       test_title: 911100-5
       stages:
