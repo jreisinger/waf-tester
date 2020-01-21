@@ -9,7 +9,6 @@ var (
 
 func (t *Test) PrintVerbose() {
 	fmt.Printf(format, t.TestStatus, t.Title, t.Method, t.URL)
-	fmt.Printf(vformat, "TITLE", t.Title)
 	fmt.Printf(vformat, "DESC", t.Desc)
 	fmt.Printf(vformat, "FILE", t.File)
 	fmt.Printf(vformat, "STATUS", t.Status)
@@ -17,7 +16,7 @@ func (t *Test) PrintVerbose() {
 	fmt.Printf(vformat, "EXP_CODES", t.ExpectedStatusCodes)
 	fmt.Printf(vformat, "ERROR", t.Err)
 	fmt.Printf(vformat, "DATA", t.Data)
-	fmt.Printf(vformat, "HEADERS", t.Data)
+	fmt.Printf(vformat, "HEADERS", "")
 	for k, v := range t.Headers {
 		fmt.Printf("    %s: %v\n", k, v)
 	}
