@@ -38,7 +38,7 @@ func isYaml(path string) bool {
 }
 
 // ParseFiles parses all YAML files in a directory.
-func ParseFiles(dirname string) []Yaml {
+func ParseFiles(path string) []Yaml {
 	var yamls []Yaml
 
 	walkFunc := func(path string, fi os.FileInfo, err error) error {
@@ -53,7 +53,7 @@ func ParseFiles(dirname string) []Yaml {
 		return nil
 	}
 
-	filepath.Walk(dirname, walkFunc)
+	filepath.Walk(path, walkFunc)
 
 	return yamls
 }

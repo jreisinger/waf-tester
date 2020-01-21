@@ -11,15 +11,15 @@ import (
 )
 
 // GetTests returns the list of available tests.
-func GetTests(dirname string) ([]Test, error) {
+func GetTests(path string) ([]Test, error) {
 	var tests []Test
 
 	// Check directory exists.
-	if _, err := os.Stat(dirname); err != nil {
+	if _, err := os.Stat(path); err != nil {
 		return tests, err
 	}
 
-	yamls := yaml.ParseFiles(dirname)
+	yamls := yaml.ParseFiles(path)
 	for _, yaml := range yamls {
 		for _, test := range yaml.Tests {
 			t := &Test{
