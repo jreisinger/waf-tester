@@ -3,6 +3,7 @@ package httptest
 
 import (
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -10,8 +11,13 @@ import (
 )
 
 // GetTests returns the list of available tests.
-func GetTests(dirname string) []Test {
+func GetTests(dirname string) ([]Test, error) {
 	var tests []Test
+
+	// Check directory exists.
+	if _, err := os.Stat(dirname); err != nil {
+		return tests, err
+	}
 
 	yamls := yaml.ParseFiles(dirname)
 	for _, yaml := range yamls {
@@ -31,7 +37,7 @@ func GetTests(dirname string) []Test {
 		}
 	}
 
-	return tests
+	return tests, nil
 }
 
 func (t *Test) setEmptyFields() {
@@ -40,6 +46,9 @@ func (t *Test) setEmptyFields() {
 	}
 	if t.ExpectedStatusCode == 0 {
 		t.ExpectedStatusCode = 403
+	}
+	if t.Method == "" {
+		t.Method = "XXX"
 	}
 }
 

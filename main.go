@@ -20,10 +20,11 @@ func init() {
 }
 
 var (
-	help    = flag.Bool("h", false, "print help")
-	verbose = flag.Bool("v", false, "be verbose")
-	all     = flag.Bool("a", false, "print all tests")
-	title   = flag.String("t", "", "run only test with this TITLE")
+	help     = flag.Bool("h", false, "print help")
+	verbose  = flag.Bool("v", false, "be verbose")
+	all      = flag.Bool("a", false, "print all tests")
+	title    = flag.String("t", "", "run only test with this TITLE")
+	testsdir = flag.String("d", "tests", "directory containing tests")
 )
 
 func main() {
@@ -40,7 +41,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	tests := httptest.GetTests("tests")
+	tests, err := httptest.GetTests(*testsdir)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Can't get tests: %s\n", err)
+		os.Exit(1)
+	}
 
 	// Execute the tests against the hosts and show results.
 	for _, host := range hosts {
