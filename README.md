@@ -5,7 +5,7 @@ Install and run:
 ```
 go build
 ./waf-tester -h
-./waf-tester locahost
+./waf-tester localhost
 ```
 
 To do:
