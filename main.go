@@ -23,6 +23,7 @@ var (
 	help    = flag.Bool("h", false, "print help")
 	verbose = flag.Bool("v", false, "be verbose")
 	all     = flag.Bool("a", false, "print all tests")
+	title   = flag.String("t", "", "run only test with this TITLE")
 )
 
 func main() {
@@ -44,6 +45,10 @@ func main() {
 	// Execute the tests against the hosts and show results.
 	for _, host := range hosts {
 		for _, test := range tests {
+			if test.Title != *title {
+				continue
+			}
+
 			test.Execute(host)
 
 			if *all { // print all tests
