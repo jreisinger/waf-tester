@@ -78,7 +78,8 @@ func (t *Test) Execute(host string) {
 
 	defer t.setTestStatusField()
 
-	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(t.Data))
+	data := strings.Join(t.Data, "")
+	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(data))
 	if err != nil {
 		t.Err = err
 		return

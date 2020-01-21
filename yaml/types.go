@@ -20,6 +20,24 @@ func (a *intArray) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	return nil
 }
 
+type stringArray []string
+
+func (a *stringArray) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var multi []string
+	err := unmarshal(&multi)
+	if err != nil {
+		var single string
+		err := unmarshal(&single)
+		if err != nil {
+			return err
+		}
+		*a = []string{single}
+	} else {
+		*a = multi
+	}
+	return nil
+}
+
 // Yaml represents a WAF test written in YAML format.
 type Yaml struct {
 	Tests []struct {
@@ -32,7 +50,7 @@ type Yaml struct {
 					Headers map[string]string `json:"-"`
 					Method  string
 					URI     string
-					Data    string
+					Data    stringArray
 				}
 				Output struct {
 					// can be both int or array of ints

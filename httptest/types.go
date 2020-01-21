@@ -11,7 +11,7 @@ type Test struct {
 	Path                string // URI
 	URL                 string // scheme + host + Path
 	Headers             map[string]string
-	Data                string
+	Data                []string
 	Err                 error
 	StatusCode          int
 	ExpectedStatusCodes []int
