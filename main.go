@@ -11,7 +11,7 @@ import (
 
 func init() {
 	flag.Usage = func() {
-		desc := `Run HTTP tests against hosts protected by a WAF`
+		desc := `Run HTTP tests to evaluate WAF functionality.`
 		fmt.Fprintf(os.Stderr, "%s\n\nUsage: %s [options] host [host2 ...]\n", desc, os.Args[0])
 		flag.PrintDefaults()
 	}
@@ -22,7 +22,7 @@ func init() {
 var (
 	help     = flag.Bool("h", false, "print help")
 	verbose  = flag.Bool("v", false, "be verbose")
-	all      = flag.Bool("a", false, "print all tests")
+	all      = flag.Bool("a", false, "print all tests (by default only not OK tests are printed)")
 	title    = flag.String("t", "", "run only test with this TITLE")
 	testsdir = flag.String("d", "tests", "directory containing tests")
 )
