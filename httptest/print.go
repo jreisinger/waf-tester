@@ -39,6 +39,7 @@ func (t *Test) PrintVerbose() {
 	fmt.Printf(vformat, "EXP_CODES", t.ExpectedStatusCodes)
 	fmt.Printf(vformat, "EXP_LOGS", t.LogContains)
 	fmt.Printf(vformat, "EXP_NOLOGS", t.LogContainsNot)
+	fmt.Printf(vformat, "EXP_ERR", t.ExpectError)
 	fmt.Printf(vformat, "ERROR", t.Err)
 	fmt.Printf(vformat, "DATA", t.Data)
 	fmt.Printf(vformat, "HEADERS", "")

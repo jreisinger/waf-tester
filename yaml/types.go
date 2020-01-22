@@ -57,6 +57,7 @@ type Yaml struct {
 					Status         intArray
 					LogContains    string `yaml:"log_contains"`
 					LogContainsNot string `yaml:"no_log_contains"`
+					ExpectError    bool   `yaml:"expect_error"`
 				}
 			}
 		}
