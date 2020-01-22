@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 	"text/template"
+
+	"github.com/fatih/color"
 )
 
 var (
@@ -28,7 +30,7 @@ var report = template.Must(template.New("report").
 
 // PrintVerbose prints lot of information about a Test.
 func (t *Test) PrintVerbose() {
-	fmt.Printf(format, t.TestStatus, t.Title, t.Method, t.URL)
+	t.Print()
 	fmt.Printf(vformat, "DESC", t.Desc)
 	fmt.Printf(vformat, "FILE", t.File)
 	fmt.Printf(vformat, "STATUS", t.Status)
@@ -51,5 +53,17 @@ func (t *Test) PrintVerbose() {
 
 // Print prints basic information about a Test.
 func (t *Test) Print() {
-	fmt.Printf(format, t.TestStatus, t.Title, t.Method, t.URL)
+	green := color.New(color.FgGreen).SprintFunc()
+	red := color.New(color.FgRed).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+
+	testStatus := t.TestStatus
+
+	switch t.TestStatus {
+	case "OK": testStatus = green(testStatus)
+	case "FAIL": testStatus = red(testStatus)
+	case "ERR": testStatus = yellow(testStatus)
+	}
+
+	fmt.Printf(format, testStatus, t.Title, t.Method, t.URL)
 }
