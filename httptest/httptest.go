@@ -41,7 +41,7 @@ func GetTests(path string) ([]Test, error) {
 				LogContainsNot:      test.Stages[0].Stage.Output.LogContainsNot,
 				ExpectError:         test.Stages[0].Stage.Output.ExpectError,
 			}
-			t.setFields()
+			t.addCustomHeader()
 			tests = append(tests, *t)
 		}
 	}
@@ -61,22 +61,12 @@ func genUUID() string {
 	return uuid
 }
 
-func (t *Test) setFields() {
+func (t *Test) addCustomHeader() {
 	t.ID = genUUID()
 	if t.Headers == nil {
 		t.Headers = make(map[string]string)
 	}
 	t.Headers["waf-tester-id"] = t.ID
-
-	if t.Desc == "" {
-		t.Desc = "No test description"
-	}
-	//if len(t.ExpectedStatusCodes) == 0 {
-	//	t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 403)
-	//}
-	//if t.Method == "" {
-	//	t.Method = "XXX"
-	//}
 }
 
 func intInSlice(n int, slice []int) bool {
