@@ -143,6 +143,8 @@ func (t *Test) Evaluate(logspath string) {
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(host string) {
+	t.Executed = true
+
 	t.URL = "http" + "://" + path.Join(host, t.Path)
 
 	data := strings.Join(t.Data, "")
@@ -165,7 +167,6 @@ func (t *Test) Execute(host string) {
 	}
 	defer resp.Body.Close()
 
-	t.Executed = true
 	t.StatusCode = resp.StatusCode
 	t.Status = resp.Status
 }
