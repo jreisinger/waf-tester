@@ -26,6 +26,7 @@ var (
 	only      = flag.String("o", "", "run only test with this TITLE")
 	testspath = flag.String("t", "tests", "directory or file containing tests")
 	logspath  = flag.String("l", "/tmp/var/log/modsec_audit.log", "file containing WAF logs")
+	stats     = flag.Bool("s", false, "print statistics about tests")
 )
 
 func main() {
@@ -37,6 +38,7 @@ func main() {
 
 	hosts := flag.Args()
 
+	// Execute tests against localhost if no hosts supplied.
 	if len(hosts) == 0 {
 		hosts = append(hosts, "localhost")
 	}
@@ -86,5 +88,9 @@ func main() {
 				test.Print()
 			}
 		}
+	}
+
+	if *stats {
+		httptest.PrintStats(tests)
 	}
 }

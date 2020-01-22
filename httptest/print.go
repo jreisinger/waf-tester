@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 	"text/template"
 
 	"github.com/fatih/color"
@@ -52,19 +53,58 @@ func (t *Test) PrintVerbose() {
 	}
 }
 
-// Print prints basic information about a Test.
-func (t *Test) Print() {
-	green := color.New(color.FgGreen).SprintFunc()
-	red := color.New(color.FgRed).SprintFunc()
-	yellow := color.New(color.FgYellow).SprintFunc()
+func setTestStatusColor(testStatus string) string {
+	var green = color.New(color.FgGreen).SprintFunc()
+	var red = color.New(color.FgRed).SprintFunc()
+	var yellow = color.New(color.FgYellow).SprintFunc()
 
-	testStatus := t.TestStatus
-
-	switch t.TestStatus {
-	case "OK": testStatus = green(testStatus)
-	case "FAIL": testStatus = red(testStatus)
-	case "ERR": testStatus = yellow(testStatus)
+	switch testStatus {
+	case "OK":
+		testStatus = green(testStatus)
+	case "FAIL":
+		testStatus = red(testStatus)
+	case "ERR":
+		testStatus = yellow(testStatus)
 	}
 
+	return testStatus
+}
+
+// Print prints basic information about a Test.
+func (t *Test) Print() {
+
+	testStatus := setTestStatusColor(t.TestStatus)
+
 	fmt.Printf(format, testStatus, t.Title, t.Method, t.URL)
+}
+
+// PrintStats prints statistics about tests.
+func PrintStats(tests []Test) {
+	count := make(map[string]int)
+
+	for _, t := range tests {
+		count["TOTAL"]++
+		switch t.TestStatus {
+		case "OK":
+			count["OK"]++
+		case "FAIL":
+			count["FAIL"]++
+		case "ERR":
+			count["ERR"]++
+		}
+	}
+
+	fmt.Println("-------------")
+	format := "%s\t%d\n"
+
+	var keys []string
+
+	for k := range count {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, k := range keys {
+		fmt.Printf(format, setTestStatusColor(k), count[k])
+	}
 }
