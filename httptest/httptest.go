@@ -2,6 +2,9 @@
 package httptest
 
 import (
+	"crypto/rand"
+	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"path"
@@ -33,7 +36,7 @@ func GetTests(path string) ([]Test, error) {
 				Data:                test.Stages[0].Stage.Input.Data,
 				ExpectedStatusCodes: test.Stages[0].Stage.Output.Status,
 			}
-			t.setEmptyFields()
+			t.setFields()
 			tests = append(tests, *t)
 		}
 	}
@@ -41,7 +44,21 @@ func GetTests(path string) ([]Test, error) {
 	return tests, nil
 }
 
-func (t *Test) setEmptyFields() {
+// https://yourbasic.org/golang/generate-uuid-guid/
+func genUUID() string {
+	b := make([]byte, 16)
+	_, err := rand.Read(b)
+	if err != nil {
+		log.Fatal(err)
+	}
+	uuid := fmt.Sprintf("%x-%x-%x-%x-%x",
+		b[0:4], b[4:6], b[6:8], b[8:10], b[10:])
+	return uuid
+}
+
+func (t *Test) setFields() {
+	t.ID = genUUID()
+	t.Headers["waf-tester-id"] = t.ID
 	if t.Desc == "" {
 		t.Desc = "No test description"
 	}

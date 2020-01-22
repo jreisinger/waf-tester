@@ -2,6 +2,7 @@ package httptest
 
 // Test represents an HTTP test. It contains both request and response fields.
 type Test struct {
+	ID                  string
 	Title               string
 	Desc                string
 	File                string
