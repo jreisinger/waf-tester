@@ -3,11 +3,13 @@ package httptest
 
 import (
 	"crypto/rand"
+	"errors"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"path"
+	"regexp"
 	"strings"
 	"time"
 
@@ -35,6 +37,7 @@ func GetTests(path string) ([]Test, error) {
 				Headers:             test.Stages[0].Stage.Input.Headers,
 				Data:                test.Stages[0].Stage.Input.Data,
 				ExpectedStatusCodes: test.Stages[0].Stage.Output.Status,
+				LogContains:         test.Stages[0].Stage.Output.LogContains,
 			}
 			t.setFields()
 			tests = append(tests, *t)
@@ -66,9 +69,9 @@ func (t *Test) setFields() {
 	if t.Desc == "" {
 		t.Desc = "No test description"
 	}
-	if len(t.ExpectedStatusCodes) == 0 {
-		t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 403)
-	}
+	//if len(t.ExpectedStatusCodes) == 0 {
+	//	t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 403)
+	//}
 	if t.Method == "" {
 		t.Method = "XXX"
 	}
@@ -83,22 +86,46 @@ func intInSlice(n int, slice []int) bool {
 	return false
 }
 
-func (t *Test) setTestStatusField() {
-	switch {
-	case intInSlice(t.StatusCode, t.ExpectedStatusCodes):
-		t.TestStatus = "OK"
-	case intInSlice(t.StatusCode, []int{0}):
+// Evaluate sets overall TestStatus to OK|FAIL|ERR.
+func (t *Test) Evaluate(logspath string) {
+	t.AddLogs(logspath)
+
+	// HTTP request failed.
+	if t.StatusCode == 0 {
 		t.TestStatus = "ERR"
-	default:
-		t.TestStatus = "FAIL"
+		return
 	}
+
+	// We have output.status defined in the test.
+	if len(t.ExpectedStatusCodes) > 0 {
+		if intInSlice(t.StatusCode, t.ExpectedStatusCodes) {
+			t.TestStatus = "OK"
+		} else {
+			t.TestStatus = "FAIL"
+		}
+		return
+	}
+
+	// We have output.log_contains defined in the test.
+	if t.LogContains != "" {
+		re := regexp.MustCompile(`\d{6}`) // ex: id "941130"
+		id := re.FindString(t.LogContains)
+		if foundInLogs(t, id) {
+			t.TestStatus = "OK"
+		} else {
+			t.TestStatus = "FAIL"
+		}
+		return
+	}
+
+	// No usable output parameters.
+	t.Err = errors.New("No output parameters defined in test")
+	t.TestStatus = "ERR"
 }
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(host string) {
 	t.URL = "http" + "://" + path.Join(host, t.Path)
-
-	defer t.setTestStatusField()
 
 	data := strings.Join(t.Data, "")
 	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(data))

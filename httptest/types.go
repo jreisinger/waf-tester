@@ -16,11 +16,12 @@ type Test struct {
 	Headers             map[string]string
 	Data                []string
 	Err                 error
-	StatusCode          int
+	StatusCode          int // ex: 403
 	ExpectedStatusCodes []int
-	Status              string
+	Status              string // ex: 403 Forbidden
 	TestStatus          string
 	Logs                []LogLine
+	LogContains         string
 }
 
 //

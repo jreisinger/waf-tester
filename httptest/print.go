@@ -26,6 +26,7 @@ var report = template.Must(template.New("report").
 	Funcs(template.FuncMap{"baseName": baseName}).
 	Parse(templ))
 
+// PrintVerbose prints lot of information about a Test.
 func (t *Test) PrintVerbose() {
 	fmt.Printf(format, t.TestStatus, t.Title, t.Method, t.URL)
 	fmt.Printf(vformat, "DESC", t.Desc)
@@ -33,6 +34,7 @@ func (t *Test) PrintVerbose() {
 	fmt.Printf(vformat, "STATUS", t.Status)
 	fmt.Printf(vformat, "CODE", t.StatusCode)
 	fmt.Printf(vformat, "EXP_CODES", t.ExpectedStatusCodes)
+	fmt.Printf(vformat, "EXP_LOGS", t.LogContains)
 	fmt.Printf(vformat, "ERROR", t.Err)
 	fmt.Printf(vformat, "DATA", t.Data)
 	fmt.Printf(vformat, "HEADERS", "")
@@ -47,6 +49,7 @@ func (t *Test) PrintVerbose() {
 	}
 }
 
+// Print prints basic information about a Test.
 func (t *Test) Print() {
 	fmt.Printf(format, t.TestStatus, t.Title, t.Method, t.URL)
 }

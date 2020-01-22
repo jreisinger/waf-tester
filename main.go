@@ -61,12 +61,10 @@ func main() {
 		}
 	}
 
-	// Logs need to be parsed after all requests are done.
-	if *logspath != "" {
-		for i := range tests {
-			test := &tests[i]
-			test.AddLogs(*logspath)
-		}
+	// Logs need to be parsed *after* all requests are done.
+	for i := range tests {
+		test := &tests[i]
+		test.Evaluate(*logspath)
 	}
 
 	// Print test results.

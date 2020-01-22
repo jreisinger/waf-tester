@@ -10,6 +10,17 @@ import (
 
 var logs []LogLine
 
+func foundInLogs(t *Test, id string) bool {
+	for _, l := range t.Logs {
+		for _, m := range l.Transaction.Messages {
+			if m.Details.RuleId == id {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 // AddLogs adds related logs to a Test.
 func (t *Test) AddLogs(logspath string) {
 
