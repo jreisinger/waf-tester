@@ -2,9 +2,9 @@ package httptest
 
 import (
 	"fmt"
-	"html/template"
 	"log"
 	"os"
+	"text/template"
 )
 
 var (
