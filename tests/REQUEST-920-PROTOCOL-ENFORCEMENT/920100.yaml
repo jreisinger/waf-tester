@@ -207,7 +207,7 @@
               uri: "\\"
               version: "HTTP/1.1"
             output:
-              status: [403,400]
+              status: [403,404,400]
               #log_contains: "id \"920100\""
     -
       test_title: 920100-12
@@ -229,6 +229,7 @@
             version: HTTP/1.1
           output:
             status: [0,400] # net/http: invalid method "\tGET"
+            expect_error: true
     -
       test_title: 920100-13
       desc: Invalid HTTP Request Line (920100) - Test 2 from old modsec regressions
@@ -270,6 +271,7 @@
             version: HTTP/1.0
           output:
             log_contains: id "920100"
+            status: 400
     -
       test_title: 920100-15
       desc: Test as described in http://www.client9.com/article/five-interesting-injection-attacks/
