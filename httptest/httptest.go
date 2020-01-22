@@ -2,6 +2,7 @@
 package httptest
 
 import (
+	"bufio"
 	"crypto/rand"
 	"errors"
 	"fmt"
@@ -16,13 +17,46 @@ import (
 	"github.com/jreisinger/waf-tester/yaml"
 )
 
+func getOnlyTheseTests(only string) []string {
+	var onlyTheseTests []string
+
+	// Is it a file?
+	if _, err := os.Stat(only); err == nil {
+		f, err := os.Open(only)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer f.Close()
+
+		scanner := bufio.NewScanner(f)
+		for scanner.Scan() {
+			line := scanner.Text()
+			onlyTheseTests = append(onlyTheseTests, line)
+		}
+		if err := scanner.Err(); err != nil {
+			log.Fatal(err)
+		}
+		return onlyTheseTests
+	}
+
+	// If not a file it's a test title.
+	onlyTheseTests = append(onlyTheseTests, only)
+	return onlyTheseTests
+}
+
 // GetTests returns the list of available tests.
-func GetTests(path string) ([]Test, error) {
+func GetTests(path string, only string) ([]Test, error) {
 	var tests []Test
 
-	// Check directory exists.
+	// Check path with tests exists.
 	if _, err := os.Stat(path); err != nil {
 		return tests, err
+	}
+
+	var onlyTheseTests []string
+
+	if only != "" {
+		onlyTheseTests = getOnlyTheseTests(only)
 	}
 
 	yamls := yaml.ParseFiles(path)
@@ -41,6 +75,11 @@ func GetTests(path string) ([]Test, error) {
 				LogContainsNot:      test.Stages[0].Stage.Output.LogContainsNot,
 				ExpectError:         test.Stages[0].Stage.Output.ExpectError,
 			}
+
+			if len(onlyTheseTests) > 0 && !stringInSlice(t.Title, onlyTheseTests) {
+				continue
+			}
+
 			t.addCustomHeader()
 			tests = append(tests, *t)
 		}
@@ -78,8 +117,21 @@ func intInSlice(n int, slice []int) bool {
 	return false
 }
 
+func stringInSlice(s string, slice []string) bool {
+	for _, r := range slice {
+		if s == r {
+			return true
+		}
+	}
+	return false
+}
+
 // Evaluate sets overall TestStatus to OK|FAIL|ERR.
 func (t *Test) Evaluate(logspath string) {
+	if !t.Executed {
+		return
+	}
+
 	// There was an error executing the test (HTTP request failed).
 	if t.Err != nil {
 		if t.ExpectError {

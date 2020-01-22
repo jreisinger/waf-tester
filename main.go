@@ -23,7 +23,7 @@ var (
 	help      = flag.Bool("h", false, "print help")
 	verbose   = flag.Bool("v", false, "be verbose")
 	all       = flag.Bool("a", false, "print all tests (by default only not OK are printed)")
-	only      = flag.String("o", "", "run only this test (e.g. 920160-1)")
+	only      = flag.String("o", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
 	testspath = flag.String("t", "tests", "directory or file containing tests")
 	logspath  = flag.String("l", "/tmp/var/log/modsec_audit.log", "file containing WAF logs")
 	stats     = flag.Bool("s", false, "print statistics about tests")
@@ -44,7 +44,7 @@ func main() {
 	}
 
 	// Get the tests to execute.
-	tests, err := httptest.GetTests(*testspath)
+	tests, err := httptest.GetTests(*testspath, *only)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Can't get tests: %s\n", err)
 		os.Exit(1)
@@ -54,11 +54,6 @@ func main() {
 	for _, host := range hosts {
 		for i := range tests {
 			test := &tests[i]
-
-			if *only != "" && test.Title != *only {
-				continue
-			}
-
 			test.Execute(host)
 		}
 	}
@@ -66,20 +61,11 @@ func main() {
 	// Logs need to be parsed *after* all requests are done.
 	for i := range tests {
 		test := &tests[i]
-
-		if *only != "" && test.Title != *only {
-			continue
-		}
-
 		test.Evaluate(*logspath)
 	}
 
 	// Print test results.
 	for _, test := range tests {
-		if *only != "" && test.Title != *only {
-			continue
-		}
-
 		if *all { // print all tests
 			if *verbose {
 				test.PrintVerbose()
