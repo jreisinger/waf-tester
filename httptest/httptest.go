@@ -38,7 +38,7 @@ func GetTests(path string) ([]Test, error) {
 				Data:                test.Stages[0].Stage.Input.Data,
 				ExpectedStatusCodes: test.Stages[0].Stage.Output.Status,
 				LogContains:         test.Stages[0].Stage.Output.LogContains,
-				LogContainsNot:		 test.Stages[0].Stage.Output.LogContainsNot,
+				LogContainsNot:      test.Stages[0].Stage.Output.LogContainsNot,
 			}
 			t.setFields()
 			tests = append(tests, *t)
@@ -89,13 +89,13 @@ func intInSlice(n int, slice []int) bool {
 
 // Evaluate sets overall TestStatus to OK|FAIL|ERR.
 func (t *Test) Evaluate(logspath string) {
-	t.AddLogs(logspath)
+	// There was an error executing the test (HTTP request failed).
+	if t.Err != nil {
+		t.TestStatus = "ERR"
+		return
+	}
 
-	// HTTP request failed.
-	//if t.StatusCode == 0 {
-	//	t.TestStatus = "ERR"
-	//	return
-	//}
+	t.AddLogs(logspath)
 
 	// We have output.status defined in the test.
 	if len(t.ExpectedStatusCodes) > 0 {
