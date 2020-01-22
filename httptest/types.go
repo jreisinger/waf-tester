@@ -24,6 +24,7 @@ type Test struct {
 	LogContains         string
 	LogContainsNot      string
 	ExpectError         bool
+	Executed            bool
 }
 
 //

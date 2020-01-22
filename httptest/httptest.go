@@ -165,6 +165,7 @@ func (t *Test) Execute(host string) {
 	}
 	defer resp.Body.Close()
 
+	t.Executed = true
 	t.StatusCode = resp.StatusCode
 	t.Status = resp.Status
 }

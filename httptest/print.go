@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"sort"
 	"text/template"
 
 	"github.com/fatih/color"
@@ -85,6 +84,11 @@ func PrintStats(tests []Test) {
 
 	for _, t := range tests {
 		count["TOTAL"]++
+		if t.Executed {
+			count["EXECUTED"]++
+		} else {
+			continue
+		}
 		switch t.TestStatus {
 		case "OK":
 			count["OK"]++
@@ -98,14 +102,8 @@ func PrintStats(tests []Test) {
 	fmt.Println("-------------")
 	format := "%s\t%d\n"
 
-	var keys []string
-
-	for k := range count {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-
-	for _, k := range keys {
-		fmt.Printf(format, setTestStatusColor(k), count[k])
-	}
+	fmt.Printf(format, setTestStatusColor("OK"), count["OK"])
+	fmt.Printf(format, setTestStatusColor("FAIL"), count["FAIL"])
+	fmt.Printf(format, setTestStatusColor("ERR"), count["ERR"])
+	fmt.Printf("%s\t%d (%d)\n", setTestStatusColor("TOTAL"), count["EXECUTED"], count["TOTAL"])
 }

@@ -23,7 +23,7 @@ var (
 	help      = flag.Bool("h", false, "print help")
 	verbose   = flag.Bool("v", false, "be verbose")
 	all       = flag.Bool("a", false, "print all tests (by default only not OK are printed)")
-	only      = flag.String("o", "", "run only test with this TITLE")
+	only      = flag.String("o", "", "run only this test (e.g. 920160-1)")
 	testspath = flag.String("t", "tests", "directory or file containing tests")
 	logspath  = flag.String("l", "/tmp/var/log/modsec_audit.log", "file containing WAF logs")
 	stats     = flag.Bool("s", false, "print statistics about tests")
@@ -54,6 +54,7 @@ func main() {
 	for _, host := range hosts {
 		for i := range tests {
 			test := &tests[i]
+
 			if *only != "" && test.Title != *only {
 				continue
 			}
@@ -65,6 +66,11 @@ func main() {
 	// Logs need to be parsed *after* all requests are done.
 	for i := range tests {
 		test := &tests[i]
+
+		if *only != "" && test.Title != *only {
+			continue
+		}
+
 		test.Evaluate(*logspath)
 	}
 
