@@ -4,6 +4,7 @@ package httptest
 import (
 	"net/http"
 	"os"
+	"path"
 	"strings"
 	"time"
 
@@ -74,7 +75,7 @@ func (t *Test) setTestStatusField() {
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(host string) {
-	t.URL = "http" + "://" + host + t.Path
+	t.URL = "http" + "://" + path.Join(host, t.Path)
 
 	defer t.setTestStatusField()
 
