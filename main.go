@@ -41,34 +41,39 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Get the tests to execute.
 	tests, err := httptest.GetTests(*testspath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Can't get tests: %s\n", err)
 		os.Exit(1)
 	}
 
-	// Execute the tests against the hosts and show results.
+	// Execute the tests against the hosts and store results.
 	for _, host := range hosts {
-		for _, test := range tests {
+		for i := range tests {
+			test := &tests[i]
 			if *only != "" && test.Title != *only {
 				continue
 			}
 
 			test.Execute(host)
+		}
+	}
 
-			if *all { // print all tests
-				if *verbose {
-					test.PrintVerbose()
-				} else {
-					test.Print()
-				}
-			} else if test.TestStatus != "OK" { // print only not OK tests
-				if *verbose {
-					test.PrintVerbose()
-					//spew.Dump(test)
-				} else {
-					test.Print()
-				}
+	// Print test results.
+	for _, test := range tests {
+		if *all { // print all tests
+			if *verbose {
+				test.PrintVerbose()
+			} else {
+				test.Print()
+			}
+		} else if test.TestStatus != "OK" { // print only not OK tests
+			if *verbose {
+				test.PrintVerbose()
+				//spew.Dump(test)
+			} else {
+				test.Print()
 			}
 		}
 	}
