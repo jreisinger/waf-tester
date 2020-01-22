@@ -8,9 +8,16 @@ import (
 	"strings"
 )
 
+var logs []LogLine
+
 // AddLogs adds related logs to a Test.
 func (t *Test) AddLogs(logspath string) {
-	logs := getLogLines(logspath)
+
+	// Parse log file only once.
+	if len(logs) == 0 {
+		logs = getLogLines(logspath)
+	}
+
 	for _, l := range logs {
 		if l.Transaction.Request.Headers.WafTesterID == t.ID {
 			//fmt.Println(l)
