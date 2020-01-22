@@ -12,7 +12,7 @@ import (
 func init() {
 	flag.Usage = func() {
 		desc := `Run HTTP tests to evaluate WAF functionality.`
-		fmt.Fprintf(os.Stderr, "%s\n\nUsage: %s [options] host [host2 ...]\n", desc, os.Args[0])
+		fmt.Fprintf(os.Stderr, "%s\n\nUsage: %s [options] [host [host2 ...]]\n", desc, os.Args[0])
 		flag.PrintDefaults()
 	}
 
@@ -38,8 +38,7 @@ func main() {
 	hosts := flag.Args()
 
 	if len(hosts) == 0 {
-		flag.Usage()
-		os.Exit(1)
+		hosts = append(hosts, "localhost")
 	}
 
 	// Get the tests to execute.
