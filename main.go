@@ -25,6 +25,7 @@ var (
 	all       = flag.Bool("a", false, "print all tests (by default only not OK are printed)")
 	only      = flag.String("o", "", "run only test with this TITLE")
 	testspath = flag.String("t", "tests", "directory or file containing tests")
+	logspath  = flag.String("l", "/tmp/var/log/modsec_audit.log", "file containing WAF logs")
 )
 
 func main() {
@@ -60,8 +61,20 @@ func main() {
 		}
 	}
 
+	// Logs need to be parsed after all requests are done.
+	if *logspath != "" {
+		for i := range tests {
+			test := &tests[i]
+			test.AddLogs(*logspath)
+		}
+	}
+
 	// Print test results.
 	for _, test := range tests {
+		if *only != "" && test.Title != *only {
+			continue
+		}
+
 		if *all { // print all tests
 			if *verbose {
 				test.PrintVerbose()
