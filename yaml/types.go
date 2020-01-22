@@ -54,8 +54,9 @@ type Yaml struct {
 				}
 				Output struct {
 					// can be both int or array of ints
-					Status      intArray
-					LogContains string `yaml:"log_contains"`
+					Status         intArray
+					LogContains    string `yaml:"log_contains"`
+					LogContainsNot string `yaml:"no_log_contains"`
 				}
 			}
 		}

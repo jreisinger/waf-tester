@@ -22,6 +22,7 @@ type Test struct {
 	TestStatus          string
 	Logs                []LogLine
 	LogContains         string
+	LogContainsNot		string
 }
 
 //

@@ -11,7 +11,7 @@ import (
 
 var (
 	format  = "%-4v %-10v %-9v %v\n"
-	vformat = "  %-9v %v\n"
+	vformat = "  %-10v %v\n"
 )
 
 //
@@ -37,6 +37,7 @@ func (t *Test) PrintVerbose() {
 	fmt.Printf(vformat, "CODE", t.StatusCode)
 	fmt.Printf(vformat, "EXP_CODES", t.ExpectedStatusCodes)
 	fmt.Printf(vformat, "EXP_LOGS", t.LogContains)
+	fmt.Printf(vformat, "EXP_NOLOGS", t.LogContainsNot)
 	fmt.Printf(vformat, "ERROR", t.Err)
 	fmt.Printf(vformat, "DATA", t.Data)
 	fmt.Printf(vformat, "HEADERS", "")

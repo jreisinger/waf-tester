@@ -38,6 +38,7 @@ func GetTests(path string) ([]Test, error) {
 				Data:                test.Stages[0].Stage.Input.Data,
 				ExpectedStatusCodes: test.Stages[0].Stage.Output.Status,
 				LogContains:         test.Stages[0].Stage.Output.LogContains,
+				LogContainsNot:		 test.Stages[0].Stage.Output.LogContainsNot,
 			}
 			t.setFields()
 			tests = append(tests, *t)
@@ -111,6 +112,18 @@ func (t *Test) Evaluate(logspath string) {
 		re := regexp.MustCompile(`\d{6}`) // ex: id "941130"
 		id := re.FindString(t.LogContains)
 		if foundInLogs(t, id) {
+			t.TestStatus = "OK"
+		} else {
+			t.TestStatus = "FAIL"
+		}
+		return
+	}
+
+	// We have output.no_log_contains defined in the test.
+	if t.LogContainsNot != "" {
+		re := regexp.MustCompile(`\d{6}`) // ex: id "941130"
+		id := re.FindString(t.LogContainsNot)
+		if !foundInLogs(t, id) {
 			t.TestStatus = "OK"
 		} else {
 			t.TestStatus = "FAIL"
