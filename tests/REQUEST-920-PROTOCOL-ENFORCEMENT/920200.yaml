@@ -19,6 +19,7 @@
                   Range: "bytes=1-10,11-20,21-30,31-40,41-50,51-60"
             output:
               log_contains: "id \"920200\""
+              status: 206
     -
       # Sample taken from https://github.com/alienwithin/php-utilities/blob/master/apache-byte-range-server-dos/apache_byte_range_server_dos.php
       test_title: 920200-2
@@ -33,7 +34,7 @@
                   Host: "localhost"
                   Request-Range: "bytes=5-0,1-1,2-2,3-3,4-4,5-5,6-6,7-7,8-8,9-9,10-10,11-11"
             output:
-              log_contains: "id \"920200\""
+              log_contains: "id \"920190\""
     -
       test_title: 920200-3
       stages:
@@ -62,6 +63,7 @@
                   Range: "bytes=-10,-, 21-30,31-40,41-50,51-500,"
             output:
               log_contains: "id \"920200\""
+              status: 416
     -
       test_title: 920200-5
       stages:
@@ -76,6 +78,7 @@
                   Range: "bytes=1-,11-20, 21-30,31-40,41-50,51-500"
             output:
               log_contains: "id \"920200\""
+              status: 200
     -
       test_title: 920200-6
       desc: 'Range: Too many fields (920200) from old modsec regressions'
@@ -100,6 +103,7 @@
             version: HTTP/1.1
           output:
             log_contains: id "920200"
+            status: 403
     -
       test_title: 920200-7
       desc: This should PASS (PL2)
@@ -134,6 +138,7 @@
             uri: /index.html
           output:
             log_contains: id "920200"
+            status: 206
     -
       test_title: 920200-9
       desc: This should PASS (PL2)
@@ -185,6 +190,7 @@
             uri: /index.pdf
           output:
             log_contains: id "920201"
+            status: 404
     -
       test_title: 920200-12
       desc: This should FAIL with rule 920202 (PL4)
@@ -202,3 +208,4 @@
             uri: /index.pdf
           output:
             log_contains: id "920202"
+            status: 404
