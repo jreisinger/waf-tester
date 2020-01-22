@@ -91,10 +91,10 @@ func (t *Test) Evaluate(logspath string) {
 	t.AddLogs(logspath)
 
 	// HTTP request failed.
-	if t.StatusCode == 0 {
-		t.TestStatus = "ERR"
-		return
-	}
+	//if t.StatusCode == 0 {
+	//	t.TestStatus = "ERR"
+	//	return
+	//}
 
 	// We have output.status defined in the test.
 	if len(t.ExpectedStatusCodes) > 0 {
