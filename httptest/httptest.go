@@ -58,7 +58,11 @@ func genUUID() string {
 
 func (t *Test) setFields() {
 	t.ID = genUUID()
+	if t.Headers == nil {
+		t.Headers = make(map[string]string)
+	}
 	t.Headers["waf-tester-id"] = t.ID
+
 	if t.Desc == "" {
 		t.Desc = "No test description"
 	}
@@ -107,7 +111,7 @@ func (t *Test) Execute(host string) {
 		req.Header.Set(k, v)
 	}
 
-	client := &http.Client{Timeout: time.Second * 10}
+	client := &http.Client{Timeout: time.Second * 2}
 
 	resp, err := client.Do(req)
 	if err != nil {
