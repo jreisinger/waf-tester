@@ -73,9 +73,9 @@ func (t *Test) setFields() {
 	//if len(t.ExpectedStatusCodes) == 0 {
 	//	t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 403)
 	//}
-	if t.Method == "" {
-		t.Method = "XXX"
-	}
+	//if t.Method == "" {
+	//	t.Method = "XXX"
+	//}
 }
 
 func intInSlice(n int, slice []int) bool {
