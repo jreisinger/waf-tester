@@ -57,12 +57,22 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Check we can get logs.
+	if *logspath != "" {
+		_, err = httptest.GetLogLines(*logspath)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Can't get logs: %s\n", err)
+			os.Exit(1)
+		}
+	}
+
 	var sepChar = "-"
 	var sepLength = 79
 
 	var bar *progressbar.ProgressBar
 
 	var tests []httptest.Test // tests to execute
+
 
 	for _, test := range alltests {
 		// If there are no logs skip tests that don't have exptected status codes.
@@ -73,8 +83,8 @@ func main() {
 	}
 
 	if *stats {
-		fmt.Printf("Loaded\t%d tests\n", len(alltests))
-		fmt.Printf("Execute\t%d tests\n", len(tests))
+		fmt.Printf("LOADED\t%d tests\n", len(alltests))
+		fmt.Printf("SKIP\t%d tests\n", len(alltests) - len(tests))
 		bar = progressbar.New(len(tests))
 	}
 

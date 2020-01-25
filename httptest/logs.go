@@ -26,7 +26,7 @@ func (t *Test) AddLogs(logspath string) {
 
 	// Parse log file only once.
 	if len(logs) == 0 {
-		logs = getLogLines(logspath)
+		logs, _ = GetLogLines(logspath)
 	}
 
 	for _, l := range logs {
@@ -38,18 +38,11 @@ func (t *Test) AddLogs(logspath string) {
 	}
 }
 
-func getLogLines(logspath string) []LogLine {
-	logs, err := parseLogFile(logspath)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return logs
-}
-
-func parseLogFile(filename string) ([]LogLine, error) {
+// GetLogLines gets lines of logs from a log file.
+func GetLogLines(logspath string) ([]LogLine, error) {
 	var logLines []LogLine
 
-	f, err := os.Open(filename)
+	f, err := os.Open(logspath)
 	if err != nil {
 		return logLines, err
 	}
