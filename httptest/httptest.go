@@ -45,7 +45,7 @@ func getOnlyTheseTests(only string) []string {
 }
 
 // GetTests returns the list of available tests.
-func GetTests(path string, only string) ([]Test, error) {
+func GetTests(path string, only string, logs string) ([]Test, error) {
 	var tests []Test
 
 	// Check path with tests exists.
@@ -76,7 +76,13 @@ func GetTests(path string, only string) ([]Test, error) {
 				ExpectError:         test.Stages[0].Stage.Output.ExpectError,
 			}
 
+			// Skip unwanted tests.
 			if len(onlyTheseTests) > 0 && !stringInSlice(t.Title, onlyTheseTests) {
+				continue
+			}
+
+			// If there are no logs skip tests that don't have exptected status codes.
+			if logs == "" && len(t.ExpectedStatusCodes) == 0 {
 				continue
 			}
 
@@ -129,7 +135,7 @@ func stringInSlice(s string, slice []string) bool {
 // Evaluate sets overall TestStatus to OK|FAIL|ERR. The evaluation is done from:
 // * HTTP response status code (primary method)
 // * parsing logs
-func (t *Test) Evaluate(logspath string, guess bool) {
+func (t *Test) Evaluate(logspath string) {
 	if !t.Executed {
 		return
 	}
@@ -146,18 +152,6 @@ func (t *Test) Evaluate(logspath string, guess bool) {
 
 	if logspath != "" {
 		t.AddLogs(logspath)
-	}
-
-	if guess {
-		if logspath == "" && len(t.ExpectedStatusCodes) == 0 {
-			if t.LogContains != "" {
-				t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 403)
-			}
-			if t.LogContainsNot != "" {
-				t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 200)
-				t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 404)
-			}
-		}
 	}
 
 	// We have output.status defined in the test.
