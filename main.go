@@ -22,13 +22,13 @@ func init() {
 }
 
 var (
-	help      = flag.Bool("h", false, "print help")
-	verbose   = flag.Bool("v", false, "be verbose")
-	all       = flag.Bool("a", false, "print all tests (by default only not OK are printed)")
-	only      = flag.String("o", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
-	testspath = flag.String("t", "tests", "directory or file containing tests")
-	logspath  = flag.String("l", "", "file containing WAF logs to evaluate (e.g. modsec_audit.log)")
-	stats     = flag.Bool("s", false, "print statistics about tests")
+	help      = flag.Bool("help", false, "print help")
+	verbose   = flag.Bool("verbose", false, "be verbose")
+	all       = flag.Bool("all", false, "print all tests (by default only not OK are printed)")
+	only      = flag.String("only", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
+	testspath = flag.String("tests", "tests", "directory or file containing tests")
+	logspath  = flag.String("logs", "", "file containing WAF logs to evaluate (e.g. modsec_audit.log)")
+	stats     = flag.Bool("stats", false, "print statistics about tests")
 	tps       = flag.Uint("tps", 10, "tests (HTTP requests) per second")
 )
 
