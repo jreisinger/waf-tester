@@ -189,13 +189,7 @@ func (t *Test) Evaluate(logspath string) {
 }
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
-func (t *Test) Execute(host string, logs string) {
-
-	// If there are no logs skip tests that don't have exptected status codes.
-	if logs == "" && len(t.ExpectedStatusCodes) == 0 {
-		return
-	}
-
+func (t *Test) Execute(host string) {
 	t.Executed = true
 
 	t.URL = "https" + "://" + path.Join(host, t.Path)

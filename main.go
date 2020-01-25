@@ -24,12 +24,12 @@ func init() {
 
 var (
 	help      = flag.Bool("help", false, "print help")
-	verbose   = flag.Bool("verbose", false, "be verbose")
+	verbose   = flag.Bool("verbose", false, "be verbose about individual tests")
 	all       = flag.Bool("all", false, "print all tests (by default only not OK are printed)")
 	only      = flag.String("only", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
 	testspath = flag.String("tests", "tests", "directory or file containing tests")
 	logspath  = flag.String("logs", "", "file containing WAF logs to evaluate (e.g. modsec_audit.log)")
-	stats     = flag.Bool("stats", false, "print statistics about tests")
+	stats     = flag.Bool("stats", false, "print overall statistics about tests")
 	tps       = flag.Uint("tps", 10, "tests (HTTP requests) per second")
 )
 
@@ -51,7 +51,7 @@ func main() {
 	}
 
 	// Get the tests to execute.
-	tests, err := httptest.GetTests(*testspath, *only)
+	alltests, err := httptest.GetTests(*testspath, *only)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Can't get tests: %s\n", err)
 		os.Exit(1)
@@ -62,8 +62,19 @@ func main() {
 
 	var bar *progressbar.ProgressBar
 
-	if *verbose {
-		fmt.Printf("Loaded %d tests\n.", len(tests))
+	var tests []httptest.Test // tests to execute
+
+	for _, test := range alltests {
+		// If there are no logs skip tests that don't have exptected status codes.
+		if *logspath == "" && len(test.ExpectedStatusCodes) == 0 {
+			continue
+		}
+		tests = append(tests, test)
+	}
+
+	if *stats {
+		fmt.Printf("Loaded\t%d tests\n", len(alltests))
+		fmt.Printf("Execute\t%d tests\n", len(tests))
 		bar = progressbar.New(len(tests))
 	}
 
@@ -75,14 +86,17 @@ func main() {
 			n = 0
 		}
 		test := &tests[i]
-		test.Execute(host, *logspath)
-		if *verbose {
+		test.Execute(host)
+		if *stats {
 			bar.Add(1)
 		}
 		n++
 	}
 
-	fmt.Println()
+	if *stats {
+		fmt.Println()
+		fmt.Println(strings.Repeat(sepChar, sepLength))
+	}
 
 	// Logs need to be parsed *after* all requests are done.
 	for i := range tests {

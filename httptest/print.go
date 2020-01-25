@@ -90,11 +90,6 @@ func PrintStats(tests []Test) {
 
 	for _, t := range tests {
 		count["TOTAL"]++
-		if t.Executed {
-			count["EXECUTED"]++
-		} else {
-			continue
-		}
 		switch t.TestStatus {
 		case "OK":
 			count["OK"]++
@@ -110,5 +105,5 @@ func PrintStats(tests []Test) {
 	fmt.Printf(format, setTestStatusColor("OK"), count["OK"])
 	fmt.Printf(format, setTestStatusColor("FAIL"), count["FAIL"])
 	fmt.Printf(format, setTestStatusColor("ERR"), count["ERR"])
-	fmt.Printf("%s\t%d (%d)\n", setTestStatusColor("TOTAL"), count["EXECUTED"], count["TOTAL"])
+	fmt.Printf("%s\t%d\n", setTestStatusColor("TOTAL"), count["TOTAL"])
 }
