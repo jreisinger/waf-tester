@@ -1,3 +1,4 @@
+// Package yaml parses HTTP tests written in YAML format.
 package yaml
 
 import (

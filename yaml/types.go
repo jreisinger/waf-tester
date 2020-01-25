@@ -1,6 +1,8 @@
 package yaml
 
-// Some FTW YAML fields (like output.status) can be both an int or array of ints. Adapted from https://github.com/go-yaml/yaml/issues/100#issuecomment-324964723.
+// Some FTW YAML fields (like output.status) can be both an int or array of
+// ints. Adapted from
+// https://github.com/go-yaml/yaml/issues/100#issuecomment-324964723.
 
 type intArray []int
 

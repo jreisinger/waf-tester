@@ -126,7 +126,9 @@ func stringInSlice(s string, slice []string) bool {
 	return false
 }
 
-// Evaluate sets overall TestStatus to OK|FAIL|ERR.
+// Evaluate sets overall TestStatus to OK|FAIL|ERR. The evaluation is done from:
+// * HTTP response status code (primary method)
+// * parsing logs
 func (t *Test) Evaluate(logspath string) {
 	if !t.Executed {
 		return

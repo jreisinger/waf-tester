@@ -2,7 +2,7 @@ package httptest
 
 import "path/filepath"
 
-// Test represents an HTTP test. It contains both request and response fields.
+// Test represents an HTTP test. It contains both request and response fields + additional fields.
 type Test struct {
 	ID                  string
 	Title               string
