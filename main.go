@@ -61,11 +61,9 @@ func main() {
 	var sepChar = "-"
 	var sepLength = 79
 
-	if *verbose {
-		fmt.Println(strings.Repeat(sepChar, sepLength))
-		fmt.Printf("Running %d tests against %s\n", len(tests), host)
-		fmt.Println(strings.Repeat(sepChar, sepLength))
-	}
+	fmt.Println(strings.Repeat(sepChar, sepLength))
+	fmt.Printf("Running %d tests against %s\n", len(tests), host)
+	fmt.Println(strings.Repeat(sepChar, sepLength))
 
 	bar := progressbar.New(len(tests))
 
