@@ -51,7 +51,7 @@ func main() {
 	}
 
 	// Get the tests to execute.
-	tests, err := httptest.GetTests(*testspath, *only, *logspath)
+	tests, err := httptest.GetTests(*testspath, *only)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Can't get tests: %s\n", err)
 		os.Exit(1)
@@ -61,7 +61,7 @@ func main() {
 	var sepLength = 79
 
 	fmt.Println(strings.Repeat(sepChar, sepLength))
-	fmt.Printf("Running %d tests against %s\n", len(tests), host)
+	fmt.Printf("Loaded %d tests\n.", len(tests))
 	fmt.Println(strings.Repeat(sepChar, sepLength))
 
 	bar := progressbar.New(len(tests))
@@ -74,7 +74,7 @@ func main() {
 			n = 0
 		}
 		test := &tests[i]
-		test.Execute(host)
+		test.Execute(host, *logspath)
 		bar.Add(1)
 		n++
 	}

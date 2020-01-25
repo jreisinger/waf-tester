@@ -45,7 +45,7 @@ func getOnlyTheseTests(only string) []string {
 }
 
 // GetTests returns the list of available tests.
-func GetTests(path string, only string, logs string) ([]Test, error) {
+func GetTests(path string, only string) ([]Test, error) {
 	var tests []Test
 
 	// Check path with tests exists.
@@ -78,11 +78,6 @@ func GetTests(path string, only string, logs string) ([]Test, error) {
 
 			// Skip unwanted tests.
 			if len(onlyTheseTests) > 0 && !stringInSlice(t.Title, onlyTheseTests) {
-				continue
-			}
-
-			// If there are no logs skip tests that don't have exptected status codes.
-			if logs == "" && len(t.ExpectedStatusCodes) == 0 {
 				continue
 			}
 
@@ -194,7 +189,13 @@ func (t *Test) Evaluate(logspath string) {
 }
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
-func (t *Test) Execute(host string) {
+func (t *Test) Execute(host string, logs string) {
+
+	// If there are no logs skip tests that don't have exptected status codes.
+	if logs == "" && len(t.ExpectedStatusCodes) == 0 {
+		return
+	}
+
 	t.Executed = true
 
 	t.URL = "https" + "://" + path.Join(host, t.Path)
