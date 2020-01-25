@@ -67,15 +67,13 @@ func main() {
 		fmt.Println(strings.Repeat(sepChar, sepLength))
 	}
 
-	throttle := time.Tick(time.Second) // stop for a second
-
 	bar := progressbar.New(len(tests))
 
 	var n uint
 	// Execute the tests against the hosts and store results.
 	for i := range tests {
 		if n >= *tps {
-			<-throttle
+			time.Sleep(1 * time.Second)
 			n = 0
 		}
 		test := &tests[i]
