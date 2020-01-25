@@ -99,7 +99,6 @@ func PrintStats(tests []Test) {
 		}
 	}
 
-	fmt.Println("-------------")
 	format := "%s\t%d\n"
 
 	fmt.Printf(format, setTestStatusColor("OK"), count["OK"])
