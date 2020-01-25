@@ -30,6 +30,7 @@ var (
 	logspath  = flag.String("logs", "", "file containing WAF logs to evaluate (e.g. modsec_audit.log)")
 	stats     = flag.Bool("stats", false, "print statistics about tests")
 	tps       = flag.Uint("tps", 10, "tests (HTTP requests) per second")
+	guess     = flag.Bool("guess", false, "try to guess expected test output (result) if not defined in test")
 )
 
 func main() {
@@ -82,7 +83,7 @@ func main() {
 	// Logs need to be parsed *after* all requests are done.
 	for i := range tests {
 		test := &tests[i]
-		test.Evaluate(*logspath)
+		test.Evaluate(*logspath, *guess)
 	}
 
 	// Print test results.

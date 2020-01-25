@@ -129,7 +129,7 @@ func stringInSlice(s string, slice []string) bool {
 // Evaluate sets overall TestStatus to OK|FAIL|ERR. The evaluation is done from:
 // * HTTP response status code (primary method)
 // * parsing logs
-func (t *Test) Evaluate(logspath string) {
+func (t *Test) Evaluate(logspath string, guess bool) {
 	if !t.Executed {
 		return
 	}
@@ -146,6 +146,18 @@ func (t *Test) Evaluate(logspath string) {
 
 	if logspath != "" {
 		t.AddLogs(logspath)
+	}
+
+	if guess {
+		if logspath == "" && len(t.ExpectedStatusCodes) == 0 {
+			if t.LogContains != "" {
+				t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 403)
+			}
+			if t.LogContainsNot != "" {
+				t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 200)
+				t.ExpectedStatusCodes = append(t.ExpectedStatusCodes, 404)
+			}
+		}
 	}
 
 	// We have output.status defined in the test.
