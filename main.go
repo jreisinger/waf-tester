@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	//"github.com/davecgh/go-spew/spew"
 	"github.com/jreisinger/waf-tester/httptest"
@@ -12,7 +13,7 @@ import (
 func init() {
 	flag.Usage = func() {
 		desc := `Run HTTP tests to evaluate WAF functionality.`
-		fmt.Fprintf(os.Stderr, "%s\n\nUsage: %s [options] [host [host2 ...]]\n", desc, os.Args[0])
+		fmt.Fprintf(os.Stderr, "%s\n\nUsage: %s [options] [host]\n", desc, os.Args[0])
 		flag.PrintDefaults()
 	}
 
@@ -27,6 +28,7 @@ var (
 	testspath = flag.String("t", "tests", "directory or file containing tests")
 	logspath  = flag.String("l", "", "file containing WAF logs to evaluate (e.g. modsec_audit.log)")
 	stats     = flag.Bool("s", false, "print statistics about tests")
+	//parallelism = flag.Uint("p", 5, "max number of tests (HTTP requests) running in parallel for each host")
 )
 
 func main() {
@@ -36,11 +38,14 @@ func main() {
 		os.Exit(0)
 	}
 
-	hosts := flag.Args()
+	host := "localhost"
 
 	// Execute tests against localhost if no hosts supplied.
-	if len(hosts) == 0 {
-		hosts = append(hosts, "localhost")
+	if len(flag.Args()) == 1 {
+		host = flag.Arg(0)
+	} else if len(flag.Args()) > 1 {
+		flag.Usage()
+		os.Exit(1)
 	}
 
 	// Get the tests to execute.
@@ -50,12 +55,19 @@ func main() {
 		os.Exit(1)
 	}
 
+	var sepChar = "-"
+	var sepLength = 79
+
+	if *verbose {
+		fmt.Println(strings.Repeat(sepChar, sepLength))
+		fmt.Printf("Running %d tests against %s\n", len(tests), host)
+		fmt.Println(strings.Repeat(sepChar, sepLength))
+	}
+
 	// Execute the tests against the hosts and store results.
-	for _, host := range hosts {
-		for i := range tests {
-			test := &tests[i]
-			test.Execute(host)
-		}
+	for i := range tests {
+		test := &tests[i]
+		test.Execute(host)
 	}
 
 	// Logs need to be parsed *after* all requests are done.
@@ -83,6 +95,7 @@ func main() {
 	}
 
 	if *stats {
+		fmt.Println(strings.Repeat(sepChar, sepLength))
 		httptest.PrintStats(tests)
 	}
 }
