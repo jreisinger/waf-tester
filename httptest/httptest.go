@@ -142,7 +142,9 @@ func (t *Test) Evaluate(logspath string) {
 		return
 	}
 
-	t.AddLogs(logspath)
+	if logspath != "" {
+		t.AddLogs(logspath)
+	}
 
 	// We have output.status defined in the test.
 	if len(t.ExpectedStatusCodes) > 0 {

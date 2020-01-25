@@ -25,7 +25,7 @@ var (
 	all       = flag.Bool("a", false, "print all tests (by default only not OK are printed)")
 	only      = flag.String("o", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
 	testspath = flag.String("t", "tests", "directory or file containing tests")
-	logspath  = flag.String("l", "/tmp/var/log/modsec_audit.log", "file containing WAF logs")
+	logspath  = flag.String("l", "", "file containing WAF logs to evaluate (e.g. modsec_audit.log)")
 	stats     = flag.Bool("s", false, "print statistics about tests")
 )
 
