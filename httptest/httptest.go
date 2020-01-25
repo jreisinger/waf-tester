@@ -191,7 +191,7 @@ func (t *Test) Evaluate(logspath string) {
 func (t *Test) Execute(host string) {
 	t.Executed = true
 
-	t.URL = "http" + "://" + path.Join(host, t.Path)
+	t.URL = "https" + "://" + path.Join(host, t.Path)
 
 	data := strings.Join(t.Data, "")
 	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(data))
