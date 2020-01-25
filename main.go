@@ -9,6 +9,7 @@ import (
 
 	//"github.com/davecgh/go-spew/spew"
 	"github.com/jreisinger/waf-tester/httptest"
+	"github.com/schollz/progressbar/v2"
 )
 
 func init() {
@@ -68,6 +69,8 @@ func main() {
 
 	throttle := time.Tick(time.Second) // stop for a second
 
+	bar := progressbar.New(len(tests))
+
 	var n uint
 	// Execute the tests against the hosts and store results.
 	for i := range tests {
@@ -77,8 +80,11 @@ func main() {
 		}
 		test := &tests[i]
 		test.Execute(host)
+		bar.Add(1)
 		n++
 	}
+
+	fmt.Println()
 
 	// Logs need to be parsed *after* all requests are done.
 	for i := range tests {
