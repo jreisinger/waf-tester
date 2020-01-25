@@ -60,11 +60,12 @@ func main() {
 	var sepChar = "-"
 	var sepLength = 79
 
-	fmt.Println(strings.Repeat(sepChar, sepLength))
-	fmt.Printf("Loaded %d tests\n.", len(tests))
-	fmt.Println(strings.Repeat(sepChar, sepLength))
+	var bar *progressbar.ProgressBar
 
-	bar := progressbar.New(len(tests))
+	if *verbose {
+		fmt.Printf("Loaded %d tests\n.", len(tests))
+		bar = progressbar.New(len(tests))
+	}
 
 	var n uint
 	// Execute the tests against the hosts and store results.
@@ -75,7 +76,9 @@ func main() {
 		}
 		test := &tests[i]
 		test.Execute(host, *logspath)
-		bar.Add(1)
+		if *verbose {
+			bar.Add(1)
+		}
 		n++
 	}
 
