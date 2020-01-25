@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	//"github.com/davecgh/go-spew/spew"
 	"github.com/jreisinger/waf-tester/httptest"
@@ -28,7 +29,7 @@ var (
 	testspath = flag.String("t", "tests", "directory or file containing tests")
 	logspath  = flag.String("l", "", "file containing WAF logs to evaluate (e.g. modsec_audit.log)")
 	stats     = flag.Bool("s", false, "print statistics about tests")
-	//parallelism = flag.Uint("p", 5, "max number of tests (HTTP requests) running in parallel for each host")
+	tps       = flag.Uint("tps", 10, "tests (HTTP requests) per second")
 )
 
 func main() {
@@ -64,10 +65,18 @@ func main() {
 		fmt.Println(strings.Repeat(sepChar, sepLength))
 	}
 
+	throttle := time.Tick(time.Second) // stop for a second
+
+	var n uint
 	// Execute the tests against the hosts and store results.
 	for i := range tests {
+		if n >= *tps {
+			<-throttle
+			n = 0
+		}
 		test := &tests[i]
 		test.Execute(host)
+		n++
 	}
 
 	// Logs need to be parsed *after* all requests are done.
