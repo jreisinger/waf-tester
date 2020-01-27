@@ -193,6 +193,16 @@ func (t *Test) Evaluate(logspath string) {
 	t.TestStatus = "ERR"
 }
 
+func (t *Test) fixHostHeader(host string) {
+	if host == "localhost" || host == "127.0.0.1" {
+		return
+	}
+
+	if t.Headers["Host"] == "localhost" {
+		t.Headers["Host"] = host
+	}
+}
+
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(host string) {
 	t.Executed = true
@@ -205,6 +215,8 @@ func (t *Test) Execute(host string) {
 		t.Err = err
 		return
 	}
+
+	t.fixHostHeader(host)
 
 	for k, v := range t.Headers {
 		req.Header.Set(k, v)
