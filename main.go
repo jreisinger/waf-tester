@@ -31,6 +31,7 @@ var (
 	logspath  = flag.String("logs", "", "file containing WAF logs to evaluate (e.g. modsec_audit.log)")
 	stats     = flag.Bool("stats", false, "print overall statistics about tests")
 	tps       = flag.Uint("tps", 10, "tests (HTTP requests) per second")
+	scheme    = flag.String("scheme", "https", "http or https scheme")
 )
 
 func main() {
@@ -51,7 +52,7 @@ func main() {
 	}
 
 	// Get the tests to execute.
-	alltests, err := httptest.GetTests(*testspath, *only)
+	alltests, err := httptest.GetTests(*testspath, *only, *scheme)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Can't get tests: %s\n", err)
 		os.Exit(1)
@@ -73,7 +74,6 @@ func main() {
 
 	var tests []httptest.Test // tests to execute
 
-
 	for _, test := range alltests {
 		// If there are no logs skip tests that don't have exptected status codes.
 		if *logspath == "" && len(test.ExpectedStatusCodes) == 0 {
@@ -84,7 +84,7 @@ func main() {
 
 	if *stats {
 		fmt.Printf("LOADED\t%d tests\n", len(alltests))
-		fmt.Printf("SKIP\t%d tests\n", len(alltests) - len(tests))
+		fmt.Printf("SKIP\t%d tests\n", len(alltests)-len(tests))
 		bar = progressbar.New(len(tests))
 	}
 

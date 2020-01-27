@@ -45,7 +45,7 @@ func getOnlyTheseTests(only string) []string {
 }
 
 // GetTests returns the list of available tests.
-func GetTests(path string, only string) ([]Test, error) {
+func GetTests(path string, only string, scheme string) ([]Test, error) {
 	var tests []Test
 
 	// Check path with tests exists.
@@ -81,12 +81,17 @@ func GetTests(path string, only string) ([]Test, error) {
 				continue
 			}
 
+			t.setScheme(scheme)
 			t.addCustomHeader()
 			tests = append(tests, *t)
 		}
 	}
 
 	return tests, nil
+}
+
+func (t *Test) setScheme(scheme string) {
+	t.Scheme = scheme
 }
 
 // https://yourbasic.org/golang/generate-uuid-guid/
@@ -192,7 +197,7 @@ func (t *Test) Evaluate(logspath string) {
 func (t *Test) Execute(host string) {
 	t.Executed = true
 
-	t.URL = "https" + "://" + path.Join(host, t.Path)
+	t.URL = t.Scheme + "://" + path.Join(host, t.Path)
 
 	data := strings.Join(t.Data, "")
 	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(data))
