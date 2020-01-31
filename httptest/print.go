@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	format  = "%-4v %-10v %-9v %v\n"
+	format  = "%-4v\t%-10v %-9v %v\n"
 	vformat = "  %-10v %v\n"
 )
 
