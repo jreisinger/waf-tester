@@ -1,0 +1,42 @@
+---
+  tests:
+    -
+      test_title: RCE
+      stages:
+        -
+          stage:
+            input:
+              method: "GET"
+              uri: "?exec=/bin/bash"
+            output:
+              status: 403
+    -
+      test_title: SQLi
+      stages:
+        -
+          stage:
+            input:
+              method: "GET"
+              uri: "?id=1'%20or%20'1'%20=%20'"
+            output:
+              status: 403
+    -
+      test_title: LFI
+      stages:
+        -
+          stage:
+            input:
+              method: "GET"
+              uri: "?page=/etc/passwd"
+            output:
+              status: 403
+    -
+      test_title: XSS
+      stages:
+        -
+          stage:
+            input:
+              method: "GET"
+              uri: "?<script>"
+            output:
+              status: 403

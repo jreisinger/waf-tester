@@ -7,5 +7,5 @@ Install and run:
 ```
 go build
 ./waf-tester -h
-./waf-tester -o tests/ok-tests-nginx-modsecurity-2020-01-22.txt -s
+./waf-tester -all -stats -tests tests/basic-tests.yaml # runs against localhost by default
 ```
