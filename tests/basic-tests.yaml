@@ -40,3 +40,23 @@
               uri: "?<script>"
             output:
               status: 403
+    -
+      test_title: Scanner detection
+      stages:
+        -
+          stage:
+            input:
+              method: "GET"
+              uri: "AppScan_fingerprint/MAC_ADDRESS_01234567890.html?9ABCDG1"
+            output:
+              status: 403
+    -
+      test_title: Session fixation
+      stages:
+        -
+          stage:
+            input:
+              method: "GET"
+              uri: "foo.php?bar=blah%3Cscript%3Edocument.cookie=%22sessionid=1234;%20domain=.example.dom%22;%3C/script%3E"
+            output:
+              status: 403
