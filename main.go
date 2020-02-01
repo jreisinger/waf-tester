@@ -23,15 +23,16 @@ func init() {
 }
 
 var (
-	help      = flag.Bool("help", false, "print help")
-	verbose   = flag.Bool("verbose", false, "be verbose about individual tests")
-	all       = flag.Bool("all", false, "print all tests (by default only not OK are printed)")
-	only      = flag.String("only", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
-	testspath = flag.String("tests", "tests", "directory or file containing tests")
-	logspath  = flag.String("logs", "", "file containing WAF logs to evaluate (e.g. modsec_audit.log)")
-	stats     = flag.Bool("stats", false, "print overall statistics about tests")
-	tps       = flag.Uint("tps", 10, "tests (HTTP requests) per second")
-	scheme    = flag.String("scheme", "https", "http or https scheme")
+	help           = flag.Bool("help", false, "print help")
+	verbose        = flag.Bool("verbose", false, "be verbose about individual tests")
+	all            = flag.Bool("all", false, "print all tests (by default only not OK are printed)")
+	only           = flag.String("only", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
+	testspath      = flag.String("tests", "tests", "directory or file containing tests")
+	logspath       = flag.String("logs", "", "file or URL with logs to evaluate (e.g. modsec_audit.log or https://loki.example.com)")
+	stats          = flag.Bool("stats", false, "print overall statistics about tests")
+	tps            = flag.Uint("tps", 10, "tests (HTTP requests) per second")
+	scheme         = flag.String("scheme", "https", "http or https scheme")
+	waitBeforeEval = flag.Uint("wait", 1, "seconds to wait before evaluating tests")
 )
 
 func main() {
@@ -109,6 +110,7 @@ func main() {
 	}
 
 	// Logs need to be parsed *after* all requests are done.
+	time.Sleep(time.Duration(*waitBeforeEval) * time.Second)
 	for i := range tests {
 		test := &tests[i]
 		test.Evaluate(*logspath)
