@@ -2,13 +2,18 @@ package httptest
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
+	"fmt"
+	"io"
 	"log"
 	"os"
+	"os/exec"
+	"regexp"
 	"strings"
 )
 
-var logs []LogLine
+var LOGS []LogLine
 
 func foundInLogs(t *Test, id string) bool {
 	for _, l := range t.Logs {
@@ -25,11 +30,16 @@ func foundInLogs(t *Test, id string) bool {
 func (t *Test) AddLogs(logspath string) {
 
 	// Parse log file only once.
-	if len(logs) == 0 {
-		logs, _ = GetLogLines(logspath)
+	if len(LOGS) == 0 {
+		logs, err := GetLogLines(logspath)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "getting log lines: %s\n", err)
+			return
+		}
+		LOGS = logs
 	}
 
-	for _, l := range logs {
+	for _, l := range LOGS {
 		if l.Transaction.Request.Headers.WafTesterID == t.ID {
 			//fmt.Println(l)
 			// Print a report.
@@ -38,29 +48,61 @@ func (t *Test) AddLogs(logspath string) {
 	}
 }
 
-// GetLogLines gets lines of logs from a log file.
-func GetLogLines(logspath string) ([]LogLine, error) {
-	var logLines []LogLine
+// GetLogLines gets lines of WAF logs from URL or file.
+func GetLogLines(logspath string) (logs []LogLine, err error) {
+	// logspath is URL
+	re := regexp.MustCompile(`^http`)
+	if re.MatchString(logspath) {
+		logs, err = getLogLinesFromURL(logspath)
+		return
+	}
 
+	// logspath is file
+	logs, err = getLogLinesFromFile(logspath)
+	return
+}
+
+func getLogLinesFromURL(logspath string) (logs []LogLine, err error) {
+	// https://github.com/grafana/loki/blob/master/docs/api.md
+	cmd := `curl -s -X GET -G -u "$LOKI_USER:$LOKI_PASS" "` + logspath + `/loki/api/v1/query_range" --data-urlencode "query={instance=~\"waf-.*\"}" | jq -r '.data.result | .[] | .values | .[] | .[]'`
+	out, err := exec.Command("/bin/sh", "-c", os.ExpandEnv(cmd)).Output() // NOTE: we are ignoring STDERR and exit code
+	if err != nil {
+		return
+	}
+
+	// Convert byte slice to io.Reader (https://stackoverflow.com/a/29747410)
+	r := bytes.NewReader(out)
+
+	logs, err = parseLogs(r)
+
+	return
+}
+
+func getLogLinesFromFile(logspath string) (logs []LogLine, err error) {
 	f, err := os.Open(logspath)
 	if err != nil {
-		return logLines, err
+		return
 	}
 	defer f.Close()
 
-	input := bufio.NewScanner(f)
+	logs, err = parseLogs(f)
+
+	return
+}
+
+func parseLogs(r io.Reader) (logs []LogLine, err error) {
+	input := bufio.NewScanner(r)
 	for input.Scan() {
 		line := input.Text()
 		if strings.HasPrefix(line, "{") {
-			logLine := parseJSON([]byte(line))
-			logLines = append(logLines, logLine)
+			log := parseJSON([]byte(line))
+			logs = append(logs, log)
 		}
 	}
-
-	return logLines, nil
+	return
 }
 
-// parseJSON parses JSON ModSecurity audit logs and  returns LogLine.
+// parseJSON parses JSON ModSecurity audit logs.
 func parseJSON(data []byte) LogLine {
 	var logline LogLine
 

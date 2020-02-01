@@ -19,7 +19,7 @@ var (
 //
 
 const templ = `    {{.Transaction.TimeStamp}}: {{.Transaction.ClientIP}}:{{.Transaction.ClientPort}} --> {{.Transaction.HostIP}}:{{.Transaction.HostPort}}
-      --> {{.Transaction.Request.Method}} {{.Transaction.Request.Uri}} {{.Transaction.Request.Headers.Host}}
+      --> {{.Transaction.Request.Method}} {{.Transaction.Request.Headers.Host}} {{.Transaction.Request.Uri}}
       <-- {{.Transaction.Response.HttpCode}}
 {{range .Transaction.Messages}}        {{.Details.RuleId}}|{{.Message}}
 {{end}}`
