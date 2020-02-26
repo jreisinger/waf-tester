@@ -6,6 +6,6 @@ Install and run:
 
 ```
 go build
+./waf-tester -stats -all # runs tests from tests/ against localhost
 ./waf-tester -h
-./waf-tester -all -stats -tests tests/basic-tests.yaml # runs against localhost by default
 ```
