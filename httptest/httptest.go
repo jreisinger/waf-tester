@@ -2,7 +2,6 @@
 package httptest
 
 import (
-	"bufio"
 	"crypto/rand"
 	"errors"
 	"fmt"
@@ -17,46 +16,13 @@ import (
 	"github.com/jreisinger/waf-tester/yaml"
 )
 
-func getOnlyTheseTests(only string) []string {
-	var onlyTheseTests []string
-
-	// Is it a file?
-	if _, err := os.Stat(only); err == nil {
-		f, err := os.Open(only)
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer f.Close()
-
-		scanner := bufio.NewScanner(f)
-		for scanner.Scan() {
-			line := scanner.Text()
-			onlyTheseTests = append(onlyTheseTests, line)
-		}
-		if err := scanner.Err(); err != nil {
-			log.Fatal(err)
-		}
-		return onlyTheseTests
-	}
-
-	// If not a file it's a test title.
-	onlyTheseTests = append(onlyTheseTests, only)
-	return onlyTheseTests
-}
-
 // GetTests returns the list of available tests.
-func GetTests(path string, only string, scheme string) ([]Test, error) {
+func GetTests(path string, scheme string) ([]Test, error) {
 	var tests []Test
 
 	// Check path with tests exists.
 	if _, err := os.Stat(path); err != nil {
 		return tests, err
-	}
-
-	var onlyTheseTests []string
-
-	if only != "" {
-		onlyTheseTests = getOnlyTheseTests(only)
 	}
 
 	yamls := yaml.ParseFiles(path)
@@ -74,11 +40,6 @@ func GetTests(path string, only string, scheme string) ([]Test, error) {
 				LogContains:         test.Stages[0].Stage.Output.LogContains,
 				LogContainsNot:      test.Stages[0].Stage.Output.LogContainsNot,
 				ExpectError:         test.Stages[0].Stage.Output.ExpectError,
-			}
-
-			// Skip unwanted tests.
-			if len(onlyTheseTests) > 0 && !stringInSlice(t.Title, onlyTheseTests) {
-				continue
 			}
 
 			t.setScheme(scheme)

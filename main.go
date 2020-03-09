@@ -14,7 +14,7 @@ func main() {
 	}
 
 	// Get tests to execute.
-	alltests, err := httptest.GetTests(flags.TestsPath, flags.Only, flags.Scheme)
+	alltests, err := httptest.GetTests(flags.TestsPath, flags.Scheme)
 	if err != nil {
 		log.Fatalf("cannot get tests: %v", err)
 	}
