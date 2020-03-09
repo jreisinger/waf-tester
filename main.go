@@ -12,7 +12,7 @@ func main() {
 	log.SetPrefix(os.Args[0] + ": ")
 	log.SetFlags(0) // no timestamp
 
-	// Get inputs via CLI flags and/or parameters.
+	// Get inputs via CLI flags.
 	flags, err := ParseFlags()
 	if err != nil {
 		log.Fatalf("cannot parse flags: %v", err)
