@@ -7,24 +7,17 @@ import (
 )
 
 type Flags struct {
-	Help           bool
-	Verbose        bool
-	All            bool
-	Only           string
-	TestsPath      string
-	LogsPath       string
-	Stats          bool
-	TPS            uint
-	Scheme         string
-	WaitBeforeEval uint
-	Host           string
+	Verbose   bool
+	TestsPath string
+	LogsPath  string
+	Scheme    string
+	Host      string
 }
 
 func ParseFlags() (Flags, error) {
 	f := flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
 	Host := f.String("host", "", "FQDN or IP address of the host to test")
 	TestsPath := f.String("tests", "tests", "directory or file containing tests")
-	Only := f.String("only", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
 	Scheme := f.String("scheme", "https", "http or https scheme")
 	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
 	err := f.Parse(os.Args[1:])
@@ -35,7 +28,6 @@ func ParseFlags() (Flags, error) {
 	flags := Flags{
 		Host:      stringValue(Host),
 		TestsPath: stringValue(TestsPath),
-		Only:      stringValue(Only),
 		Scheme:    stringValue(Scheme),
 		Verbose:   boolValue(Verbose),
 	}
