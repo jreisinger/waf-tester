@@ -2,11 +2,16 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/jreisinger/waf-tester/httptest"
 )
 
 func main() {
+	// Set up CLI tool style of logging.
+	log.SetPrefix(os.Args[0] + ": ")
+	log.SetFlags(0) // no timestamp
+
 	// Get inputs via CLI flags and/or parameters.
 	flags, err := ParseFlags()
 	if err != nil {
