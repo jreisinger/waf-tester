@@ -23,10 +23,16 @@ type Flags struct {
 func ParseFlags() (Flags, error) {
 	f := flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
 	Host := f.String("host", "", "FQDN or IP address of the host to test")
+	TestsPath := f.String("tests", "tests", "directory or file containing tests")
+	Only := f.String("only", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
+	Scheme := f.String("scheme", "https", "http or https scheme")
 	f.Parse(os.Args[1:])
 
 	flags := Flags{
-		Host: stringValue(Host),
+		Host:      stringValue(Host),
+		TestsPath: stringValue(TestsPath),
+		Only:      stringValue(Only),
+		Scheme:    stringValue(Scheme),
 	}
 
 	err := flags.validate()
