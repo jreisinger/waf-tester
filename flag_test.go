@@ -29,6 +29,9 @@ func TestParseFlags(t *testing.T) {
 	if flags.Scheme != "https" {
 		t.Errorf("scheme: want https, got %s", flags.Scheme)
 	}
+	if flags.Verbose {
+		t.Errorf("verbose: want false, got %t", flags.Verbose)
+	}
 }
 
 // --- helper functions ---

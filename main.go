@@ -12,16 +12,32 @@ func main() {
 	if err != nil {
 		log.Fatalf("cannot parse flags: %v", err)
 	}
-	log.Printf("flags: %+v", flags)
 
 	// Get tests to execute.
 	alltests, err := httptest.GetTests(flags.TestsPath, flags.Only, flags.Scheme)
 	if err != nil {
 		log.Fatalf("cannot get tests: %v", err)
 	}
-	log.Printf("flags: %+v", alltests)
-	/*
-		Execute the tests.
-		Print the results.
-	*/
+
+	// Execute the tests agains the host.
+	for i := range alltests {
+		test := &alltests[i]
+		test.Execute(flags.Host)
+	}
+
+	// Evaluate the tests.
+	for i := range alltests {
+		test := &alltests[i]
+		test.Evaluate(flags.LogsPath)
+	}
+
+	// Print the results of the tests.
+	for i := range alltests {
+		test := alltests[i]
+		if flags.Verbose {
+			test.PrintVerbose()
+		} else {
+			test.Print()
+		}
+	}
 }

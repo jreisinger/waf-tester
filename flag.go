@@ -26,6 +26,7 @@ func ParseFlags() (Flags, error) {
 	TestsPath := f.String("tests", "tests", "directory or file containing tests")
 	Only := f.String("only", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
 	Scheme := f.String("scheme", "https", "http or https scheme")
+	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
 	f.Parse(os.Args[1:])
 
 	flags := Flags{
@@ -33,6 +34,7 @@ func ParseFlags() (Flags, error) {
 		TestsPath: stringValue(TestsPath),
 		Only:      stringValue(Only),
 		Scheme:    stringValue(Scheme),
+		Verbose:   boolValue(Verbose),
 	}
 
 	err := flags.validate()
@@ -49,6 +51,13 @@ func (f Flags) validate() error {
 func stringValue(v *string) string {
 	if v == nil {
 		return ""
+	}
+	return *v
+}
+
+func boolValue(v *bool) bool {
+	if !*v {
+		return false
 	}
 	return *v
 }
