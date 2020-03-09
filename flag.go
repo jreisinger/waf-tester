@@ -27,7 +27,10 @@ func ParseFlags() (Flags, error) {
 	Only := f.String("only", "", "run only these tests (e.g. 920160-1 or ok-tests.txt)")
 	Scheme := f.String("scheme", "https", "http or https scheme")
 	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
-	f.Parse(os.Args[1:])
+	err := f.Parse(os.Args[1:])
+	if err != nil {
+		return Flags{}, err
+	}
 
 	flags := Flags{
 		Host:      stringValue(Host),
@@ -37,7 +40,7 @@ func ParseFlags() (Flags, error) {
 		Verbose:   boolValue(Verbose),
 	}
 
-	err := flags.validate()
+	err = flags.validate()
 	return flags, err
 }
 
