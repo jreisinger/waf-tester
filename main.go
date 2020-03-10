@@ -30,7 +30,8 @@ func main() {
 		test.Execute(flags.Host)
 	}
 
-	// Evaluate the tests.
+	// Evaluate the tests. This has to be done some time after the tests are
+	// executed so it's possible to evaluate the logs.
 	for i := range alltests {
 		test := &alltests[i]
 		test.Evaluate(flags.LogsPath)
