@@ -93,6 +93,40 @@ func stringInSlice(s string, slice []string) bool {
 	return false
 }
 
+// EvaluateFromResponseStatus sets overall TestStatus to OK|FAIL|ERR. The
+// evaluation is done by comparing the actual HTTP response status code with the
+// expected one.
+func (t *Test) EvaluateFromResponseStatus() {
+	if !t.Executed {
+		return
+	}
+
+	// There was an error executing the test, i.e. we couldn't even make the HTTP
+	// request.
+	if t.Err != nil {
+		if t.ExpectError {
+			t.TestStatus = "OK"
+		} else {
+			t.TestStatus = "ERR"
+		}
+		return
+	}
+
+	// We have output.status defined in the test.
+	if len(t.ExpectedStatusCodes) > 0 {
+		if intInSlice(t.StatusCode, t.ExpectedStatusCodes) {
+			t.TestStatus = "OK"
+		} else {
+			t.TestStatus = "FAIL"
+		}
+		return
+	}
+
+	// No usable output parameters.
+	t.Err = errors.New("expected status code not defined in test")
+	t.TestStatus = "ERR"
+}
+
 // Evaluate sets overall TestStatus to OK|FAIL|ERR. The evaluation is done from:
 // * HTTP response status code (primary method)
 // * parsing logs
