@@ -4,14 +4,13 @@ go 1.13
 
 require (
 	github.com/cosiner/argv v0.0.1 // indirect
-	github.com/davecgh/go-spew v1.1.1
 	github.com/fatih/color v1.9.0
 	github.com/go-delve/delve v1.3.2 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/mattn/go-runewidth v0.0.8 // indirect
 	github.com/peterh/liner v1.1.0 // indirect
-	github.com/schollz/progressbar/v2 v2.15.0
+	github.com/schollz/progressbar/v2 v2.15.0 // indirect
 	github.com/sirupsen/logrus v1.4.2 // indirect
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect

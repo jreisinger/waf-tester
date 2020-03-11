@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 	"text/template"
 
 	"github.com/fatih/color"
@@ -83,29 +82,4 @@ func (t *Test) Print() {
 	testStatus := setTestStatusColor(t.TestStatus)
 
 	fmt.Printf(format, testStatus, t.Title, t.Method, t.URL)
-}
-
-// PrintStats prints statistics about tests.
-func PrintStats(tests []Test) {
-	count := make(map[string]int)
-
-	for _, t := range tests {
-		count["TOTAL"]++
-		switch t.TestStatus {
-		case "OK":
-			count["OK"]++
-		case "FAIL":
-			count["FAIL"]++
-		case "ERR":
-			count["ERR"]++
-		}
-	}
-
-	format := "%s\t%d\n"
-
-	fmt.Printf("%s\n", strings.Repeat("-", 79))
-	fmt.Printf(format, setTestStatusColor("OK"), count["OK"])
-	fmt.Printf(format, setTestStatusColor("FAIL"), count["FAIL"])
-	fmt.Printf(format, setTestStatusColor("ERR"), count["ERR"])
-	fmt.Printf("%s\t%d\n", setTestStatusColor("TOTAL"), count["TOTAL"])
 }
