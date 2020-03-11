@@ -33,6 +33,7 @@ tests:
           output:
             status: 403
   - test_title: Scanner detection
+    desc: ModSecurity specific
     stages:
       - stage:
           input:
