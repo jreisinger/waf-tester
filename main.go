@@ -17,26 +17,26 @@ func main() {
 		log.Fatalf("cannot parse flags: %v", err)
 	}
 
-	alltests, err := httptest.GetTests(flags.TestsPath, flags.Scheme)
+	tests, err := httptest.GetTests(flags.TestsPath, flags.Scheme)
 	if err != nil {
 		log.Fatalf("cannot get tests: %v", err)
 	}
 
-	for i := range alltests {
-		test := &alltests[i]
+	for i := range tests {
+		test := &tests[i]
 		test.Execute(flags.Host)
 	}
 
 	// Evaluate the tests. This has to be done some time after the tests are
 	// executed so it's possible to evaluate the logs.
-	for i := range alltests {
-		test := &alltests[i]
+	for i := range tests {
+		test := &tests[i]
 		test.Evaluate(flags.LogsPath)
 	}
 
 	// Print the results of the tests.
-	for i := range alltests {
-		test := alltests[i]
+	for i := range tests {
+		test := tests[i]
 		if flags.Verbose {
 			test.PrintVerbose()
 		} else {
