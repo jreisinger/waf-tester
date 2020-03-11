@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/jreisinger/waf-tester/httptest"
 )
@@ -25,6 +26,11 @@ func main() {
 	for i := range tests {
 		test := &tests[i]
 		test.Execute(flags.Host)
+	}
+
+	// Let's wait a bit so the logs get written.
+	if flags.LogsPath != "" {
+		time.Sleep(2 * time.Second)
 	}
 
 	// Evaluate the tests. This has to be done some time after the tests are
