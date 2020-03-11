@@ -14,7 +14,7 @@ import (
 )
 
 // GetTests returns the list of available tests.
-func GetTests(path string, scheme string) ([]Test, error) {
+func GetTests(path string, scheme string, title string) ([]Test, error) {
 	var tests []Test
 
 	// Check path with tests exists.
@@ -37,6 +37,10 @@ func GetTests(path string, scheme string) ([]Test, error) {
 				LogContains:         test.Stages[0].Stage.Output.LogContains,
 				LogContainsNot:      test.Stages[0].Stage.Output.LogContainsNot,
 				ExpectError:         test.Stages[0].Stage.Output.ExpectError,
+			}
+
+			if title != "" && t.Title != title {
+				continue
 			}
 
 			t.setScheme(scheme)

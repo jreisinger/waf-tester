@@ -18,7 +18,7 @@ func main() {
 		log.Fatalf("cannot parse flags: %v", err)
 	}
 
-	tests, err := httptest.GetTests(flags.TestsPath, flags.Scheme)
+	tests, err := httptest.GetTests(flags.TestsPath, flags.Scheme, flags.Title)
 	if err != nil {
 		log.Fatalf("cannot get tests: %v", err)
 	}
