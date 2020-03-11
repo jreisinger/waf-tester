@@ -2,10 +2,7 @@
 package httptest
 
 import (
-	"crypto/rand"
 	"errors"
-	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"path"
@@ -51,46 +48,36 @@ func GetTests(path string, scheme string) ([]Test, error) {
 	return tests, nil
 }
 
-func (t *Test) setScheme(scheme string) {
-	t.Scheme = scheme
-}
+// Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
+func (t *Test) Execute(host string) {
+	t.Executed = true
 
-// https://yourbasic.org/golang/generate-uuid-guid/
-func genUUID() string {
-	b := make([]byte, 16)
-	_, err := rand.Read(b)
+	t.URL = t.Scheme + "://" + path.Join(host, t.Path)
+
+	data := strings.Join(t.Data, "")
+	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(data))
 	if err != nil {
-		log.Fatal(err)
+		t.Err = err
+		return
 	}
-	uuid := fmt.Sprintf("%x-%x-%x-%x-%x",
-		b[0:4], b[4:6], b[6:8], b[8:10], b[10:])
-	return uuid
-}
 
-func (t *Test) addCustomHeader() {
-	t.ID = genUUID()
-	if t.Headers == nil {
-		t.Headers = make(map[string]string)
-	}
-	t.Headers["waf-tester-id"] = t.ID
-}
+	t.fixHostHeader(host)
 
-func intInSlice(n int, slice []int) bool {
-	for _, m := range slice {
-		if n == m {
-			return true
-		}
+	for k, v := range t.Headers {
+		req.Header.Set(k, v)
 	}
-	return false
-}
 
-func stringInSlice(s string, slice []string) bool {
-	for _, r := range slice {
-		if s == r {
-			return true
-		}
+	client := &http.Client{Timeout: time.Second * 2}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		t.Err = err
+		return
 	}
-	return false
+	defer resp.Body.Close()
+
+	t.StatusCode = resp.StatusCode
+	t.Status = resp.Status
 }
 
 // Evaluate sets overall TestStatus to OK|FAIL|ERR.
@@ -154,46 +141,4 @@ func (t *Test) EvaluateFromWafLogs(logspath string) {
 		}
 		return
 	}
-}
-
-func (t *Test) fixHostHeader(host string) {
-	if host == "localhost" || host == "127.0.0.1" {
-		return
-	}
-
-	if t.Headers["Host"] == "localhost" {
-		t.Headers["Host"] = host
-	}
-}
-
-// Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
-func (t *Test) Execute(host string) {
-	t.Executed = true
-
-	t.URL = t.Scheme + "://" + path.Join(host, t.Path)
-
-	data := strings.Join(t.Data, "")
-	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(data))
-	if err != nil {
-		t.Err = err
-		return
-	}
-
-	t.fixHostHeader(host)
-
-	for k, v := range t.Headers {
-		req.Header.Set(k, v)
-	}
-
-	client := &http.Client{Timeout: time.Second * 2}
-
-	resp, err := client.Do(req)
-	if err != nil {
-		t.Err = err
-		return
-	}
-	defer resp.Body.Close()
-
-	t.StatusCode = resp.StatusCode
-	t.Status = resp.Status
 }
