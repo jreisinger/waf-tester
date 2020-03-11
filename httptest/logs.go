@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -14,6 +13,7 @@ import (
 )
 
 var LOGS []LogLine
+var LOGS_ERR bool
 
 func foundInLogs(t *Test, id string) bool {
 	for _, l := range t.Logs {
@@ -30,10 +30,11 @@ func foundInLogs(t *Test, id string) bool {
 func (t *Test) AddLogs(logspath string) {
 
 	// Parse log file only once.
-	if len(LOGS) == 0 {
+	if len(LOGS) == 0 && !LOGS_ERR {
 		logs, err := GetLogLines(logspath)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "getting log lines: %s\n", err)
+			log.Printf("warning getting log lines: %s\n", err)
+			LOGS_ERR = true
 			return
 		}
 		LOGS = logs
