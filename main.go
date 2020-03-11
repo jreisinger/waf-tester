@@ -31,10 +31,7 @@ func main() {
 	// executed so it's possible to evaluate the logs.
 	for i := range alltests {
 		test := &alltests[i]
-		test.EvaluateFromResponseStatus()
-		//if flags.LogsPath {
-		//	test.EvaluateFromWafLogs(flags.LogsPath)
-		//}
+		test.Evaluate(flags.LogsPath)
 	}
 
 	// Print the results of the tests.

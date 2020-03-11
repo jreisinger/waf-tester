@@ -93,58 +93,40 @@ func stringInSlice(s string, slice []string) bool {
 	return false
 }
 
-// EvaluateFromResponseStatus sets overall TestStatus to OK|FAIL|ERR. The
-// evaluation is done by comparing the actual HTTP response status code with the
-// expected one.
-func (t *Test) EvaluateFromResponseStatus() {
-	if !t.Executed {
+// Evaluate sets overall TestStatus to OK|FAIL|ERR.
+func (t *Test) Evaluate(logspath string) {
+	switch {
+	case !t.Executed:
 		return
-	}
-
-	// There was an error executing the test, i.e. we couldn't even make the HTTP
-	// request.
-	if t.Err != nil {
-		if t.ExpectError {
+	case t.Err != nil:
+		if t.ExpectError { // we were expecting an error
 			t.TestStatus = "OK"
 		} else {
 			t.TestStatus = "ERR"
 		}
 		return
+	case len(t.ExpectedStatusCodes) > 0 || t.LogContains != "" || t.LogContainsNot != "":
+		t.EvaluateFromResponseStatus()
+		t.EvaluateFromWafLogs(logspath)
+	default:
+		t.Err = errors.New("no expected (EXP_) fields defined in test")
+		t.TestStatus = "ERR"
 	}
-
-	// We have output.status defined in the test.
-	if len(t.ExpectedStatusCodes) > 0 {
-		if intInSlice(t.StatusCode, t.ExpectedStatusCodes) {
-			t.TestStatus = "OK"
-		} else {
-			t.TestStatus = "FAIL"
-		}
-		return
-	}
-
-	// No usable output parameters.
-	t.Err = errors.New("expected status code not defined in test")
-	t.TestStatus = "ERR"
 }
 
-// EvaluateFromLogs sets overall TestStatus to OK|FAIL|ERR. The evaluation is
-// done by search expected string in the WAF logs.
-func (t *Test) EvaluateFromLogs(logspath string) {
-	if !t.Executed {
-		return
+// EvaluateFromResponseStatus evaluates a test by comparing the actual HTTP
+// response status code with the expected one.
+func (t *Test) EvaluateFromResponseStatus() {
+	if intInSlice(t.StatusCode, t.ExpectedStatusCodes) {
+		t.TestStatus = "OK"
+	} else {
+		t.TestStatus = "FAIL"
 	}
+}
 
-	// There was an error executing the test, i.e. we couldn't even make the HTTP
-	// request.
-	if t.Err != nil {
-		if t.ExpectError {
-			t.TestStatus = "OK"
-		} else {
-			t.TestStatus = "ERR"
-		}
-		return
-	}
-
+// EvaluateFromWafLogs evaluates a test by searching expected string in the WAF
+// logs.
+func (t *Test) EvaluateFromWafLogs(logspath string) {
 	if logspath != "" {
 		t.AddLogs(logspath)
 	}
@@ -172,10 +154,6 @@ func (t *Test) EvaluateFromLogs(logspath string) {
 		}
 		return
 	}
-
-	// No usable output parameters.
-	t.Err = errors.New("expected log string not defined in test")
-	t.TestStatus = "ERR"
 }
 
 func (t *Test) fixHostHeader(host string) {

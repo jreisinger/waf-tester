@@ -16,10 +16,13 @@ type Flags struct {
 
 func ParseFlags() (Flags, error) {
 	f := flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
+
 	Host := f.String("host", "", "FQDN or IP address of the host to test")
 	TestsPath := f.String("tests", "tests", "directory or file containing tests")
 	Scheme := f.String("scheme", "https", "http or https scheme")
 	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
+	LogsPath := f.String("logs", "", "filename or API URL with logs to evaluate (modsec_audit.log or https://loki.example.com)")
+
 	err := f.Parse(os.Args[1:])
 	if err != nil {
 		return Flags{}, err
@@ -30,6 +33,7 @@ func ParseFlags() (Flags, error) {
 		TestsPath: stringValue(TestsPath),
 		Scheme:    stringValue(Scheme),
 		Verbose:   boolValue(Verbose),
+		LogsPath:  stringValue(LogsPath),
 	}
 
 	err = flags.validate()
