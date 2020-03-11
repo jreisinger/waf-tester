@@ -43,4 +43,8 @@ func main() {
 			test.Print()
 		}
 	}
+
+	if flags.Stats {
+		httptest.PrintStats(alltests)
+	}
 }

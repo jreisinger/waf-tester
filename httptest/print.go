@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"text/template"
 
 	"github.com/fatih/color"
@@ -102,6 +103,7 @@ func PrintStats(tests []Test) {
 
 	format := "%s\t%d\n"
 
+	fmt.Printf("%s\n", strings.Repeat("-", 79))
 	fmt.Printf(format, setTestStatusColor("OK"), count["OK"])
 	fmt.Printf(format, setTestStatusColor("FAIL"), count["FAIL"])
 	fmt.Printf(format, setTestStatusColor("ERR"), count["ERR"])
