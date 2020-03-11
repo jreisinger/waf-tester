@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io"
 	"log"
 	"os"
@@ -64,6 +65,13 @@ func GetLogLines(logspath string) (logs []LogLine, err error) {
 }
 
 func getLogLinesFromURL(logspath string) (logs []LogLine, err error) {
+	lokiUser := os.Getenv("LOKI_USER")
+	lokiPass := os.Getenv("LOKI_PASS")
+	if lokiUser == "" || lokiPass == "" {
+		err = errors.New("env var LOKI_USER or LOKI_PASS are empty")
+		return
+	}
+
 	// https://github.com/grafana/loki/blob/master/docs/api.md
 	cmd := `curl -s -X GET -G -u "$LOKI_USER:$LOKI_PASS" "` + logspath + `/loki/api/v1/query_range" --data-urlencode "query={instance=~\"waf-.*\"}" | jq -r '.data.result | .[] | .values | .[] | .[]'`
 	out, err := exec.Command("/bin/sh", "-c", os.ExpandEnv(cmd)).Output() // NOTE: we are ignoring STDERR and exit code
