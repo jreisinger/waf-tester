@@ -127,15 +127,15 @@ func (t *Test) EvaluateFromResponseStatus() {
 	t.TestStatus = "ERR"
 }
 
-// Evaluate sets overall TestStatus to OK|FAIL|ERR. The evaluation is done from:
-// * HTTP response status code (primary method)
-// * parsing logs
-func (t *Test) Evaluate(logspath string) {
+// EvaluateFromLogs sets overall TestStatus to OK|FAIL|ERR. The evaluation is
+// done by search expected string in the WAF logs.
+func (t *Test) EvaluateFromLogs(logspath string) {
 	if !t.Executed {
 		return
 	}
 
-	// There was an error executing the test (HTTP request failed).
+	// There was an error executing the test, i.e. we couldn't even make the HTTP
+	// request.
 	if t.Err != nil {
 		if t.ExpectError {
 			t.TestStatus = "OK"
@@ -147,16 +147,6 @@ func (t *Test) Evaluate(logspath string) {
 
 	if logspath != "" {
 		t.AddLogs(logspath)
-	}
-
-	// We have output.status defined in the test.
-	if len(t.ExpectedStatusCodes) > 0 {
-		if intInSlice(t.StatusCode, t.ExpectedStatusCodes) {
-			t.TestStatus = "OK"
-		} else {
-			t.TestStatus = "FAIL"
-		}
-		return
 	}
 
 	// We have output.log_contains defined in the test.
@@ -184,7 +174,7 @@ func (t *Test) Evaluate(logspath string) {
 	}
 
 	// No usable output parameters.
-	t.Err = errors.New("No output parameters defined in test")
+	t.Err = errors.New("expected log string not defined in test")
 	t.TestStatus = "ERR"
 }
 
