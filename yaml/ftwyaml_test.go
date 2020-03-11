@@ -14,10 +14,13 @@ func TestIsYaml(t *testing.T) {
 		{"file.yaml", true},
 		{"file.yml", true},
 		{"file.YAML", true},
-		{"file.yaml", true},
-		{"file.txt", false},
+		{"file.YML", true},
 		{"path/to/file.yaml", true},
+		{"file.txt", false},
+		{"path/to/file.txt", false},
 		{"", false},
+		{"/", false},
+		{".", false},
 		{"yaml", false},
 	}
 
