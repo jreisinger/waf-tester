@@ -33,7 +33,7 @@ func (t *Test) AddLogs(logspath string) {
 	if len(LOGS) == 0 && !LOGS_ERR {
 		logs, err := GetLogLines(logspath)
 		if err != nil {
-			log.Printf("warning getting log lines: %s\n", err)
+			log.Printf("problem getting log lines from %s: %v\n", logspath, err)
 			LOGS_ERR = true
 			return
 		}
