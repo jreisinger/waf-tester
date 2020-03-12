@@ -6,6 +6,16 @@ Test and install (to `~/go/bin/`):
 make install
 ```
 
+Sample usage:
+
+```
+# Start a testing WAF and a testing web server on localhost.
+./run-waf -s modsecurity
+
+# In a different terminal window run some WAF tests against localhost.
+waf-tester -host localhost -scheme http -tests tests
+```
+
 Test and build (cross-compile for multiple platforms):
 
 ```
