@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+    testing-webserver:
+        image: nginx
+        ports:
+            - 8080:80
+        restart: always
+
+    testing-waf:
+        depends_on:
+            - testing-webserver
+        build:
+            dockerfile: Dockerfile
+            context: .
+        ports:
+            - 80:80
+        volumes:
+            - type: bind
+              source: /tmp/var/log
+              target: /var/log
+        restart: always
