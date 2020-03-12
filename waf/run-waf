@@ -120,7 +120,7 @@ trap clean_up   EXIT
 
 prepare_dirs "$dir"
 build_waf "$verbose"
-test_waf_is_up
+#test_waf_is_up
 
 if [[ $mysleep == 1 ]]; then
     print_msg "Sleeping until Ctrl-C"
