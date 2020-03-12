@@ -26,4 +26,4 @@ In a different terminal window run some WAF tests against localhost:
 waf-tester -host localhost -scheme http -tests tests/
 ```
 
-Obviously, you can run `waf-tester` against any host not just against our testing WAF container on localhost.
+Obviously, you can run `waf-tester` against any host not just against our testing WAF container on localhost. This this [blog post](https://jreisinger.github.io/blog2/posts/waf-tester/) for more.
