@@ -1,6 +1,11 @@
-This directory contains tools and `Dockerfile`s for running WAFs on your
-local machine. To find out more run:
+This directory contains tools for running WAFs on your local machine. Try:
 
 ```
-./run-waf.sh -h
+./run-waf -s modsecurity
+```
+
+To find out more:
+
+```
+./run-waf -h
 ```
