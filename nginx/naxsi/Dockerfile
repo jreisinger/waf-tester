@@ -51,6 +51,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 
 COPY nginx.conf /etc/nginx/
 COPY naxsi_core.rules /etc/nginx/
+COPY naxsi_custom.rules /etc/nginx/
 COPY naxsi.conf /etc/nginx/
 COPY naxsi_block_page.conf /etc/nginx/
 

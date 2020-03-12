@@ -1,0 +1,1 @@
+BasicRule "str:exec" "msg:Remote Code Execution (RCE)" "mz:ARGS" "s:$UWA:4" id:10001;
