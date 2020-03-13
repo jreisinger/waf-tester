@@ -32,6 +32,7 @@ print_msg() {
 create_temp_dir() {
     print_msg "Create temporary directory"
     TMPDIR=$(mktemp -d)
+    echo $TMPDIR
 
     # Bail out if the temp directory wasn't created successfully.
     if [ ! -e $TMPDIR ]; then
@@ -41,17 +42,17 @@ create_temp_dir() {
 }
 
 create_logs_dir() {
-    print_msg "Create directories for logs in /tmp/var/log"
-    mkdir -p /tmp/var/log
-    mkdir -p /tmp/var/log/nginx
+    print_msg "Create directories for WAF logs in /tmp/var/log"
+    mkdir -vp /tmp/var/log
+    mkdir -vp /tmp/var/log/nginx
 }
 
 # Setup temp dir, copy needed files into it and create dirs for logs.
 copy_image_files() {
     local dir=$1
 
-    print_msg "Copy all needed files to $TMPDIR"
-    cp -r $dir/* $TMPDIR
+    print_msg "Copy all needed files from $dir to $TMPDIR"
+    cp -vr $dir/* $TMPDIR
 }
 
 create_docker_compose_file() {
@@ -94,7 +95,7 @@ clean_up () {
 build_waf() {
     local verbose=$1
 
-    print_msg "Run docker images for WAF and protected web server"
+    print_msg "Run docker images for WAF and web server"
     cd $TMPDIR
     if [[ $verbose == 1 ]]; then
         docker-compose up -d --build
@@ -116,13 +117,32 @@ test_waf_is_up() {
     fi
 }
 
+# Check directory containing WAF Dockerfile and related files.
+check_dir() {
+    local dir=$1
+
+    if [[ -z $dir ]]; then
+        help_and_exit
+    fi
+
+    if [[ ! -d $dir ]]; then
+        print_msg "'$dir' is not a valid directory" err
+        exit 1
+    fi
+
+    if [[ ! -f $dir/Dockerfile ]]; then
+        print_msg "'$dir' does not contain Dockerfile" err
+        exit 1
+    fi
+}
+
 help_and_exit() {
     cat << EOF
 ${0##*/} [options] DIR
 
-Build a WAF container and run it locally together with a test web server
-container. DIR is directory containing the Dockerfile and possibly other
-related files.
+Build a WAF container and run it locally together with a backend web server
+container. DIR is directory containing the WAF Dockerfile and other related
+files.
 
   options:
     -h, -?  help
@@ -139,8 +159,8 @@ EOF
 OPTIND=1    # Reset in case getopts has been used previously in the shell.
 
 # Initialize our own variables:
-verbose=0
-mysleep=0
+VERBOSE=0
+MYSLEEP=0
 
 # getops can't handle long options (--help) but can handle options clustering
 # (-vf FILE)
@@ -149,9 +169,9 @@ while getopts "h?vs" opt; do
     h|\?)
         help_and_exit 0
         ;;
-    v)  verbose=1
+    v)  VERBOSE=1
         ;;
-    s)  mysleep=1
+    s)  MYSLEEP=1
         ;;
     esac
 done
@@ -160,25 +180,22 @@ done
 shift $((OPTIND-1))
 [ "$1" = "--" ] && shift
 
-dir="$@"
-if [[ ! -d $dir ]]; then
-    echo "'$dir' is not a valid directory"
-    echo
-    help_and_exit
-fi
+# Check DIR before clean_up is installed.
+DIR="$@"
+check_dir $DIR
 
 # Make sure we run cleanup actions even if the script exits abnormally.
 trap "exit 1"   HUP INT PIPE QUIT TERM
-trap clean_up   EXIT
+trap clean_up   EXIT # install clean_up
 
-create_temp_dir
 create_logs_dir
+create_temp_dir
 create_docker_compose_file
-copy_image_files "$dir"
-build_waf "$verbose"
+copy_image_files "$DIR"
+build_waf "$VERBOSE"
 test_waf_is_up
 
-if [[ $mysleep == 1 ]]; then
+if [[ $MYSLEEP == 1 ]]; then
     print_msg "Sleeping until Ctrl-C"
     sleep 999999
 fi
