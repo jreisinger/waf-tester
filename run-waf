@@ -84,9 +84,13 @@ build_waf() {
 
 # Test WAF has been started.
 test_waf_is_up() {
-    print_msg "Check WAF is proxying the requests (must be 200)"
+    print_msg "Check WAF is proxying the requests"
     sleep 3
-    curl --fail -sI localhost:80 | grep "^HTTP"
+    if curl -sI localhost:80 | grep -E "^HTTP.*OK" > /dev/null; then
+        echo WAF is up and running
+    else
+        echo WAF failed to start
+    fi
 }
 
 help_and_exit() {
@@ -147,7 +151,7 @@ trap clean_up   EXIT
 prepare_dirs "$dir"
 create_docker_compose_file
 build_waf "$verbose"
-#test_waf_is_up
+test_waf_is_up
 
 if [[ $mysleep == 1 ]]; then
     print_msg "Sleeping until Ctrl-C"
