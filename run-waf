@@ -6,25 +6,26 @@ set -e # exit if command returns non-zero exit code
 
 # Print colorful messages to STDOUT.
 print_msg() {
-    msg=$1
-    msg_type=$2
+    local msg=$1
+    local msg_type=$2
+
+    local color
+    local nocolor='\033[0m'
 
     # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
     case $msg_type in
         err)
-            COLOR='\033[0;31m'
+            color='\033[0;31m'
             ;;
         ok)
-            COLOR='\033[0;32m'
+            color='\033[0;32m'
             ;;
         *)
-            COLOR='\033[0;34m'
+            color='\033[0;34m'
             ;;
-
     esac
 
-    NC='\033[0m' # No Color
-    printf "${COLOR}${msg}${NC}\n"
+    printf "${color}${msg}${nocolor}\n"
 }
 
 # Setup temp dir, copy needed files into it and create dirs for logs.
