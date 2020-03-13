@@ -4,7 +4,7 @@ set -e # exit if command returns non-zero exit code
 
 ######## FUNCTION ########
 
-# Print colorful messages to STDOUT.
+# Print colorful messages.
 print_msg() {
     local msg=$1
     local msg_type=$2
@@ -28,11 +28,9 @@ print_msg() {
     printf "${color}${msg}${nocolor}\n"
 }
 
-# Setup temp dir, copy needed files into it and create dirs for logs.
-prepare_dirs() {
-    local dir=$1
-
-    print_msg "Create a temporary directory"
+# Create temporary directory and store its name into global variable TMPDIR.
+create_temp_dir() {
+    print_msg "Create temporary directory"
     TMPDIR=$(mktemp -d)
 
     # Bail out if the temp directory wasn't created successfully.
@@ -40,19 +38,24 @@ prepare_dirs() {
         >&2 echo "Failed to create temp directory"
         exit 1
     fi
+}
 
-    print_msg "Copy all needed files to $TMPDIR"
-    cp -r $dir/* $TMPDIR
-
-    OLDDIR=$(pwd)
-    cd $TMPDIR
-
-    print_msg "Create directories for logs in /tmp"
+create_logs_dir() {
+    print_msg "Create directories for logs in /tmp/var/log"
     mkdir -p /tmp/var/log
     mkdir -p /tmp/var/log/nginx
 }
 
+# Setup temp dir, copy needed files into it and create dirs for logs.
+copy_image_files() {
+    local dir=$1
+
+    print_msg "Copy all needed files to $TMPDIR"
+    cp -r $dir/* $TMPDIR
+}
+
 create_docker_compose_file() {
+    print_msg "Create $TMPDIR/docker-compose.yaml"
     cat << EOF > "$TMPDIR/docker-compose.yaml"
 version: '3.3'
 
@@ -90,7 +93,9 @@ clean_up () {
 # Build and run WAF and protected demo app.
 build_waf() {
     local verbose=$1
+
     print_msg "Run docker images for WAF and protected web server"
+    cd $TMPDIR
     if [[ $verbose == 1 ]]; then
         docker-compose up -d --build
     else
@@ -166,8 +171,10 @@ fi
 trap "exit 1"   HUP INT PIPE QUIT TERM
 trap clean_up   EXIT
 
-prepare_dirs "$dir"
+create_temp_dir
+create_logs_dir
 create_docker_compose_file
+copy_image_files "$dir"
 build_waf "$verbose"
 test_waf_is_up
 
