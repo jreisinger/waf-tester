@@ -8,11 +8,13 @@ import (
 	"github.com/jreisinger/waf-tester/httptest"
 )
 
-func main() {
+func init() {
 	// Set up CLI tool style of logging.
 	log.SetPrefix(os.Args[0] + ": ")
 	log.SetFlags(0) // no timestamp
+}
 
+func main() {
 	flags, err := ParseFlags()
 	if err != nil {
 		log.Fatalf("cannot parse flags: %v", err)
