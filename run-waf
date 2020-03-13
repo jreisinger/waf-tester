@@ -12,6 +12,22 @@ print_msg() {
     printf "${COLOR}--> ${msg}${NC}\n"
 }
 
+print_err() {
+    msg=$1
+    # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+    COLOR='\033[0;31m'
+    NC='\033[0m' # No Color
+    printf "${COLOR}${msg}${NC}\n"
+}
+
+print_ok() {
+    msg=$1
+    # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+    COLOR='\033[0;32m'
+    NC='\033[0m' # No Color
+    printf "${COLOR}${msg}${NC}\n"
+}
+
 # Setup temp dir, copy needed files into it and create dirs for logs.
 prepare_dirs() {
     local dir=$1
@@ -42,12 +58,13 @@ version: '3.3'
 
 services:
     testing-webserver:
+        container_name: testing-webserver
         image: nginx
         ports:
             - 8080:80
-        restart: always
 
     testing-waf:
+        container_name: testing-waf
         depends_on:
             - testing-webserver
         build:
@@ -59,13 +76,12 @@ services:
             - type: bind
               source: /tmp/var/log
               target: /var/log
-        restart: always
 EOF
 }
 
 # Remove docker containers and networks. Remove temp dir.
 clean_up () {
-    print_msg "Cleaning up"
+    print_msg "Clean up"
     docker-compose down
     #rm -rf /tmp/var/log
     rm -rf "$TMPDIR"
@@ -84,12 +100,14 @@ build_waf() {
 
 # Test WAF has been started.
 test_waf_is_up() {
-    print_msg "Check WAF is proxying the requests"
+    print_msg "Check WAF is up and proxying requests"
     sleep 3
     if curl -sI localhost:80 | grep -E "^HTTP.*OK" > /dev/null; then
-        echo WAF is up and running
+        docker ps
+        print_ok "WAF is up and running"
     else
-        echo WAF failed to start
+        docker logs testing-waf
+        print_err "WAF is not working"
     fi
 }
 
