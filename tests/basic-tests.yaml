@@ -24,6 +24,14 @@ tests:
             uri: "?page=/etc/passwd"
           output:
             status: 403
+  - test_title: Path traversal
+    stages:
+      - stage:
+          input:
+            method: "GET"
+            uri: 'get-files?file=/../../../../etc/shadow'
+          output:
+            status: 403
   - test_title: XSS
     stages:
       - stage:
