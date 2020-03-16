@@ -8,6 +8,7 @@ import (
 func TestParseFlags(t *testing.T) {
 	rollback := setFlags([]string{"command",
 		"-host", "example.com",
+		"-tests", "tests",
 	})
 	defer func() { rollback() }()
 

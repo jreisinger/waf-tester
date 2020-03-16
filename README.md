@@ -15,7 +15,7 @@ make install
 Run some WAF tests against localhost:
 
 ```
-waf-tester -host localhost -scheme http -tests tests/
+waf-tester -host localhost -scheme http -tests tests/basic-tests.yaml
 ```
 
 Consider using [waf-runner](https://github.com/jreisinger/waf-runner) to run a WAF on localhost.
