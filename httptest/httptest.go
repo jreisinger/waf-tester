@@ -5,7 +5,6 @@ import (
 	"errors"
 	"net/http"
 	"os"
-	"path"
 	"regexp"
 	"strings"
 	"time"
@@ -56,7 +55,7 @@ func GetTests(path string, scheme string, title string) ([]Test, error) {
 func (t *Test) Execute(host string) {
 	t.Executed = true
 
-	t.URL = t.Scheme + "://" + path.Join(host, t.Path)
+	t.URL = t.Scheme + "://" + host + "/" + t.Path
 
 	data := strings.Join(t.Data, "")
 	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(data))
