@@ -4,6 +4,7 @@ package httptest
 import (
 	"errors"
 	"net/http"
+	"net/url"
 	"os"
 	"regexp"
 	"strings"
@@ -55,7 +56,19 @@ func GetTests(path string, scheme string, title string) ([]Test, error) {
 func (t *Test) Execute(host string) {
 	t.Executed = true
 
-	t.URL = t.Scheme + "://" + host + "/" + t.Path
+	base, err := url.Parse(t.Scheme + "://" + host + "/")
+	if err != nil {
+		t.Err = err
+		return
+	}
+
+	u, err := url.Parse(t.Path)
+	if err != nil {
+		t.Err = err
+		return
+	}
+
+	t.URL = base.ResolveReference(u).String()
 
 	data := strings.Join(t.Data, "")
 	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(data))
