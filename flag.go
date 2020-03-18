@@ -13,6 +13,7 @@ type Flags struct {
 	Scheme    string
 	Host      string
 	Title     string
+	Report    bool
 }
 
 func ParseFlags() (Flags, error) {
@@ -24,6 +25,7 @@ func ParseFlags() (Flags, error) {
 	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
 	LogsPath := f.String("logs", "", "filename or API URL with logs to evaluate (modsec_audit.log or https://loki.example.com)")
 	Title := f.String("title", "", "execute only test with this title")
+	Report := f.Bool("report", false, "print overall report about tests")
 
 	err := f.Parse(os.Args[1:])
 	if err != nil {
@@ -37,6 +39,7 @@ func ParseFlags() (Flags, error) {
 		Verbose:   boolValue(Verbose),
 		LogsPath:  stringValue(LogsPath),
 		Title:     stringValue(Title),
+		Report:    boolValue(Report),
 	}
 
 	err = flags.validate()

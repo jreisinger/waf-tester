@@ -51,4 +51,8 @@ func main() {
 			test.Print()
 		}
 	}
+
+	if flags.Report {
+		httptest.PrintReport(tests)
+	}
 }
