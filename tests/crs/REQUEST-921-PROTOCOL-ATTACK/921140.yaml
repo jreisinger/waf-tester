@@ -22,6 +22,7 @@
             output:
               status: 400
               no_log_contains: "id:921140"
+              expect_error: true
     -
       test_title: 921140-2
       desc: "HTTP Header Injection Attack via headers"

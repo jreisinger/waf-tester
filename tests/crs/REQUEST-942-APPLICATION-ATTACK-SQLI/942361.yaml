@@ -22,6 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942361"
+          status: 405
   -
     test_title: 942361-2
     desc: "Detects basic SQL injection based on keyword alter or union"
@@ -39,6 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942361"
+          status: 405
   -
     test_title: 942361-3
     desc: "Detects basic SQL injection based on keyword alter or union"
@@ -56,6 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942361"
+          status: 405
   -
     test_title: 942361-4
     desc: "Detects basic SQL injection based on keyword alter or union"
@@ -73,6 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942361"
+          status: 405
   -
     test_title: 942361-5
     desc: "Detects basic SQL injection based on keyword alter or union"
@@ -90,6 +94,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942361"
+          status: 405
   -
     test_title: 942361-6
     desc: "Detects basic SQL injection based on keyword alter or union"
@@ -107,6 +112,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942361"
+          status: 405
   -
     test_title: 942361-7
     desc: "Detects basic SQL injection based on keyword alter or union"
@@ -124,3 +130,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942361"
+          status: 405

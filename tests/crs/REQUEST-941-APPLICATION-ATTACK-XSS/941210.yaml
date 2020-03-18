@@ -22,6 +22,7 @@
             data: '941210-1=ja%26tab%3Bvascript%3A%20'
           output:
             log_contains: id "941210"
+            status: 403
     -
       test_title: 941210-2
       desc: Obfuscated javascript tag in ARGS_NAMES, with tab
@@ -39,6 +40,7 @@
             data: 'ja%26tab%3Bvascript%3A%09=941210-2'
           output:
             log_contains: id "941210"
+            status: 403
     -
       test_title: 941210-3
       desc: Microsoft vmlframe xss, REQUEST_COOKIE_NAMES

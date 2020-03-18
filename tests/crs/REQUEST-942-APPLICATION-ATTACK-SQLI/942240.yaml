@@ -22,6 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-2
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -39,6 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-3
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -56,6 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-4
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -73,6 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-5
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -90,6 +94,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-6
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -107,6 +112,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-7
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -124,6 +130,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-8
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -141,6 +148,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-9
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -158,6 +166,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-10
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -175,6 +184,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405
   -
     test_title: 942240-11
     desc: "Detects MySQL charset switch and MSSQL DoS attempts"
@@ -192,3 +202,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942240"
+          status: 405

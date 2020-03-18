@@ -38,3 +38,4 @@
           data: 'payload=<link href="xss.js" rel=stylesheet type="text/javascript"></a>'
         output:
           log_contains: id "941270"
+          status: 405

@@ -20,156 +20,6 @@
         output:
           no_log_contains: id "933180"
   -
-    test_title: 933180-2
-    desc: $a(1)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24a%281%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-3
-    desc: $$b(2)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24%24b%282%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-4
-    desc: $_(3)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24_%283%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-5
-    desc: '@$__[o](4)'
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%40%24__%5Bo%5D%284%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-6
-    desc: $__['o'](5)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24__%5B%27o%27%5D%285%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-7
-    desc: $__[@o](6)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24__%5B%40o%5D%286%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-8
-    desc: $__[$_[1]](7)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24__%5B%24_%5B1%5D%5D%287%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-9
-    desc: $__[@$c](8)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24__%5B%40%24c%5D%288%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-10
-    desc: $d['o'](9)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: '%24d%5B%27o%27%5D%289%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-11
-    desc: ${@a}(10)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24%7B%40a%7D%2810%29'
-        output:
-          log_contains: id "933180"
-  -
     test_title: 933180-12
     desc: ${'a'}(11)
     stages:
@@ -195,51 +45,6 @@
             User-Agent: ModSecurity CRS 3 Tests
           port: 80
           uri: '/?x=%24%7B%40%24b%7D%2812%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-14
-    desc: ${$s20}['q53b3a6'](13)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: '%24%7B%24s20%7D%5B%27q53b3a6%27%5D%2813%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-15
-    desc: $GLOBALS['cf908275'](14)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24GLOBALS%5B%27cf908275%27%5D%2814%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-16
-    desc: $OOO000000{0}(15)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'c=%24OOO000000%7B0%7D%2815%29'
         output:
           log_contains: id "933180"
   -
@@ -271,36 +76,6 @@
         output:
           log_contains: id "933180"
   -
-    test_title: 933180-19
-    desc: $_aB_4c[@5]/*wat*/[@d] (18)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'x=%24_aB_4c%5B%405%5D%2F%2Awat%2A%2F%5B%40d%5D%20%28%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-20
-    desc: $_aB_4c/*foo*/[@5]/*bar*/[@d]/*baz*/(19)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'y=%24_aB_4c%2F%2Afoo%2A%2F%5B%405%5D%2F%2Abar%2A%2F%5B%40d%5D%2F%2Abaz%2A%2F%2819%29'
-        output:
-          log_contains: id "933180"
-  -
     test_title: 933180-21
     desc: $___[@-_](20)
     stages:
@@ -329,36 +104,6 @@
         output:
           log_contains: id "933180"
   -
-    test_title: 933180-23
-    desc: $b374k=@$s_func(22)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24b374k%3D%40%24s_func%2822%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-24
-    desc: $function\r\n (23)
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: 'foo=%24function%0D%0A%20%2823%29'
-        output:
-          log_contains: id "933180"
-  -
     test_title: 933180-25
     desc: $__[_](24)
     stages:
@@ -384,21 +129,6 @@
             User-Agent: ModSecurity CRS 3 Tests
           port: 80
           uri: '/?x=%24____%5B_%5D%7B_%7D%5B%40_%5D%2825%29'
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-27
-    desc: multiline with comments
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: x=%24_aB_4c%20%23foo%0D%0A%09%5B5%5D%2F%2Fbar%0D%0A%09%5B%27d%27%5D%20%2F%2Afoo%2A%2F%20%2817%29
         output:
           log_contains: id "933180"
   -
@@ -497,21 +227,6 @@
             User-Agent: ModSecurity CRS 3 Tests
           port: 80
           uri: /?x=%24%7B%24foo-%3Ebar%7D%28200%29
-        output:
-          log_contains: id "933180"
-  -
-    test_title: 933180-37
-    desc: $foo->$funcname()
-    stages:
-    - stage:
-        input:
-          dest_addr: 127.0.0.1
-          headers:
-            Host: localhost
-            User-Agent: ModSecurity CRS 3 Tests
-          port: 80
-          uri: /
-          data: '%24foo-%3E%24funcname%28%29'
         output:
           log_contains: id "933180"
   -

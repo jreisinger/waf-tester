@@ -124,52 +124,6 @@
               log_contains: "id \"944120\""
 
     -
-      test_title: 944120-5
-      desc: "XML element includes keyword ProcessBuilder.evil.clonetransformer"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><ProcessBuilder.evil.clonetransformer attribute_name=\"attribute_value\">value</ProcessBuilder.evil.clonetransformer></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-6
-      desc: "XML attribute name includes keyword ProcessBuilder.evil.clonetransformer"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><element ProcessBuilder.evil.clonetransformer=\"attribute_value\">element_value</element></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
       test_title: 944120-7
       desc: "XML attribute value includes keyword ProcessBuilder.evil.clonetransformer"
       stages:
@@ -515,52 +469,6 @@
               data: "test=value"
             output:
               log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-22
-      desc: "XML element includes keyword ProcessBuilder.evil.forclosure"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><ProcessBuilder.evil.forclosure attribute_name=\"attribute_value\">value</ProcessBuilder.evil.forclosure></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-23
-      desc: "XML attribute name includes keyword ProcessBuilder.evil.forclosure"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><element ProcessBuilder.evil.forclosure=\"attribute_value\">element_value</element></xml>"
-            output:
-              no_log_contains: "id \"944120\""
 
     -
       test_title: 944120-24
@@ -910,52 +818,6 @@
               log_contains: "id \"944120\""
 
     -
-      test_title: 944120-39
-      desc: "XML element includes keyword ProcessBuilder.evil.instantiatefactory"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><ProcessBuilder.evil.instantiatefactory attribute_name=\"attribute_value\">value</ProcessBuilder.evil.instantiatefactory></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-40
-      desc: "XML attribute name includes keyword ProcessBuilder.evil.instantiatefactory"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><element ProcessBuilder.evil.instantiatefactory=\"attribute_value\">element_value</element></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
       test_title: 944120-41
       desc: "XML attribute value includes keyword ProcessBuilder.evil.instantiatefactory"
       stages:
@@ -1301,52 +1163,6 @@
               data: "test=value"
             output:
               log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-56
-      desc: "XML element includes keyword ProcessBuilder.evil.instantiatetransformer"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><ProcessBuilder.evil.instantiatetransformer attribute_name=\"attribute_value\">value</ProcessBuilder.evil.instantiatetransformer></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-57
-      desc: "XML attribute name includes keyword ProcessBuilder.evil.instantiatetransformer"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><element ProcessBuilder.evil.instantiatetransformer=\"attribute_value\">element_value</element></xml>"
-            output:
-              no_log_contains: "id \"944120\""
 
     -
       test_title: 944120-58
@@ -1696,52 +1512,6 @@
               log_contains: "id \"944120\""
 
     -
-      test_title: 944120-73
-      desc: "XML element includes keyword ProcessBuilder.evil.invokertransformer"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><ProcessBuilder.evil.invokertransformer attribute_name=\"attribute_value\">value</ProcessBuilder.evil.invokertransformer></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-74
-      desc: "XML attribute name includes keyword ProcessBuilder.evil.invokertransformer"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><element ProcessBuilder.evil.invokertransformer=\"attribute_value\">element_value</element></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
       test_title: 944120-75
       desc: "XML attribute value includes keyword ProcessBuilder.evil.invokertransformer"
       stages:
@@ -2087,52 +1857,6 @@
               data: "test=value"
             output:
               log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-90
-      desc: "XML element includes keyword ProcessBuilder.evil.prototypeclonefactory"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><ProcessBuilder.evil.prototypeclonefactory attribute_name=\"attribute_value\">value</ProcessBuilder.evil.prototypeclonefactory></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-91
-      desc: "XML attribute name includes keyword ProcessBuilder.evil.prototypeclonefactory"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><element ProcessBuilder.evil.prototypeclonefactory=\"attribute_value\">element_value</element></xml>"
-            output:
-              no_log_contains: "id \"944120\""
 
     -
       test_title: 944120-92
@@ -2482,52 +2206,6 @@
               log_contains: "id \"944120\""
 
     -
-      test_title: 944120-107
-      desc: "XML element includes keyword ProcessBuilder.evil.prototypeserializationfactory"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><ProcessBuilder.evil.prototypeserializationfactory attribute_name=\"attribute_value\">value</ProcessBuilder.evil.prototypeserializationfactory></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-108
-      desc: "XML attribute name includes keyword ProcessBuilder.evil.prototypeserializationfactory"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><element ProcessBuilder.evil.prototypeserializationfactory=\"attribute_value\">element_value</element></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
       test_title: 944120-109
       desc: "XML attribute value includes keyword ProcessBuilder.evil.prototypeserializationfactory"
       stages:
@@ -2873,52 +2551,6 @@
               data: "test=value"
             output:
               log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-124
-      desc: "XML element includes keyword ProcessBuilder.evil.whileclosure"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><ProcessBuilder.evil.whileclosure attribute_name=\"attribute_value\">value</ProcessBuilder.evil.whileclosure></xml>"
-            output:
-              no_log_contains: "id \"944120\""
-
-    -
-      test_title: 944120-125
-      desc: "XML attribute name includes keyword ProcessBuilder.evil.whileclosure"
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                Host: "localhost"
-                User-Agent: "ModSecurity CRS 3 Tests"
-                Accept: "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
-                Accept-Charset: "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
-                Accept-Encoding: "gzip,deflate"
-                Accept-Language: "en-us,en;q=0.5"
-                Content-Type: "application/xml"
-              method: "POST"
-              version: "HTTP/1.0"
-              data: "<?xml version=\"1.0\"?><xml><element ProcessBuilder.evil.whileclosure=\"attribute_value\">element_value</element></xml>"
-            output:
-              no_log_contains: "id \"944120\""
 
     -
       test_title: 944120-126

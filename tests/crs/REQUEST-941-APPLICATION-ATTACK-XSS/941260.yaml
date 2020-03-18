@@ -21,6 +21,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "941260"
+          status: 405
   -
     test_title: 941260-2
     desc: "XSS test based on portswigger XSS cheatsheet"
@@ -37,3 +38,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "941260"
+          status: 405

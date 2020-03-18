@@ -22,6 +22,7 @@
           data: var=\xbcscript\xbealert(\xa2XSS\xa2)\xbc/script\xbe
         output:
           log_contains: id "941310"
+          status: 403
   -
     test_title: 941310-2
     desc: Positive test using utf-8
@@ -39,6 +40,7 @@
           data: var=\xc2\xbcscript\xc2\xbealert(\xc2\xa2XSS\xc2\xa2)\xc2\xbc/script\xc2\xbe
         output:
           log_contains: id "941310"
+          status: 403
   -
     test_title: 941310-3
     desc: Negative test for opening tag

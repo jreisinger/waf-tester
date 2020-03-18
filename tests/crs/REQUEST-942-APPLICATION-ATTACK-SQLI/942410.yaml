@@ -22,6 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-2
     desc: "SQL Injection Attack"
@@ -39,6 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-3
     desc: "SQL Injection Attack"
@@ -56,6 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-4
     desc: "SQL Injection Attack"
@@ -73,6 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-5
     desc: "SQL Injection Attack"
@@ -90,6 +94,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-6
     desc: "SQL Injection Attack"
@@ -107,6 +112,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-7
     desc: "SQL Injection Attack"
@@ -124,6 +130,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-8
     desc: "SQL Injection Attack"
@@ -141,6 +148,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-9
     desc: "SQL Injection Attack"
@@ -158,6 +166,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-10
     desc: "SQL Injection Attack"
@@ -175,6 +184,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-11
     desc: "SQL Injection Attack"
@@ -192,6 +202,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-12
     desc: "SQL Injection Attack"
@@ -209,6 +220,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-13
     desc: "SQL Injection Attack"
@@ -226,6 +238,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-14
     desc: "SQL Injection Attack"
@@ -243,6 +256,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-15
     desc: "SQL Injection Attack"
@@ -260,6 +274,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-16
     desc: "SQL Injection Attack"
@@ -277,6 +292,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-17
     desc: "SQL Injection Attack"
@@ -294,6 +310,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-18
     desc: "SQL Injection Attack"
@@ -311,6 +328,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-19
     desc: "SQL Injection Attack"
@@ -328,6 +346,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-20
     desc: "SQL Injection Attack"
@@ -345,6 +364,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-21
     desc: "SQL Injection Attack"
@@ -362,6 +382,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-22
     desc: "SQL Injection Attack"
@@ -379,6 +400,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-23
     desc: "SQL Injection Attack"
@@ -396,6 +418,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-24
     desc: "SQL Injection Attack"
@@ -413,6 +436,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-25
     desc: "SQL Injection Attack"
@@ -430,6 +454,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-26
     desc: "SQL Injection Attack"
@@ -447,6 +472,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-27
     desc: "SQL Injection Attack"
@@ -464,6 +490,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-28
     desc: "SQL Injection Attack"
@@ -481,6 +508,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-29
     desc: "SQL Injection Attack"
@@ -498,6 +526,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-30
     desc: "SQL Injection Attack"
@@ -515,6 +544,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-31
     desc: "SQL Injection Attack"
@@ -532,6 +562,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-32
     desc: "SQL Injection Attack"
@@ -549,6 +580,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-33
     desc: "SQL Injection Attack"
@@ -566,6 +598,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-34
     desc: "SQL Injection Attack"
@@ -583,6 +616,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-35
     desc: "SQL Injection Attack"
@@ -600,6 +634,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-36
     desc: "SQL Injection Attack"
@@ -617,6 +652,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-37
     desc: "SQL Injection Attack"
@@ -634,6 +670,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-38
     desc: "SQL Injection Attack"
@@ -651,6 +688,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-39
     desc: "SQL Injection Attack"
@@ -668,6 +706,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-40
     desc: "SQL Injection Attack"
@@ -685,6 +724,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-41
     desc: "SQL Injection Attack"
@@ -702,6 +742,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-42
     desc: "SQL Injection Attack"
@@ -719,6 +760,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-43
     desc: "SQL Injection Attack"
@@ -736,6 +778,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-44
     desc: "SQL Injection Attack"
@@ -753,6 +796,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-45
     desc: "SQL Injection Attack"
@@ -770,6 +814,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-46
     desc: "SQL Injection Attack"
@@ -787,6 +832,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-47
     desc: "SQL Injection Attack"
@@ -804,6 +850,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-48
     desc: "SQL Injection Attack"
@@ -821,6 +868,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-49
     desc: "SQL Injection Attack"
@@ -838,6 +886,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-50
     desc: "SQL Injection Attack"
@@ -855,6 +904,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-51
     desc: "SQL Injection Attack"
@@ -872,6 +922,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-52
     desc: "SQL Injection Attack"
@@ -889,6 +940,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-53
     desc: "SQL Injection Attack"
@@ -906,6 +958,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-54
     desc: "SQL Injection Attack"
@@ -923,6 +976,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-55
     desc: "SQL Injection Attack"
@@ -940,6 +994,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-56
     desc: "SQL Injection Attack"
@@ -957,6 +1012,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-57
     desc: "SQL Injection Attack"
@@ -974,6 +1030,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-58
     desc: "SQL Injection Attack"
@@ -991,6 +1048,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-59
     desc: "SQL Injection Attack"
@@ -1008,6 +1066,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-60
     desc: "SQL Injection Attack"
@@ -1025,6 +1084,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-61
     desc: "SQL Injection Attack"
@@ -1042,6 +1102,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-62
     desc: "SQL Injection Attack"
@@ -1059,6 +1120,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-63
     desc: "SQL Injection Attack"
@@ -1076,6 +1138,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-64
     desc: "SQL Injection Attack"
@@ -1093,6 +1156,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-65
     desc: "SQL Injection Attack"
@@ -1110,6 +1174,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-66
     desc: "SQL Injection Attack"
@@ -1127,6 +1192,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-67
     desc: "SQL Injection Attack"
@@ -1144,6 +1210,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-68
     desc: "SQL Injection Attack"
@@ -1161,6 +1228,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-69
     desc: "SQL Injection Attack"
@@ -1178,6 +1246,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-70
     desc: "SQL Injection Attack"
@@ -1195,6 +1264,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-71
     desc: "SQL Injection Attack"
@@ -1212,6 +1282,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-72
     desc: "SQL Injection Attack"
@@ -1229,6 +1300,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-73
     desc: "SQL Injection Attack"
@@ -1246,6 +1318,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-74
     desc: "SQL Injection Attack"
@@ -1263,6 +1336,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-75
     desc: "SQL Injection Attack"
@@ -1280,6 +1354,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-76
     desc: "SQL Injection Attack"
@@ -1297,6 +1372,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-77
     desc: "SQL Injection Attack"
@@ -1314,6 +1390,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-78
     desc: "SQL Injection Attack"
@@ -1331,6 +1408,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-79
     desc: "SQL Injection Attack"
@@ -1348,6 +1426,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-80
     desc: "SQL Injection Attack"
@@ -1365,6 +1444,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-81
     desc: "SQL Injection Attack"
@@ -1382,6 +1462,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-82
     desc: "SQL Injection Attack"
@@ -1399,6 +1480,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-83
     desc: "SQL Injection Attack"
@@ -1416,6 +1498,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-84
     desc: "SQL Injection Attack"
@@ -1433,6 +1516,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-85
     desc: "SQL Injection Attack"
@@ -1450,6 +1534,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-86
     desc: "SQL Injection Attack"
@@ -1467,6 +1552,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-87
     desc: "SQL Injection Attack"
@@ -1484,6 +1570,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-88
     desc: "SQL Injection Attack"
@@ -1501,6 +1588,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-89
     desc: "SQL Injection Attack"
@@ -1518,6 +1606,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-90
     desc: "SQL Injection Attack"
@@ -1535,6 +1624,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-91
     desc: "SQL Injection Attack"
@@ -1552,6 +1642,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-92
     desc: "SQL Injection Attack"
@@ -1569,6 +1660,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-93
     desc: "SQL Injection Attack"
@@ -1586,6 +1678,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-94
     desc: "SQL Injection Attack"
@@ -1603,6 +1696,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-95
     desc: "SQL Injection Attack"
@@ -1620,6 +1714,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-96
     desc: "SQL Injection Attack"
@@ -1637,6 +1732,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-97
     desc: "SQL Injection Attack"
@@ -1654,6 +1750,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-98
     desc: "SQL Injection Attack"
@@ -1671,6 +1768,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-99
     desc: "SQL Injection Attack"
@@ -1688,6 +1786,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-100
     desc: "SQL Injection Attack"
@@ -1705,6 +1804,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-101
     desc: "SQL Injection Attack"
@@ -1722,6 +1822,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-102
     desc: "SQL Injection Attack"
@@ -1739,6 +1840,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-103
     desc: "SQL Injection Attack"
@@ -1756,6 +1858,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-104
     desc: "SQL Injection Attack"
@@ -1773,6 +1876,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-105
     desc: "SQL Injection Attack"
@@ -1790,6 +1894,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-106
     desc: "SQL Injection Attack"
@@ -1807,6 +1912,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-107
     desc: "SQL Injection Attack"
@@ -1824,6 +1930,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-108
     desc: "SQL Injection Attack"
@@ -1841,6 +1948,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-109
     desc: "SQL Injection Attack"
@@ -1858,6 +1966,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-110
     desc: "SQL Injection Attack"
@@ -1875,6 +1984,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-111
     desc: "SQL Injection Attack"
@@ -1892,6 +2002,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-112
     desc: "SQL Injection Attack"
@@ -1909,6 +2020,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-113
     desc: "SQL Injection Attack"
@@ -1926,6 +2038,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-114
     desc: "SQL Injection Attack"
@@ -1943,6 +2056,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-115
     desc: "SQL Injection Attack"
@@ -1960,6 +2074,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-116
     desc: "SQL Injection Attack"
@@ -1977,6 +2092,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-117
     desc: "SQL Injection Attack"
@@ -1994,6 +2110,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405
   -
     test_title: 942410-118
     desc: "SQL Injection Attack"
@@ -2011,3 +2128,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942410"
+          status: 405

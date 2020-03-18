@@ -21,6 +21,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 403
   -
     test_title: 941370-2
     desc: "Bypass using comments in syntax"
@@ -37,6 +38,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 405
   -
     test_title: 941370-3
     desc: "Bypass using JavaScript global variables"
@@ -53,6 +55,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 403
   -
     test_title: 941370-4
     desc: "Bypass using JavaScript global variables and comments in syntax"
@@ -69,6 +72,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 403
   -
     test_title: 941370-5
     desc: "Bypass using JavaScript global variables and string concatenation"
@@ -85,6 +89,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 403
 
   -
     test_title: 941370-6
@@ -102,6 +107,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 403
 
   -
     test_title: 941370-7
@@ -119,6 +125,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 403
 
   -
     test_title: 941370-8
@@ -136,6 +143,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 403
 
   -
     test_title: 941370-9
@@ -153,6 +161,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 403
 
   -
     test_title: 941370-10
@@ -170,3 +179,4 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
+          status: 403

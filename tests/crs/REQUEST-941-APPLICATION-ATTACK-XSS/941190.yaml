@@ -22,6 +22,7 @@
             data: "941190-1=<STYLE>@import'http://xss.rocks/xss.css';</STYLE>"
           output:
             log_contains: id "941190"
+            status: 403
     -
       test_title: 941190-2
       desc: Node-validator blacklist keywords, ARGS_NAMES
@@ -39,6 +40,7 @@
             data: "x=<STYLE>@im\\port'\\ja\vasc\\ript:alert('XSS')';</STYLE>"
           output:
             log_contains: id "941190"
+            status: 403
     -
       test_title: 941190-3
       desc: Node-validator blacklist keywords, COOKIES_NAMES

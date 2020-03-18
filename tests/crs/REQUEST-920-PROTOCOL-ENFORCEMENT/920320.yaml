@@ -6,18 +6,6 @@
     description: "Description"
   tests:
     -
-      test_title: 920320-1
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              headers:
-                  Host: "localhost"
-            output:
-              log_contains: "id \"920320\""
-    -
       test_title: 920320-2
       stages:
         -

@@ -54,21 +54,6 @@
             output:
               no_log_contains: "id \"920274\""
     -
-      test_title: 920274-4
-      stages:
-        -
-          stage:
-            input:
-              dest_addr: "127.0.0.1"
-              port: 80
-              uri: "/?test=test1HI"
-              headers:
-                  User-Agent: "ModSecurity CRS 3 Tests"
-                  Host: "localhost"
-                  Test: "ThisIsATest%60"
-            output:
-              log_contains: "id \"920274\""
-    -
       test_title: 920274-5
       stages:
         -
