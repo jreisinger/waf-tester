@@ -109,8 +109,15 @@ func (t *Test) Evaluate(logspath string) {
 		}
 		return
 	case len(t.ExpectedStatusCodes) > 0 || t.LogContains != "" || t.LogContainsNot != "":
-		t.EvaluateFromResponseStatus()
-		t.EvaluateFromWafLogs(logspath)
+		if t.LogContains != "" || t.LogContainsNot != "" {
+			t.EvaluateFromWafLogs(logspath)
+		}
+		// EvaluateFromResponseStatus has higher priority than EvaluateFromWaflogs.
+		// Thus it goes as second to overwrite possible TestStatus set by
+		// EvaluateFromWafLogs.
+		if len(t.ExpectedStatusCodes) > 0 {
+			t.EvaluateFromResponseStatus()
+		}
 	default:
 		t.Err = errors.New("no expected (EXP_) fields defined in test")
 		t.TestStatus = "ERR"
