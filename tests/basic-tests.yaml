@@ -25,6 +25,7 @@ tests:
           output:
             status: 403
   - test_title: Path traversal
+    desc: and OS file access and RCE
     stages:
       - stage:
           input:
