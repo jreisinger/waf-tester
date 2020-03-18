@@ -16,6 +16,7 @@ Run some WAF tests against localhost:
 
 ```
 waf-tester -host localhost -scheme http -tests tests/basic-tests.yaml
+waf-tester -host localhost -scheme http -tests tests/ -logs /tmp/var/log/modsec_audit.log -report
 ```
 
 Consider using [waf-runner](https://github.com/jreisinger/waf-runner) to run a WAF on localhost.
