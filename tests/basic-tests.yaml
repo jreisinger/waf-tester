@@ -16,7 +16,7 @@ tests:
             uri: "?id=1'%20or%20'1'%20=%20'"
           output:
             status: 403
-  - test_title: LFI
+  - test_title: OS file access
     stages:
       - stage:
           input:
