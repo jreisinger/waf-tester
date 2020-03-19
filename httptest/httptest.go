@@ -117,7 +117,12 @@ func (t *Test) Evaluate(logspath string) {
 		return
 	}
 	if len(t.ExpectedStatusCodes) == 0 && t.LogContains == "" && t.LogContainsNot == "" {
-		t.Err = errors.New("no expected (EXP_) fields defined in test")
+		t.Err = errors.New("can't evaluate test - no expected (EXP_CODES, EXP_LOGS, EXP_NOLOGS) field defined")
+		t.TestStatus = "ERR"
+		return
+	}
+	if len(t.ExpectedStatusCodes) == 0 && t.LogContains != "" && len(t.Logs) == 0 {
+		t.Err = errors.New("can't evaluate test - no logs (LOGS)")
 		t.TestStatus = "ERR"
 		return
 	}
