@@ -86,7 +86,7 @@ func (t *Test) Execute(scheme, host string) {
 		req.Header.Set(k, v)
 	}
 
-	client := &http.Client{Timeout: time.Second * 2}
+	client := &http.Client{Timeout: time.Second * 5}
 
 	resp, err := client.Do(req)
 	if err != nil {
