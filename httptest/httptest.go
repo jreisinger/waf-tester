@@ -116,21 +116,22 @@ func (t *Test) Evaluate(logspath string) {
 		}
 		return
 	}
-	if len(t.ExpectedStatusCodes) == 0 && t.LogContains == "" && t.LogContainsNot == "" {
-		t.Err = errors.New("can't evaluate test - no expected (EXP_CODES, EXP_LOGS, EXP_NOLOGS) field defined")
-		t.TestStatus = "ERR"
+	if len(t.ExpectedStatusCodes) > 0 {
+		t.EvaluateFromResponseStatus()
 		return
 	}
-	if len(t.ExpectedStatusCodes) == 0 && t.LogContains != "" && len(t.Logs) == 0 {
-		t.Err = errors.New("can't evaluate test - no logs (LOGS)")
-		t.TestStatus = "ERR"
+	if t.LogContains != "" || t.LogContainsNot != "" {
+		if t.LogContains != "" && len(t.Logs) == 0 {
+			t.Err = errors.New("can't evaluate test - no logs (LOGS)")
+			t.TestStatus = "ERR"
+			return
+		}
+		t.EvaluateFromWafLogs()
 		return
 	}
-	t.EvaluateFromWafLogs()
-	// EvaluateFromResponseStatus has higher priority than EvaluateFromWaflogs.
-	// Thus it goes as second to overwrite possible TestStatus set by
-	// EvaluateFromWafLogs.
-	t.EvaluateFromResponseStatus()
+
+	t.Err = errors.New("can't evaluate test - no expected (EXP_CODES, EXP_LOGS, EXP_NOLOGS) field defined")
+	t.TestStatus = "ERR"
 }
 
 // EvaluateFromResponseStatus evaluates a test by comparing the actual HTTP
