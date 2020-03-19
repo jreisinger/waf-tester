@@ -20,14 +20,14 @@ func main() {
 		log.Fatalf("cannot parse flags: %v", err)
 	}
 
-	tests, err := httptest.GetTests(flags.TestsPath, flags.Scheme, flags.Title)
+	tests, err := httptest.GetTests(flags.TestsPath, flags.Title)
 	if err != nil {
 		log.Fatalf("cannot get tests: %v", err)
 	}
 
 	for i := range tests {
 		test := &tests[i]
-		test.Execute(flags.Host)
+		test.Execute(flags.Scheme, flags.Host)
 	}
 
 	// Let's wait a bit so the logs get written.

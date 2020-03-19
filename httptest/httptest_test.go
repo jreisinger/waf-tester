@@ -3,7 +3,7 @@ package httptest
 import "testing"
 
 func TestGetTests(t *testing.T) {
-	tests, err := GetTests("../tests", "https", "")
+	tests, err := GetTests("../tests", "")
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}

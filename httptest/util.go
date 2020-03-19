@@ -44,10 +44,6 @@ func (t *Test) addCustomHeader() {
 	t.Headers["waf-tester-id"] = t.ID
 }
 
-func (t *Test) setScheme(scheme string) {
-	t.Scheme = scheme
-}
-
 func (t *Test) fixHostHeader(host string) {
 	if host == "localhost" || host == "127.0.0.1" {
 		return

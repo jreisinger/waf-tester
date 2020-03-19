@@ -14,7 +14,7 @@ import (
 )
 
 // GetTests returns the list of available tests.
-func GetTests(path string, scheme string, title string) ([]Test, error) {
+func GetTests(path string, title string) ([]Test, error) {
 	var tests []Test
 
 	// Check path with tests exists.
@@ -39,12 +39,13 @@ func GetTests(path string, scheme string, title string) ([]Test, error) {
 				ExpectError:         test.Stages[0].Stage.Output.ExpectError,
 			}
 
+			// Skip tests not selected by -title CLI flag.
 			if title != "" && t.Title != title {
 				continue
 			}
 
-			t.setScheme(scheme)
 			t.addCustomHeader()
+
 			tests = append(tests, *t)
 		}
 	}
@@ -53,10 +54,10 @@ func GetTests(path string, scheme string, title string) ([]Test, error) {
 }
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
-func (t *Test) Execute(host string) {
+func (t *Test) Execute(scheme, host string) {
 	t.Executed = true
 
-	base, err := url.Parse(t.Scheme + "://" + host + "/")
+	base, err := url.Parse(scheme + "://" + host + "/")
 	if err != nil {
 		t.Err = err
 		return
