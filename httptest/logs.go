@@ -13,8 +13,9 @@ import (
 	"strings"
 )
 
-var LOGS []LogLine
-var LOGS_ERR bool
+// Parse log file only once.
+var logs []LogLine
+var logsError error
 
 func foundInLogs(t *Test, id string) bool {
 	for _, l := range t.Logs {
@@ -31,17 +32,15 @@ func foundInLogs(t *Test, id string) bool {
 func (t *Test) AddLogs(logspath string) {
 
 	// Parse log file only once.
-	if len(LOGS) == 0 && !LOGS_ERR {
-		logs, err := GetLogLines(logspath)
-		if err != nil {
-			log.Printf("problem getting log lines from %s: %v\n", logspath, err)
-			LOGS_ERR = true
+	if len(logs) == 0 && logsError == nil {
+		logs, logsError = GetLogLines(logspath)
+		if logsError != nil {
+			log.Printf("problem getting log lines from %s: %v\n", logspath, logsError)
 			return
 		}
-		LOGS = logs
 	}
 
-	for _, l := range LOGS {
+	for _, l := range logs {
 		if l.Transaction.Request.Headers.WafTesterID == t.ID {
 			//fmt.Println(l)
 			// Print a report.
