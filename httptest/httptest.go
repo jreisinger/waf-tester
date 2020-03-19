@@ -62,6 +62,7 @@ func (t *Test) Execute(scheme, host string) {
 		t.Err = err
 		return
 	}
+	// fmt.Printf("%#v\n", base)
 
 	u, err := url.Parse(t.Path)
 	if err != nil {
@@ -70,6 +71,7 @@ func (t *Test) Execute(scheme, host string) {
 	}
 
 	t.URL = base.ResolveReference(u).String()
+	// fmt.Printf("%#v\n", u)
 
 	data := strings.Join(t.Data, "")
 	req, err := http.NewRequest(t.Method, t.URL, strings.NewReader(data))
