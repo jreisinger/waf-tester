@@ -101,35 +101,40 @@ func (t *Test) Execute(scheme, host string) {
 
 // Evaluate sets overall TestStatus to OK|FAIL|ERR.
 func (t *Test) Evaluate(logspath string) {
-	switch {
-	case !t.Executed:
+	if !t.Executed {
 		return
-	case t.Err != nil:
+	}
+	// We want to show logs in verbose output (LOGS) if the test was Executed.
+	if logspath != "" {
+		t.AddLogs(logspath)
+	}
+	if t.Err != nil {
 		if t.ExpectError { // we were expecting an error
 			t.TestStatus = "OK"
 		} else {
 			t.TestStatus = "ERR"
 		}
 		return
-	case len(t.ExpectedStatusCodes) > 0 || t.LogContains != "" || t.LogContainsNot != "":
-		if t.LogContains != "" || t.LogContainsNot != "" {
-			t.EvaluateFromWafLogs(logspath)
-		}
-		// EvaluateFromResponseStatus has higher priority than EvaluateFromWaflogs.
-		// Thus it goes as second to overwrite possible TestStatus set by
-		// EvaluateFromWafLogs.
-		if len(t.ExpectedStatusCodes) > 0 {
-			t.EvaluateFromResponseStatus()
-		}
-	default:
+	}
+	if len(t.ExpectedStatusCodes) == 0 && t.LogContains == "" && t.LogContainsNot == "" {
 		t.Err = errors.New("no expected (EXP_) fields defined in test")
 		t.TestStatus = "ERR"
+		return
 	}
+	t.EvaluateFromWafLogs()
+	// EvaluateFromResponseStatus has higher priority than EvaluateFromWaflogs.
+	// Thus it goes as second to overwrite possible TestStatus set by
+	// EvaluateFromWafLogs.
+	t.EvaluateFromResponseStatus()
 }
 
 // EvaluateFromResponseStatus evaluates a test by comparing the actual HTTP
 // response status code with the expected one.
 func (t *Test) EvaluateFromResponseStatus() {
+	if len(t.ExpectedStatusCodes) == 0 {
+		return
+	}
+
 	if intInSlice(t.StatusCode, t.ExpectedStatusCodes) {
 		t.TestStatus = "OK"
 	} else {
@@ -139,11 +144,7 @@ func (t *Test) EvaluateFromResponseStatus() {
 
 // EvaluateFromWafLogs evaluates a test by searching expected string in the WAF
 // logs.
-func (t *Test) EvaluateFromWafLogs(logspath string) {
-	if logspath != "" {
-		t.AddLogs(logspath)
-	}
-
+func (t *Test) EvaluateFromWafLogs() {
 	// We have output.log_contains defined in the test.
 	if t.LogContains != "" {
 		re := regexp.MustCompile(`\d{6}`) // ex: id "941130"
