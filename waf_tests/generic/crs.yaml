@@ -1,0 +1,325 @@
+---
+  tests:
+    -
+      test_title: 911100-3
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              method: "HEAD"
+              port: 80
+              headers:
+                  User-Agent: "ModSecurity CRS 3 Tests"
+                  Host: "localhost"
+            output:
+              no_log_contains: "id \"911100\""
+              status: 200
+    -
+      # Standard GET request
+      test_title: 920100-1
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              method: "GET"
+              port: 80
+              headers:
+                  User-Agent: "ModSecurity CRS 3 Tests"
+                  Host: "localhost"
+              protocol: "http"
+              uri: "/"
+              version: "HTTP/1.1"
+            output:
+              no_log_contains: "id \"920100\""
+              status: 200
+    -
+      # Request has tab (\t) before request method - Apache complains
+      # AH00126: Invalid URI in request      GET / HTTP/1.1
+      test_title: 920100-2
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              method: "     GET"
+              port: 80
+              headers:
+                  User-Agent: "ModSecurity CRS 3 Tests"
+                  Host: "localhost"
+              protocol: "http"
+              uri: "/"
+              version: "HTTP/1.1"
+            output:
+              expect_error: true
+    -
+      # The colon in the path is not allowed. Apache will block by default
+      # (20024)The given path is misformatted or contained invalid characters: [client 127.0.0.1:4142] AH00127: Cannot map GET /index.html:80?I=Like&Apples=Today#tag HTTP/1.1 to file
+      test_title: 920100-8
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              method: "GET"
+              port: 80
+              headers:
+                  User-Agent: "ModSecurity CRS 3 Tests"
+                  Host: "localhost"
+              protocol: "http"
+              uri: "/index.html:80?I=Like&Apples=Today#tag"
+              version: "HTTP/1.1"
+            output:
+              status: [400,403,404] # nginx throws 404
+    -
+      # An invalid request because a backslash is used in uri
+      # Apache will end up blocking this before it gets to CRS.
+      # We will need to support OR output tests to fix this
+      test_title: 920100-11
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              port: 80
+              headers:
+                  User-Agent: "ModSecurity CRS 3 Tests # FN"
+                  Host: "localhost"
+              protocol: "http"
+              uri: "\\"
+              version: "HTTP/1.1"
+            output:
+              status: [403,404,400]
+              #log_contains: "id \"920100\""
+    -
+      test_title: 920100-12
+      desc: Invalid HTTP Request Line (920100) - Test 1 from old modsec regressions
+      stages:
+      -
+        stage:
+          input:
+            dest_addr: 127.0.0.1
+            headers:
+              Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+              Host: localhost
+              Keep-Alive: '300'
+              Proxy-Connection: keep-alive
+              User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv
+            method: "\tGET"
+            port: 80
+            uri: /
+            version: HTTP/1.1
+          output:
+            status: [0,400] # net/http: invalid method "\tGET"
+            expect_error: true
+    -
+      test_title: 920100-13
+      desc: Invalid HTTP Request Line (920100) - Test 2 from old modsec regressions
+      stages:
+      -
+        stage:
+          input:
+            dest_addr: 127.0.0.1
+            headers:
+              Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+              Host: localhost
+              Keep-Alive: '300'
+              Proxy-Connection: keep-alive
+              User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv
+            method: GET
+            port: 80
+            uri: \index.html
+            version: HTTP\1.0
+          output:
+             status: [403,404,400]
+                  #log_contains: id "920100"
+    -
+      test_title: 920100-14
+      desc: Invalid HTTP Request Line (920100) - Test 3 from old modsec regressions
+      stages:
+      -
+        stage:
+          input:
+            dest_addr: 127.0.0.1
+            headers:
+              Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+              Host: localhost
+              Keep-Alive: '300'
+              Proxy-Connection: keep-alive
+              User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv
+            method: '|GET'
+            port: 80
+            uri: /
+            version: HTTP/1.0
+          output:
+            log_contains: id "920100"
+            status: 400
+    -
+      test_title: 920100-15
+      desc: Test as described in http://www.client9.com/article/five-interesting-injection-attacks/
+      stages:
+      -
+        stage:
+          input:
+            dest_addr: 127.0.0.1
+            method: GET
+            port: 80
+            uri: '/demo/xss/xml/vuln.xml.php?input=<script xmlns="http://www.w3.org/1999/xhtml">setTimeout("top.frame2.location=\"javascript:(function () {var x = document.createElement(\\\"script\\\");x.src = \\\"//sdl.me/popup.js?//\\\";document.childNodes\[0\].appendChild(x);}());\"",1000)</script>&//'
+            headers:
+              User-Agent: ModSecurity CRS 3 Tests
+              Host: localhost
+          output:
+            status: [403,400]
+                  #log_contains: id "920100"
+    -
+      # Non digit Content-Length without content-type
+      test_title: 920160-1
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              method: "GET"
+              port: 80
+              headers:
+                  User-Agent: "ModSecurity CRS 3 Tests"
+                  Host: "localhost"
+                  Content-Length: "NotDigits"
+              protocol: "http"
+              uri: "/"
+            output:
+              status: 200
+    -
+      test_title: 920160-5
+      desc: Content-Length HTTP header is not numeric (920160)  from old modsec regressions
+      stages:
+      -
+        stage:
+          input:
+            dest_addr: 127.0.0.1
+            headers:
+              Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+              Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+              Accept-Language: en-us,en;q=0.5
+              Content-Length: "3;"
+              Content-Type: application/x-www-form-urlencoded
+              Host: localhost
+              Keep-Alive: '300'
+              Proxy-Connection: keep-alive
+              User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv
+            method: POST
+            port: 80
+            uri: /
+            version: HTTP/1.0
+            data: abc
+          output:
+                  status: [200,403,400,405]
+                  #log_contains: id "920160"
+    -
+      test_title: 920180-1
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              method: "POST"
+              port: 80
+              headers:
+                  User-Agent: "ModSecurity CRS 3 Tests"
+                  Host: "localhost"
+                  Content-Type: "application/x-www-form-urlencoded"
+              data: "hi=test"
+              protocol: "http"
+              stop_magic: true
+              uri: "/"
+            output:
+              status: [200, 405, 411]
+    -
+      test_title: 920200-12
+      desc: This should FAIL with rule 920202 (PL4)
+      stages:
+      -
+        stage:
+          input:
+            dest_addr: 127.0.0.1
+            headers:
+              Host: localhost
+              Range: "bytes=10-11, 20-21, 30-31, 40-41, 50-51, 60-61"
+              User-Agent: "ModSecurity CRS 3 Tests"
+            method: GET
+            port: 80
+            uri: /index.pdf
+          output:
+            log_contains: id "920202"
+            status: 404
+    -
+      # This will not trigger with Apache because Apache will block with AH00127
+      #(22)Invalid argument: [client 127.0.0.1:47427] AH00127: Cannot map GET /i%FFndex.html?test=test1 HTTP/1.1 to file. It will return a 404 instead so we accept either.
+      test_title: 920272-5
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              port: 80
+              uri: "/i%FFndex.html?test=test1"
+              headers:
+                  User-Agent: "ModSecurity CRS 3 Tests"
+                  Host: "localhost"
+            output:
+              status: [403, 404]
+    -
+      # Apache will just error on this and return 400
+      # as a result we look for forbidden or 400
+      # In the future FTW should support OR versus AND output
+      # https://github.com/CRS-support/ftw/issues/19
+      test_title: 920274-1
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              port: 80
+              uri: "/?test=test1"
+              headers:
+                  User-Agent: "ModSecurity CRS 3 Tests"
+                  Host: "localhost%1F"
+            output:
+                  status: [200,403,400]
+                  #log_contains: "id \"920274\""
+    -
+      test_title: 921140-1
+      desc: "HTTP Header Injection Attack via headers"
+      stages:
+        -
+          stage:
+            input:
+              dest_addr: "127.0.0.1"
+              method: "GET"
+              port: 80
+              headers:
+                  Host: "localhost"
+                  SomeHeader: "Headerdata\rInjectedHeader: response_splitting_code"
+              uri: "/"
+            output:
+              status: 400
+              no_log_contains: "id:921140"
+              expect_error: true
+    -
+      test_title: 942390-1
+      desc: "SQL Injection Attack"
+      stages:
+      -
+        stage:
+          input:
+            dest_addr: 127.0.0.1
+            headers:
+              Host: localhost
+            method: GET
+            port: 80
+            uri: "/?var=sdfsd%27or%201%20%3e%201"
+            version: HTTP/1.0
+          output:
+            log_contains: id "942390"
+            status: 403
