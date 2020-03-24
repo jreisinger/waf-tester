@@ -121,7 +121,7 @@ func (t *Test) Evaluate(logspath string) {
 		return
 	}
 	if t.LogContains != "" || t.LogContainsNot != "" {
-		if t.LogContains != "" && len(t.Logs) == 0 {
+		if len(t.Logs) == 0 {
 			t.Err = errors.New("can't evaluate test - no logs (LOGS)")
 			t.TestStatus = "ERR"
 			return
