@@ -7,6 +7,8 @@
 Test and install (to `~/go/bin/`):
 
 ```
+git clone git@github.com:jreisinger/waf-tester.git
+cd waf-tester
 make install
 ```
 
