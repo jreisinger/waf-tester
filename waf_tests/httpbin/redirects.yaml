@@ -1,0 +1,35 @@
+---
+tests:
+  - test_title: absolute-redirect-1
+    desc: Absolutely 302 Redirects 1 time
+    stages:
+      - stage:
+          input:
+            method: "GET"
+            uri: "/absolute-redirect/1"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 200
+  - test_title: absolute-redirect-5
+    desc: Absolutely 302 Redirects 5 times
+    stages:
+      - stage:
+          input:
+            method: "GET"
+            uri: "/absolute-redirect/5"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 200
+  - test_title: absolute-redirect-10
+    desc: Absolutely 302 Redirects 10 times
+    stages:
+      - stage:
+          input:
+            method: "GET"
+            uri: "/absolute-redirect/10"
+            headers:
+              Accept: "application/json"
+          output:
+            expect_error: yes # we probably hit the go lib limit

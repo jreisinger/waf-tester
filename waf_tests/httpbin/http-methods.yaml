@@ -1,0 +1,22 @@
+---
+tests:
+  - test_title: DELETE
+    stages:
+      - stage:
+          input:
+            method: "DELETE"
+            uri: "/delete"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 403
+  - test_title: GET
+    stages:
+      - stage:
+          input:
+            method: "GET"
+            uri: "/get"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 200
