@@ -11,13 +11,13 @@ tests:
               Accept: "application/json"
           output:
             status: 200
-  - test_title: absolute-redirect-5
-    desc: Absolutely 302 Redirects 5 times
+  - test_title: absolute-redirect-4
+    desc: Absolutely 302 Redirects 4 times
     stages:
       - stage:
           input:
             method: "GET"
-            uri: "/absolute-redirect/5"
+            uri: "/absolute-redirect/4"
             headers:
               Accept: "application/json"
           output:
