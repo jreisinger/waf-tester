@@ -1,6 +1,6 @@
 ## About
 
-`waf-tester` runs HTTP tests against a host protected by a Web Application Firewall (WAF). The tests are defined as YAML files based on [FTW format](https://github.com/CRS-support/ftw/blob/master/docs/YAMLFormat.md) - see the `waf_tests` folder for examples. The tests are evaluated by comparing the response code (higher priority) or WAF logs against with the expected values. See [this blog post](https://jreisinger.github.io/blog2/posts/working-with-waf-containers/) for more.
+`waf-tester` runs HTTP tests against a host protected by a Web Application Firewall (WAF). The tests are defined as YAML files based on [FTW format](https://github.com/CRS-support/ftw/blob/master/docs/YAMLFormat.md) - see the `waf_tests` folder for examples. The tests are evaluated by comparing the response code (higher priority) or WAF logs against the expected values. See [this blog post](https://jreisinger.github.io/blog2/posts/working-with-waf-containers/) for more.
 
 ## Installation
 
