@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
 
 	"github.com/jreisinger/waf-tester/httptest"
+	"github.com/jreisinger/waf-tester/yaml"
 )
 
 func init() {
@@ -18,6 +20,11 @@ func main() {
 	flags, err := ParseFlags()
 	if err != nil {
 		log.Fatalf("cannot parse flags: %v", err)
+	}
+
+	if flags.Template {
+		fmt.Print(yaml.Template())
+		os.Exit(0)
 	}
 
 	tests, err := httptest.GetTests(flags.TestsPath, flags.Title)

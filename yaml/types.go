@@ -1,12 +1,14 @@
 package yaml
 
+import yaml "gopkg.in/yaml.v2"
+
 // Some FTW YAML fields (like output.status) can be both an int or array of
 // ints. Adapted from
 // https://github.com/go-yaml/yaml/issues/100#issuecomment-324964723.
 
-type intArray []int
+type IntArray []int
 
-func (a *intArray) UnmarshalYAML(unmarshal func(interface{}) error) error {
+func (a *IntArray) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var multi []int
 	err := unmarshal(&multi)
 	if err != nil {
@@ -22,9 +24,9 @@ func (a *intArray) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	return nil
 }
 
-type stringArray []string
+type StringArray []string
 
-func (a *stringArray) UnmarshalYAML(unmarshal func(interface{}) error) error {
+func (a *StringArray) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var multi []string
 	err := unmarshal(&multi)
 	if err != nil {
@@ -40,28 +42,99 @@ func (a *stringArray) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	return nil
 }
 
-// Yaml represents a WAF test written in YAML format.
+// Yaml represents a WAF test written in YAML format. Test structure is
+// compatible with FTWYaml format -
+// https://github.com/coreruleset/ftw/blob/master/docs/YAMLFormat.md
 type Yaml struct {
-	Tests []struct {
-		Title  string `yaml:"test_title"`
-		Desc   string
-		File   string
-		Stages []struct {
-			Stage struct {
-				Input struct {
-					Headers map[string]string `json:"-"`
-					Method  string
-					URI     string
-					Data    stringArray
-				}
-				Output struct {
-					// can be both int or array of ints
-					Status         intArray
-					LogContains    string `yaml:"log_contains"`
-					LogContainsNot string `yaml:"no_log_contains"`
-					ExpectError    bool   `yaml:"expect_error"`
-				}
-			}
-		}
+	Tests []Test
+}
+
+// Test represents a WAF test.
+type Test struct {
+	Title  string `yaml:"test_title"`
+	Desc   string `yaml:",omitempty"`
+	File   string `yaml:",omitempty"`
+	Stages []StageWrapper
+}
+
+// StageWrapper is needed to be compatible with FTWYaml format.
+type StageWrapper struct {
+	Stage Stage
+}
+
+// Stage represents HTTP request and response.
+type Stage struct {
+	Input  Input
+	Output Output
+}
+
+// Input represents HTTP request.
+type Input struct {
+	Headers map[string]string `json:"-"`
+	Method  string
+	URI     string
+	// can be both string or array of strings
+	Data StringArray
+}
+
+// Output represents HTTP response.
+type Output struct {
+	// can be both int or array of ints
+	Status         IntArray
+	LogContains    string `yaml:"log_contains,omitempty"`
+	LogContainsNot string `yaml:"no_log_contains,omitempty"`
+	ExpectError    bool   `yaml:"expect_error,omitempty"`
+}
+
+// String implemets stringer interface. Can be used in fmt.Print functions.
+func (y Yaml) String() string {
+	out, err := yaml.Marshal(&y)
+	if err != nil {
+		return err.Error()
 	}
+	return string(out)
+}
+
+// Template prints a YAML template for the WAF tests.
+func Template() string {
+	return Yaml{
+		Tests: []Test{
+			{
+				Title: "SQLi",
+				Stages: []StageWrapper{
+					{Stage: Stage{
+						Input: Input{
+							Method:  "GET",
+							URI:     "?id=1'%20or%20'1'%20=%20'",
+							Headers: map[string]string{"User-Agent": "waf-tester"},
+						},
+						Output: Output{
+							Status: IntArray{403},
+						},
+					},
+					},
+				},
+			},
+			{
+				Title: "LFI",
+				Stages: []StageWrapper{
+					{Stage: Stage{
+						Input: Input{
+							Method: "POST",
+							URI:    "/",
+							Headers: map[string]string{
+								"User-Agent":   "waf-tester",
+								"Content-Type": "application/x-www-form-urlencoded",
+							},
+							Data: StringArray{"arg=../../../etc/passwd&foo=var"},
+						},
+						Output: Output{
+							Status: IntArray{403},
+						},
+					},
+					},
+				},
+			},
+		},
+	}.String()
 }
