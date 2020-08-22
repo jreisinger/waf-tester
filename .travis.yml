@@ -1,0 +1,34 @@
+language: go
+
+go:
+  - 1.15.x
+
+git:
+  depth: false
+  quiet: true
+  submodules: false
+
+branches:
+  only:
+    - master
+
+env:
+  - VERSION="0.$TRAVIS_BUILD_NUMBER"
+
+script:
+  - "make test"
+  - "VERSION=$VERSION make release"
+
+before_deploy:
+  - git config --local user.name "jreisinger"
+  - git config --local user.email "jozef.reisinger@gmail.com"
+  - git tag $VERSION
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file:
+    - "releases/waf-tester_linux_amd64.tar.gz"
+    - "releases/waf-tester_linux_arm.tar.gz"
+    - "releases/waf-tester_darwin_amd64.tar.gz"
+  skip_cleanup: true
