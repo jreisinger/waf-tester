@@ -100,6 +100,9 @@ func parseLogs(r io.Reader) (logs []LogLine, err error) {
 			logs = append(logs, log)
 		}
 	}
+	if input.Err() != nil {
+		err = input.Err()
+	}
 	return
 }
 
