@@ -6,16 +6,15 @@ test:
 install: test
 	go install -ldflags "-X main.Version=${VERSION}"
 
-PLATFORMS := linux/amd64 darwin/amd64 linux/arm
-
 build: test
 	go build
 
-temp = $(subst /, ,$@)
-os = $(word 1, $(temp))
-arch = $(word 2, $(temp))
-
-release: test $(PLATFORMS)
-
-$(PLATFORMS):
-	GO111MODULE=on GOOS=$(os) GOARCH=$(arch) go build -o 'waf-tester-$(os)-$(arch)'
+release:
+	docker build --build-arg version=${VERSION} -t waf-tester-releases -f Releases.Dockerfile .
+	docker create -ti --name waf-tester-releases waf-tester-releases sh
+	test -d releases || mkdir releases
+	docker cp waf-tester-releases:/releases/waf-tester_linux_amd64.tar.gz releases/
+	docker cp waf-tester-releases:/releases/waf-tester_linux_arm.tar.gz releases/
+	docker cp waf-tester-releases:/releases/waf-tester_darwin_amd64.tar.gz releases/
+	docker rm waf-tester-releases
+	docker rmi waf-tester-releases
