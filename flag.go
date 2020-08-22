@@ -33,7 +33,7 @@ func ParseFlags() (Flags, error) {
 	Report := f.Bool("report", false, "print overall report about tests")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
-	RPS := f.Int("rps", 0, "requests per second (sets workers to 1)")
+	RPS := f.Int("rps", 0, "requests per second (for rate limiting WAFs)")
 
 	err := f.Parse(os.Args[1:])
 	if err != nil {
