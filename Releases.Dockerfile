@@ -1,10 +1,11 @@
-ARG VERSION=dev
 FROM golang:1.15
 
 WORKDIR /src
 COPY . .
 RUN go test -race -cover ./...
+
 RUN mkdir /releases
+ARG VERSION=dev
 
 RUN GOOS=linux GOARCH=amd64 go build -ldflags "-X main.Version=$VERSION" -o /releases/waf-tester
 RUN tar -czvf /releases/waf-tester_linux_amd64.tar.gz -C /releases/ waf-tester
