@@ -15,6 +15,7 @@ type Flags struct {
 	Title     string
 	Report    bool
 	Template  bool
+	Version   bool
 }
 
 func ParseFlags() (Flags, error) {
@@ -28,6 +29,7 @@ func ParseFlags() (Flags, error) {
 	Title := f.String("title", "", "execute only test with this title")
 	Report := f.Bool("report", false, "print overall report about tests")
 	Template := f.Bool("template", false, "print tests template and exit")
+	Version := f.Bool("version", false, "version")
 
 	err := f.Parse(os.Args[1:])
 	if err != nil {
@@ -43,6 +45,7 @@ func ParseFlags() (Flags, error) {
 		Title:     stringValue(Title),
 		Report:    boolValue(Report),
 		Template:  boolValue(Template),
+		Version:   boolValue(Version),
 	}
 
 	err = flags.validate()
@@ -50,11 +53,13 @@ func ParseFlags() (Flags, error) {
 }
 
 func (f Flags) validate() error {
-	if (!f.Template) && f.Host == "" {
-		return errors.New("host cannot be empty")
-	}
-	if (!f.Template) && f.TestsPath == "" {
-		return errors.New("tests cannot be empty")
+	if !f.Template && !f.Version {
+		if f.Host == "" {
+			return errors.New("host cannot be empty")
+		}
+		if f.TestsPath == "" {
+			return errors.New("tests cannot be empty")
+		}
 	}
 	return nil
 }

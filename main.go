@@ -16,10 +16,18 @@ func init() {
 	log.SetFlags(0) // no timestamp
 }
 
+// Version is the default version.
+var Version = "dev"
+
 func main() {
 	flags, err := ParseFlags()
 	if err != nil {
 		log.Fatalf("cannot parse flags: %v", err)
+	}
+
+	if flags.Version {
+		fmt.Println(Version)
+		os.Exit(0)
 	}
 
 	if flags.Template {
