@@ -1,10 +1,15 @@
+VSERSION ?= dev
+
 test:
-	GO111MODULE=on go test ./...
+	go clean -testcache && go test -race -cover ./...
 
 install: test
-	GO111MODULE=on go install
+	go install -ldflags "-X main.Version=${VERSION}"
 
 PLATFORMS := linux/amd64 darwin/amd64 linux/arm
+
+build: test
+	go build
 
 temp = $(subst /, ,$@)
 os = $(word 1, $(temp))
