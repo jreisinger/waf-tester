@@ -14,7 +14,7 @@ import (
 )
 
 // GetTests returns the list of available tests.
-func GetTests(path string, title string) ([]Test, error) {
+func GetTests(path string, title string, logspath string) ([]Test, error) {
 	var tests []Test
 
 	// Check path with tests exists.
@@ -37,6 +37,11 @@ func GetTests(path string, title string) ([]Test, error) {
 				LogContains:         test.Stages[0].Stage.Output.LogContains,
 				LogContainsNot:      test.Stages[0].Stage.Output.LogContainsNot,
 				ExpectError:         test.Stages[0].Stage.Output.ExpectError,
+			}
+
+			// Skip tests that can't be evaluated.
+			if logspath == "" && len(t.ExpectedStatusCodes) == 0 {
+				continue
 			}
 
 			// Skip tests not selected by -title CLI flag.
