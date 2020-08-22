@@ -61,7 +61,9 @@ func main() {
 	// Could be supplied as a flag but we don't want too many flags.
 	workers := len(tests) / 100
 
-	if flags.RPS != 0 {
+	// We want to limit the number of requests (e.g. we are dealing with a rate
+	// limiting WAF) or we have less than 100 tests (then workers is 0).
+	if flags.RPS != 0 || workers == 0 {
 		workers = 1
 	}
 
