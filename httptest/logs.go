@@ -13,10 +13,6 @@ import (
 	"strings"
 )
 
-// Parse log file only once.
-var logs []LogLine
-var logsError error
-
 func foundInLogs(t *Test, id string) bool {
 	for _, l := range t.Logs {
 		for _, m := range l.Transaction.Messages {
@@ -31,13 +27,10 @@ func foundInLogs(t *Test, id string) bool {
 // AddLogs adds related logs to a Test.
 func (t *Test) AddLogs(logspath string) {
 
-	// Parse log file only once.
-	if len(logs) == 0 && logsError == nil {
-		logs, logsError = GetLogLines(logspath)
-		if logsError != nil {
-			log.Printf("problem getting log lines from %s: %v\n", logspath, logsError)
-			return
-		}
+	logs, logsError := GetLogLines(logspath)
+	if logsError != nil {
+		log.Printf("problem getting log lines from %s: %v\n", logspath, logsError)
+		return
 	}
 
 	for _, l := range logs {

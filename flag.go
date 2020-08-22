@@ -17,6 +17,7 @@ type Flags struct {
 	Report    bool
 	Template  bool
 	Version   bool
+	RPS       int
 }
 
 // ParseFlags validates the flags and parses them into Flags.
@@ -32,6 +33,7 @@ func ParseFlags() (Flags, error) {
 	Report := f.Bool("report", false, "print overall report about tests")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
+	RPS := f.Int("rps", 0, "requests per second (sets workers to 1)")
 
 	err := f.Parse(os.Args[1:])
 	if err != nil {
@@ -48,6 +50,7 @@ func ParseFlags() (Flags, error) {
 		Report:    boolValue(Report),
 		Template:  boolValue(Template),
 		Version:   boolValue(Version),
+		RPS:       intValue(RPS),
 	}
 
 	err = flags.validate()
@@ -76,6 +79,13 @@ func stringValue(v *string) string {
 func boolValue(v *bool) bool {
 	if !*v {
 		return false
+	}
+	return *v
+}
+
+func intValue(v *int) int {
+	if *v == 0 {
+		return 0
 	}
 	return *v
 }

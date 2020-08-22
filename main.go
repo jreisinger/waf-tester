@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/jreisinger/waf-tester/httptest"
@@ -40,26 +41,57 @@ func main() {
 		log.Fatalf("cannot get tests: %v", err)
 	}
 
-	for i := range tests {
-		test := &tests[i]
-		test.Execute(flags.Scheme, flags.Host)
+	testsToExecute := make(chan *httptest.Test)
+
+	var wg sync.WaitGroup
+
+	// Send the tests to execute down the channel.
+	wg.Add(1)
+	go func() {
+		for i := range tests {
+			test := &tests[i]
+			testsToExecute <- test
+		}
+		close(testsToExecute)
+		wg.Done()
+	}()
+
+	executedTests := make(chan *httptest.Test)
+
+	// Could be supplied as a flag but we don't want too many flags.
+	workers := len(tests) / 100
+
+	if flags.RPS != 0 {
+		workers = 1
 	}
 
-	// Let's wait a bit so the logs get written.
-	if flags.LogsPath != "" {
-		time.Sleep(2 * time.Second)
+	// Get the tests to execute from the channel. Send the executed ones down
+	// another channel. Start workers goroutines to execute the tests.
+	for i := 0; i < workers; i++ {
+		wg.Add(1)
+		cnt := 0
+		go func() {
+			for t := range testsToExecute {
+				t.Execute(flags.Scheme, flags.Host)
+				executedTests <- t
+				cnt = cnt + 1
+				if flags.RPS != 0 && cnt == flags.RPS {
+					time.Sleep(1 * time.Second)
+					cnt = 0
+				}
+			}
+			wg.Done()
+		}()
 	}
 
-	// Evaluate the tests. This has to be done some time after the tests are
-	// executed so it's possible to evaluate the logs.
-	for i := range tests {
-		test := &tests[i]
+	go func() {
+		wg.Wait()
+		close(executedTests)
+	}()
+
+	// Evaluate and print the tests.
+	for test := range executedTests {
 		test.Evaluate(flags.LogsPath)
-	}
-
-	// Print the results of the tests.
-	for i := range tests {
-		test := tests[i]
 		if flags.Verbose {
 			test.PrintVerbose()
 		} else {
