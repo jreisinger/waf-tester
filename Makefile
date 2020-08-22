@@ -1,4 +1,4 @@
-VSERSION ?= dev
+VERSION ?= dev
 
 test:
 	go clean -testcache && go test -race -cover ./...
@@ -7,7 +7,7 @@ install: test
 	go install -ldflags "-X main.Version=${VERSION}"
 
 build: test
-	go build
+	go build -ldflags "-X main.Version=${VERSION}"
 
 release:
 	docker build --build-arg version=${VERSION} -t waf-tester-releases -f Releases.Dockerfile .
