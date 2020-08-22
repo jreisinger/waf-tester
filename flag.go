@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// Flags are all the available CLI flags (options).
 type Flags struct {
 	Verbose   bool
 	TestsPath string
@@ -18,6 +19,7 @@ type Flags struct {
 	Version   bool
 }
 
+// ParseFlags validates the flags and parses them into Flags.
 func ParseFlags() (Flags, error) {
 	f := flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
 
