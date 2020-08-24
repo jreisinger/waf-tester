@@ -15,10 +15,13 @@ Run some WAF tests against localhost:
 ```
 # Generate and run tests.
 waf-tester -template > tests.yaml
-waf-tester -tests tests.yaml -host localhost -scheme http
+waf-tester -host localhost -scheme http -tests tests.yaml 
 
-# Run all tests found in waf_tests folder. Evaluate the tests using also logs. Print overall report.
-waf-tester -host localhost -scheme http -tests waf_tests/ -logs /tmp/var/log/modsec_audit.log -report
+# Run all tests found in waf_tests folder. Print overall report.
+waf-tester -host localhost -scheme http -tests waf_tests/ -report
+
+# Evaluate also tests using only logs. NOTE: -logs is experimental and somehow slow.
+waf-tester -host localhost -scheme http -tests waf_tests/ -logs /tmp/var/log/modsec_audit.log
 ```
 
 Consider using [waf-runner](https://github.com/jreisinger/waf-runner) to run a WAF on localhost.
