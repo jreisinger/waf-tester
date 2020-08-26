@@ -1,0 +1,54 @@
+---
+tests:
+  - test_title: DELETE method
+    stages:
+      - stage:
+          input:
+            method: "DELETE"
+            uri: "/delete"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 403
+  - test_title: GET method
+    stages:
+      - stage:
+          input:
+            method: "GET"
+            uri: "/get"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 200
+  - test_title: PATCH method
+    desc: PATCH method is blocked by default CRS configuration
+    stages:
+      - stage:
+          input:
+            method: "PATCH"
+            uri: "/patch"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 403
+  - test_title: POST method
+    stages:
+      - stage:
+          input:
+            method: "POST"
+            uri: "/post"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 200
+  - test_title: PUT method
+    desc: PUT method is blocked by default CRS configuration
+    stages:
+      - stage:
+          input:
+            method: "PUT"
+            uri: "/put"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 403
