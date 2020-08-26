@@ -1,0 +1,26 @@
+
+---
+tests:
+  - test_title: HTTP basic auth
+    desc: good credentials
+    stages:
+      - stage:
+          input:
+            method: "GET"
+            uri: "basic-auth/undefined/undefined"
+            headers:
+              Accept: "application/json"
+          output:
+            status: 401
+  - test_title: HTTP basic auth
+    desc: wrong credentials
+    stages:
+      - stage:
+          input:
+            method: "GET"
+            uri: "basic-auth/user/passwd"
+            headers:
+              Accept: "application/json"
+              Authorization: "Basic dXNlcjpwYXNzd2Q='"
+          output:
+            status: 200
