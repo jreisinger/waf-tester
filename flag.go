@@ -28,7 +28,7 @@ func ParseFlags() (Flags, error) {
 	TestsPath := f.String("tests", "", "directory or file containing tests")
 	Scheme := f.String("scheme", "https", "http or https scheme")
 	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
-	LogsPath := f.String("logs", "", "filename or API URL with logs to evaluate (modsec_audit.log or https://loki.example.com)")
+	LogsPath := f.String("logs", "", "[EXPERIMENTAL] filename or API URL with logs to evaluate (modsec_audit.log or https://loki.example.com)")
 	Title := f.String("title", "", "execute only test with this title")
 	Report := f.Bool("report", false, "print overall report about tests")
 	Template := f.Bool("template", false, "print tests template and exit")
