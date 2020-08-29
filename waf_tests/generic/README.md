@@ -1,0 +1,1 @@
+All tests in this folder should be OK for any WAF (ModSecurity, Naxsi, ...).
