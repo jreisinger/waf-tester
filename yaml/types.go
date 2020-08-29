@@ -129,7 +129,8 @@ func Template() string {
 							Data: StringArray{"arg=../../../etc/passwd&foo=var"},
 						},
 						Output: Output{
-							Status: IntArray{403},
+							Status:      IntArray{403},
+							LogContains: "930100",
 						},
 					},
 					},
