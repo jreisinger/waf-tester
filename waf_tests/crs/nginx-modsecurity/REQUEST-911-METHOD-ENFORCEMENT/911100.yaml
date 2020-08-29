@@ -32,7 +32,6 @@
                   Host: "localhost"
             output:
               no_log_contains: "id \"911100\""
-              status: 405
     -
       test_title: 911100-3
       stages:
