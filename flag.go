@@ -39,7 +39,7 @@ EXAMPLE
 waf-tester -template > tests.yaml
 waf-tester -host localhost -scheme http -tests tests.yaml 
 
-Options:
+OPTIONS
 
 `
 
