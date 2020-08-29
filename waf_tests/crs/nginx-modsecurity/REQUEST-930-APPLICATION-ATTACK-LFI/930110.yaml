@@ -49,6 +49,7 @@
               port: 80
               headers:
                   Host: "localhost"
+                  Content-Type: "application/x-www-form-urlencoded"
               uri: "/"
               data: "arg=../../../etc/passwd&foo=var"
             output:
