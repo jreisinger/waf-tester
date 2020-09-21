@@ -101,7 +101,7 @@ func Template() string {
 		Tests: []Test{
 			{
 				Title: "SQLi",
-				Desc:  "Expected HTTP response status is 403.",
+				Desc:  "This test expects HTTP response status is 403.",
 				Stages: []StageWrapper{
 					{Stage: Stage{
 						Input: Input{
@@ -132,6 +132,23 @@ func Template() string {
 						},
 						Output: Output{
 							LogContains: "930100",
+						},
+					},
+					},
+				},
+			},
+			{
+				Title: "RCE",
+				Desc:  "If both 'status' and 'log_contains' are defined only status is evaluated.",
+				Stages: []StageWrapper{
+					{Stage: Stage{
+						Input: Input{
+							Method: "GET",
+							URI:    "/?exec=/bin/bash",
+						},
+						Output: Output{
+							Status:      IntArray{403},
+							LogContains: "932160",
 						},
 					},
 					},
