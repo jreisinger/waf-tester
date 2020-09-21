@@ -74,7 +74,7 @@ func main() {
 		cnt := 0
 		go func() {
 			for t := range testsToExecute {
-				t.Execute(flags.Scheme, flags.Host)
+				t.Execute(flags.URL)
 				executedTests <- t
 				cnt = cnt + 1
 				if flags.RPS != 0 && cnt == flags.RPS {

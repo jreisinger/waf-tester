@@ -59,10 +59,10 @@ func GetTests(path string, title string, logspath string) ([]Test, error) {
 }
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
-func (t *Test) Execute(scheme, host string) {
+func (t *Test) Execute(URL string) {
 	t.Executed = true
 
-	base, err := url.Parse(scheme + "://" + host + "/")
+	base, err := url.Parse(URL)
 	if err != nil {
 		t.Err = err
 		return
@@ -85,7 +85,7 @@ func (t *Test) Execute(scheme, host string) {
 		return
 	}
 
-	t.fixHostHeader(host)
+	t.fixHostHeader(base.Host)
 
 	for k, v := range t.Headers {
 		req.Header.Set(k, v)

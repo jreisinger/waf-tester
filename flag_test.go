@@ -7,7 +7,7 @@ import (
 
 func TestParseFlags(t *testing.T) {
 	rollback := setFlags([]string{"command",
-		"-host", "example.com",
+		"-url", "https://example.com",
 		"-tests", "tests",
 	})
 	defer func() { rollback() }()
@@ -17,14 +17,11 @@ func TestParseFlags(t *testing.T) {
 		t.Errorf("unexpected error: %v", err)
 	}
 
-	if flags.Host != "example.com" {
-		t.Errorf("host: want example.com, got %s", flags.Host)
+	if flags.URL != "https://example.com" {
+		t.Errorf("host: want https://example.com, got %s", flags.URL)
 	}
 	if flags.TestsPath != "tests" {
 		t.Errorf("tests: want tests, got %s", flags.TestsPath)
-	}
-	if flags.Scheme != "https" {
-		t.Errorf("scheme: want https, got %s", flags.Scheme)
 	}
 	if flags.Verbose {
 		t.Errorf("verbose: want false, got %t", flags.Verbose)

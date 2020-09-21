@@ -12,8 +12,7 @@ type Flags struct {
 	Verbose   bool
 	TestsPath string
 	LogsPath  string
-	Scheme    string
-	Host      string
+	URL       string
 	Title     string
 	Report    bool
 	Template  bool
@@ -37,7 +36,7 @@ EXAMPLE
 
 # Generate and run tests.
 waf-tester -template > tests.yaml
-waf-tester -host localhost -scheme http -tests tests.yaml 
+waf-tester -url http://localhost -tests tests.yaml 
 
 OPTIONS
 
@@ -47,9 +46,8 @@ OPTIONS
 func ParseFlags() (Flags, error) {
 	f := flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
 
-	Host := f.String("host", "", "FQDN or IP address of the host to test")
+	URL := f.String("url", "", "URL to test (e.g. https://example.com)")
 	TestsPath := f.String("tests", "", "directory or file containing tests")
-	Scheme := f.String("scheme", "https", "http or https scheme")
 	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
 	LogsPath := f.String("logs", "", `[EXPERIMENTAL] filename or API URL with logs to evaluate 
 (modsec_audit.log or https://loki.example.com)`)
@@ -70,9 +68,8 @@ func ParseFlags() (Flags, error) {
 	}
 
 	flags := Flags{
-		Host:      stringValue(Host),
+		URL:       stringValue(URL),
 		TestsPath: stringValue(TestsPath),
-		Scheme:    stringValue(Scheme),
 		Verbose:   boolValue(Verbose),
 		LogsPath:  stringValue(LogsPath),
 		Title:     stringValue(Title),
@@ -88,8 +85,8 @@ func ParseFlags() (Flags, error) {
 
 func (f Flags) validate() error {
 	if !f.Template && !f.Version {
-		if f.Host == "" {
-			return errors.New("host cannot be empty")
+		if f.URL == "" {
+			return errors.New("URL cannot be empty")
 		}
 		if f.TestsPath == "" {
 			return errors.New("tests cannot be empty")
