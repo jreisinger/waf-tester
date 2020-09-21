@@ -101,6 +101,7 @@ func Template() string {
 		Tests: []Test{
 			{
 				Title: "SQLi",
+				Desc:  "Expected HTTP response status is 403.",
 				Stages: []StageWrapper{
 					{Stage: Stage{
 						Input: Input{
@@ -117,6 +118,7 @@ func Template() string {
 			},
 			{
 				Title: "LFI",
+				Desc:  "Logs are expected to contain string 930100. If -logs is not used this test will be skipped.",
 				Stages: []StageWrapper{
 					{Stage: Stage{
 						Input: Input{
@@ -129,7 +131,6 @@ func Template() string {
 							Data: StringArray{"arg=../../../etc/passwd&foo=var"},
 						},
 						Output: Output{
-							Status:      IntArray{403},
 							LogContains: "930100",
 						},
 					},

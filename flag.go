@@ -22,21 +22,15 @@ type Flags struct {
 
 const usage = `ABOUT
 
-waf-tester runs tests against a host protected by a Web Application Firewall
+waf-tester runs tests against a URL protected by a Web Application Firewall
 (WAF). The tests are HTTP requests defined in YAML format. Use '-template' to
 see how they look like.
-
-The tests are evaluated by comparing the HTTP response status (like 403) or
-WAF logs against the expected values defined in tests ('status',
-'log_contains'). If both 'status' and 'log_contains' are defined in a test
-only status is evaluated. If '-logs' is not used tests containing only
-'log_contains' are skipped.
 
 EXAMPLE
 
 # Generate and run tests.
 waf-tester -template > tests.yaml
-waf-tester -url http://localhost -tests tests.yaml 
+waf-tester -url http://localhost -tests tests.yaml
 
 OPTIONS
 
@@ -49,7 +43,7 @@ func ParseFlags() (Flags, error) {
 	URL := f.String("url", "", "URL to test (e.g. https://example.com)")
 	TestsPath := f.String("tests", "", "directory or file containing tests")
 	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
-	LogsPath := f.String("logs", "", `[EXPERIMENTAL] filename or API URL with logs to evaluate 
+	LogsPath := f.String("logs", "", `[EXPERIMENTAL] filename or API URL with logs to evaluate
 (modsec_audit.log or https://loki.example.com)`)
 	Title := f.String("title", "", "execute only test with this title")
 	Report := f.Bool("report", false, "print overall report about tests")

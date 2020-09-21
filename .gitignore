@@ -3,3 +3,4 @@ waf-tester-darwin-amd64
 waf-tester-linux-amd64
 waf-tester-linux-arm
 releases
+tests.yaml
