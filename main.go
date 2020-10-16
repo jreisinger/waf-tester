@@ -94,6 +94,11 @@ func main() {
 	// Evaluate and print the tests.
 	for test := range executedTests {
 		test.Evaluate(flags.LogsPath)
+
+		if flags.Status != "" && test.TestStatus != flags.Status {
+			continue
+		}
+
 		if flags.Verbose {
 			test.PrintVerbose()
 		} else {

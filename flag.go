@@ -18,6 +18,7 @@ type Flags struct {
 	Template  bool
 	Version   bool
 	RPS       int
+	Status    string
 }
 
 const usage = `ABOUT
@@ -50,6 +51,7 @@ func ParseFlags() (Flags, error) {
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
 	RPS := f.Int("rps", 0, "maximum number of requests per second (for rate limiting WAFs)")
+	Status := f.String("status", "", "show only tests with given status (FAIL, OK, ERR)")
 
 	f.Usage = func() {
 		fmt.Fprint(flag.CommandLine.Output(), usage)
@@ -71,6 +73,7 @@ func ParseFlags() (Flags, error) {
 		Template:  boolValue(Template),
 		Version:   boolValue(Version),
 		RPS:       intValue(RPS),
+		Status:    stringValue(Status),
 	}
 
 	err = flags.validate()
@@ -85,6 +88,10 @@ func (f Flags) validate() error {
 		if f.TestsPath == "" {
 			return errors.New("tests cannot be empty")
 		}
+	}
+	if f.Status != "" &&
+		!(f.Status == "FAIL" || f.Status == "OK" || f.Status == "ERR") {
+		return errors.New("status must be FAIL, OK or ERR")
 	}
 	return nil
 }
