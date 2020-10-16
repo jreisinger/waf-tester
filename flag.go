@@ -41,17 +41,16 @@ OPTIONS
 func ParseFlags() (Flags, error) {
 	f := flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
 
-	URL := f.String("url", "", "URL to test (e.g. https://example.com)")
-	TestsPath := f.String("tests", "", "directory or file containing tests")
+	URL := f.String("url", "", "`URL` to test (e.g. https://example.com)")
+	TestsPath := f.String("tests", "", "`DIR|FILE` containing tests")
 	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
-	LogsPath := f.String("logs", "", `[EXPERIMENTAL] filename or API URL with logs to evaluate
-(modsec_audit.log or https://loki.example.com)`)
-	Title := f.String("title", "", "execute only test with this title")
+	LogsPath := f.String("logs", "", "[EXPERIMENTAL] evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
+	Title := f.String("title", "", "execute only test with `TITLE`")
 	Report := f.Bool("report", false, "print overall report about tests")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
-	RPS := f.Int("rps", 0, "maximum number of requests per second (for rate limiting WAFs)")
-	Status := f.String("status", "", "show only tests with given status (FAIL, OK, ERR)")
+	RPS := f.Int("rps", 0, "maximum number of requests per second (e.g. for rate limiting WAFs)")
+	Status := f.String("status", "", "show only tests with status `FAIL|OK|ERR`")
 
 	f.Usage = func() {
 		fmt.Fprint(flag.CommandLine.Output(), usage)
