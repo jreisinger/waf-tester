@@ -40,7 +40,7 @@ OPTIONS
 func ParseFlags() (Flags, error) {
 	f := flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
 
-	URL := f.String("url", "", "`URL` to test (e.g. https://example.com)")
+	URL := f.String("url", "http://localhost", "`URL` to test")
 	TestsPath := f.String("tests", "", "`DIR|FILE` containing tests")
 	Verbose := f.Bool("verbose", false, "print more info about tests")
 	LogsPath := f.String("logs", "", "evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
@@ -78,9 +78,6 @@ func ParseFlags() (Flags, error) {
 
 func (f Flags) validate() error {
 	if !f.Template && !f.Version {
-		if f.URL == "" {
-			return errors.New("URL cannot be empty")
-		}
 		if f.TestsPath == "" {
 			return errors.New("tests cannot be empty")
 		}
