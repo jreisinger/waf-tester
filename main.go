@@ -94,7 +94,7 @@ func main() {
 
 	var doneTests httptest.Tests
 
-	// Wait for all tests to finish so we can parse logs if needed.
+	// Wait for all tests to finish so we can evaluate logs if needed.
 	bar := progressbar.Default(int64(len(tests)), "Running tests")
 	for i := range executedTests {
 		bar.Add(1)
@@ -109,15 +109,14 @@ func main() {
 	for _, test := range doneTests {
 		test.Evaluate(flags.LogsPath)
 
-		if flags.Status != "" && test.TestStatus != flags.Status {
+		if test.TestStatus != flags.Print {
 			continue
 		}
 
 		if flags.Verbose {
-			test.Print()
-		}
-		if flags.Verbose2 {
 			test.PrintVerbose()
+		} else {
+			test.Print()
 		}
 	}
 

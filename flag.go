@@ -10,7 +10,6 @@ import (
 // Flags are all the available CLI flags (options).
 type Flags struct {
 	Verbose   bool
-	Verbose2  bool
 	TestsPath string
 	LogsPath  string
 	URL       string
@@ -18,7 +17,7 @@ type Flags struct {
 	Template  bool
 	Version   bool
 	RPS       int
-	Status    string
+	Print     string
 }
 
 const usage = `ABOUT
@@ -43,14 +42,13 @@ func ParseFlags() (Flags, error) {
 
 	URL := f.String("url", "", "`URL` to test (e.g. https://example.com)")
 	TestsPath := f.String("tests", "", "`DIR|FILE` containing tests")
-	Verbose := f.Bool("v", false, "print info about individual tests")
-	Verbose2 := f.Bool("vv", false, "print more info about individual tests")
-	LogsPath := f.String("logs", "", "[EXPERIMENTAL] evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
+	Verbose := f.Bool("verbose", false, "print more info about tests")
+	LogsPath := f.String("logs", "", "evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
 	Title := f.String("title", "", "execute only test with `TITLE`")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
-	RPS := f.Int("rps", 0, "maximum number of requests per second (e.g. for rate limiting WAFs)")
-	Status := f.String("status", "", "show only tests with status `FAIL|OK|ERR`")
+	RPS := f.Int("rps", 0, "maximum number of requests (tests) per second (e.g. for rate limiting WAFs)")
+	Print := f.String("print", "", "print info about tests with status `FAIL|OK|ERR`")
 
 	f.Usage = func() {
 		fmt.Fprint(flag.CommandLine.Output(), usage)
@@ -66,13 +64,12 @@ func ParseFlags() (Flags, error) {
 		URL:       stringValue(URL),
 		TestsPath: stringValue(TestsPath),
 		Verbose:   boolValue(Verbose),
-		Verbose2:  boolValue(Verbose2),
 		LogsPath:  stringValue(LogsPath),
 		Title:     stringValue(Title),
 		Template:  boolValue(Template),
 		Version:   boolValue(Version),
 		RPS:       intValue(RPS),
-		Status:    stringValue(Status),
+		Print:     stringValue(Print),
 	}
 
 	err = flags.validate()
@@ -88,8 +85,8 @@ func (f Flags) validate() error {
 			return errors.New("tests cannot be empty")
 		}
 	}
-	if f.Status != "" &&
-		!(f.Status == "FAIL" || f.Status == "OK" || f.Status == "ERR") {
+	if f.Print != "" &&
+		!(f.Print == "FAIL" || f.Print == "OK" || f.Print == "ERR") {
 		return errors.New("status must be FAIL, OK or ERR")
 	}
 	return nil
