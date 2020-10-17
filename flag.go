@@ -30,7 +30,7 @@ EXAMPLE
 
 # Generate and run tests.
 waf-tester -template > tests.yaml
-waf-tester -url http://localhost -tests tests.yaml
+waf-tester -tests tests.yaml
 
 OPTIONS
 
