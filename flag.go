@@ -47,7 +47,7 @@ func ParseFlags() (Flags, error) {
 	Title := f.String("title", "", "execute only test with `TITLE`")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
-	RPS := f.Int("rps", 0, "maximum number of requests (tests) per second (e.g. for rate limiting WAFs)")
+	RPS := f.Int("rps", 100, "maximum number of requests (tests) per second")
 	Print := f.String("print", "", "print info about tests with status `FAIL|OK|ERR`")
 
 	f.Usage = func() {
@@ -85,6 +85,9 @@ func (f Flags) validate() error {
 	if f.Print != "" &&
 		!(f.Print == "FAIL" || f.Print == "OK" || f.Print == "ERR") {
 		return errors.New("status must be FAIL, OK or ERR")
+	}
+	if f.RPS < 1 {
+		return errors.New("rps must be > 1")
 	}
 	return nil
 }

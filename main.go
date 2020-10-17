@@ -37,7 +37,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	tests, err := httptest.GetTests(flags.TestsPath, flags.Title, flags.LogsPath)
+	testsToExecute, err := httptest.GetTests(flags.TestsPath, flags.Title, flags.LogsPath)
 	if err != nil {
 		log.Fatalf("cannot get tests: %v", err)
 	}
@@ -51,38 +51,44 @@ func main() {
 	go func() {
 		defer close(testsToExecuteCh)
 		defer wg.Done()
-		for i := range tests {
-			test := &tests[i]
+		for i := range testsToExecute {
+			test := &testsToExecute[i]
 			testsToExecuteCh <- test
 		}
 	}()
 
 	testsExecutedCh := make(chan *httptest.Test)
 
-	// Could be supplied as a flag but we don't want too many flags.
-	workers := len(tests) / 100
-
-	// We want to limit the number of requests (e.g. we are dealing with a rate
-	// limiting WAF) or we have less than 100 tests (then workers is 0).
-	if flags.RPS != 0 || workers == 0 {
-		workers = 1
+	// Limit the number of requests (tests) per second.
+	rate := make(chan bool, flags.RPS)
+	for i := 0; i < cap(rate); i++ {
+		rate <- true
 	}
+	// Leaky bucket.
+	go func() {
+		ticker := time.NewTicker(time.Duration(1000/flags.RPS) * time.Millisecond)
+		defer ticker.Stop()
+		for range ticker.C {
+			_, ok := <-rate
+			// If this isn't going to run indefinitely, signal
+			// this to return by closing the rate channel.
+			if !ok {
+				return
+			}
+		}
+	}()
 
 	// Get the tests to execute from the channel. Send the executed ones down
-	// another channel. Start workers goroutines to execute the tests.
-	for i := 0; i < workers; i++ {
+	// another channel. Spawn twice as many workers as the number of tests to
+	// execute.
+	for i := 0; i < len(testsToExecute)*2; i++ {
 		wg.Add(1)
-		cnt := 0
 		go func() {
 			defer wg.Done()
 			for t := range testsToExecuteCh {
+				rate <- true
 				t.Execute(flags.URL)
 				testsExecutedCh <- t
-				cnt = cnt + 1
-				if flags.RPS != 0 && cnt == flags.RPS {
-					time.Sleep(1 * time.Second)
-					cnt = 0
-				}
 			}
 		}()
 	}
@@ -90,23 +96,24 @@ func main() {
 	go func() {
 		wg.Wait()
 		close(testsExecutedCh)
+		close(rate)
 	}()
 
-	var doneTests httptest.Tests
+	var testsExecuted httptest.Tests
 
 	// Wait for all tests to finish so we can evaluate logs if needed.
-	bar := progressbar.Default(int64(len(tests)), "Running tests")
+	bar := progressbar.Default(int64(len(testsToExecute)), "Running tests")
 	for i := range testsExecutedCh {
 		bar.Add(1)
-		doneTests = append(doneTests, i)
+		testsExecuted = append(testsExecuted, i)
 	}
 
 	if flags.LogsPath != "" {
-		doneTests.AddLogs(flags.LogsPath)
+		testsExecuted.AddLogs(flags.LogsPath)
 	}
 
 	// Evaluate and print the tests.
-	for _, test := range doneTests {
+	for _, test := range testsExecuted {
 		test.Evaluate(flags.LogsPath)
 
 		if !flags.Verbose && flags.Print == "" {
@@ -120,5 +127,5 @@ func main() {
 		}
 	}
 
-	httptest.PrintReport(tests)
+	httptest.PrintReport(testsToExecute)
 }
