@@ -109,10 +109,6 @@ func (t *Test) Evaluate(logspath string) {
 	if !t.Executed {
 		return
 	}
-	// We want to show logs in verbose output (LOGS) if the test was Executed.
-	if logspath != "" {
-		t.AddLogs(logspath)
-	}
 	if t.Err != nil {
 		if t.ExpectError { // we were expecting an error
 			t.TestStatus = "OK"

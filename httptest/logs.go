@@ -24,8 +24,10 @@ func foundInLogs(t *Test, id string) bool {
 	return false
 }
 
+type Tests []*Test
+
 // AddLogs adds related logs to a Test.
-func (t *Test) AddLogs(logspath string) {
+func (ts *Tests) AddLogs(logspath string) {
 
 	logs, logsError := GetLogLines(logspath)
 	if logsError != nil {
@@ -33,11 +35,13 @@ func (t *Test) AddLogs(logspath string) {
 		return
 	}
 
-	for _, l := range logs {
-		if l.Transaction.Request.Headers.WafTesterID == t.ID {
-			//fmt.Println(l)
-			// Print a report.
-			t.Logs = append(t.Logs, l)
+	for _, t := range *ts {
+		for _, l := range logs {
+			if l.Transaction.Request.Headers.WafTesterID == t.ID {
+				//fmt.Println(l)
+				// Print a report.
+				t.Logs = append(t.Logs, l)
+			}
 		}
 	}
 }
