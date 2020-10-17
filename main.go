@@ -42,22 +42,22 @@ func main() {
 		log.Fatalf("cannot get tests: %v", err)
 	}
 
-	testsToExecute := make(chan *httptest.Test)
+	testsToExecuteCh := make(chan *httptest.Test)
 
 	var wg sync.WaitGroup
 
 	// Send the tests to execute down the channel.
 	wg.Add(1)
 	go func() {
+		defer close(testsToExecuteCh)
+		defer wg.Done()
 		for i := range tests {
 			test := &tests[i]
-			testsToExecute <- test
+			testsToExecuteCh <- test
 		}
-		close(testsToExecute)
-		wg.Done()
 	}()
 
-	executedTests := make(chan *httptest.Test)
+	testsExecutedCh := make(chan *httptest.Test)
 
 	// Could be supplied as a flag but we don't want too many flags.
 	workers := len(tests) / 100
@@ -74,29 +74,29 @@ func main() {
 		wg.Add(1)
 		cnt := 0
 		go func() {
-			for t := range testsToExecute {
+			defer wg.Done()
+			for t := range testsToExecuteCh {
 				t.Execute(flags.URL)
-				executedTests <- t
+				testsExecutedCh <- t
 				cnt = cnt + 1
 				if flags.RPS != 0 && cnt == flags.RPS {
 					time.Sleep(1 * time.Second)
 					cnt = 0
 				}
 			}
-			wg.Done()
 		}()
 	}
 
 	go func() {
 		wg.Wait()
-		close(executedTests)
+		close(testsExecutedCh)
 	}()
 
 	var doneTests httptest.Tests
 
 	// Wait for all tests to finish so we can evaluate logs if needed.
 	bar := progressbar.Default(int64(len(tests)), "Running tests")
-	for i := range executedTests {
+	for i := range testsExecutedCh {
 		bar.Add(1)
 		doneTests = append(doneTests, i)
 	}
