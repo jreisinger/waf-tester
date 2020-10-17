@@ -19,10 +19,7 @@ Run some WAF tests against localhost:
 waf-tester -template > tests.yaml
 waf-tester -url http://localhost -tests tests.yaml
 
-# Run all tests found in waf_tests folder. Print overall report.
-waf-tester -url http://localhost -tests waf_tests/ -report
-
-# Evaluate also tests using only 'log_contains'. NOTE: -logs is experimental and somehow slow.
+# Evaluate also logs. NOTE: -logs is kind of experimental.
 waf-tester -url http://localhost -tests waf_tests/ -logs /tmp/var/log/modsec_audit.log
 ```
 
@@ -46,3 +43,5 @@ Check test coverage:
 go test -coverprofile cover.out ./...
 go tool cover -html=cover.out
 ```
+
+If the code is slow [profile](https://blog.golang.org/pprof) it.
