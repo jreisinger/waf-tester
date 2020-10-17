@@ -9,6 +9,7 @@ import (
 
 	"github.com/jreisinger/waf-tester/httptest"
 	"github.com/jreisinger/waf-tester/yaml"
+	"github.com/schollz/progressbar/v3"
 )
 
 func init() {
@@ -94,7 +95,9 @@ func main() {
 	var doneTests httptest.Tests
 
 	// Wait for all tests to finish so we can parse logs if needed.
+	bar := progressbar.Default(int64(len(tests)), "Running tests")
 	for i := range executedTests {
+		bar.Add(1)
 		doneTests = append(doneTests, i)
 	}
 
