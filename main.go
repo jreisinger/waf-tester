@@ -21,14 +21,6 @@ func init() {
 var Version = "dev"
 
 func main() {
-	// Profiling.
-	// f, err := os.Create("waf-tester.prof")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// pprof.StartCPUProfile(f)
-	// defer pprof.StopCPUProfile()
-
 	flags, err := ParseFlags()
 	if err != nil {
 		log.Fatalf("cannot parse flags: %v", err)
@@ -99,13 +91,13 @@ func main() {
 		close(executedTests)
 	}()
 
-	// Wait for all tests to finish.
 	var doneTests httptest.Tests
+
+	// Wait for all tests to finish so we can parse logs if needed.
 	for i := range executedTests {
 		doneTests = append(doneTests, i)
 	}
 
-	// We want to show logs in verbose output (LOGS) if the test was Executed.
 	if flags.LogsPath != "" {
 		doneTests.AddLogs(flags.LogsPath)
 	}
