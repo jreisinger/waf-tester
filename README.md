@@ -19,7 +19,7 @@ Run some WAF tests against localhost:
 waf-tester -template > tests.yaml
 waf-tester -url http://localhost -tests tests.yaml
 
-# Evaluate also logs. NOTE: -logs is kind of experimental.
+# Run tests from waf_tests folder and evaluate also logs (NOTE: -logs is kind of experimental).
 waf-tester -url http://localhost -tests waf_tests/ -logs /tmp/var/log/modsec_audit.log
 ```
 
