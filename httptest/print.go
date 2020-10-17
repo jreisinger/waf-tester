@@ -30,11 +30,11 @@ var report = template.Must(template.New("report").
 	Parse(templ))
 
 // PrintVerbose prints lot of information about a Test.
-func (t *Test) PrintVerbose() {
-	if !t.Executed {
+func (t *Test) PrintVerbose(flagPrint string) {
+	if !t.Executed || (flagPrint != "" && t.TestStatus != flagPrint) {
 		return
 	}
-	t.Print()
+	t.Print(flagPrint)
 	fmt.Printf(vformat, "DESC", t.Desc)
 	fmt.Printf(vformat, "FILE", t.File)
 	fmt.Printf(vformat, "STATUS", t.Status)
@@ -75,8 +75,8 @@ func setTestStatusColor(testStatus string) string {
 }
 
 // Print prints basic information about a Test.
-func (t *Test) Print() {
-	if !t.Executed {
+func (t *Test) Print(flagPrint string) {
+	if !t.Executed || (flagPrint != "" && t.TestStatus != flagPrint) {
 		return
 	}
 

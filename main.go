@@ -109,14 +109,14 @@ func main() {
 	for _, test := range doneTests {
 		test.Evaluate(flags.LogsPath)
 
-		if test.TestStatus != flags.Print {
+		if !flags.Verbose && flags.Print == "" {
 			continue
 		}
 
 		if flags.Verbose {
-			test.PrintVerbose()
+			test.PrintVerbose(flags.Print)
 		} else {
-			test.Print()
+			test.Print(flags.Print)
 		}
 	}
 
