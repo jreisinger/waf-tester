@@ -10,11 +10,11 @@ import (
 // Flags are all the available CLI flags (options).
 type Flags struct {
 	Verbose   bool
+	Verbose2  bool
 	TestsPath string
 	LogsPath  string
 	URL       string
 	Title     string
-	Report    bool
 	Template  bool
 	Version   bool
 	RPS       int
@@ -43,10 +43,10 @@ func ParseFlags() (Flags, error) {
 
 	URL := f.String("url", "", "`URL` to test (e.g. https://example.com)")
 	TestsPath := f.String("tests", "", "`DIR|FILE` containing tests")
-	Verbose := f.Bool("verbose", false, "be verbose about individual tests")
+	Verbose := f.Bool("v", false, "print info about individual tests")
+	Verbose2 := f.Bool("vv", false, "print more info about individual tests")
 	LogsPath := f.String("logs", "", "[EXPERIMENTAL] evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
 	Title := f.String("title", "", "execute only test with `TITLE`")
-	Report := f.Bool("report", false, "print overall report about tests")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
 	RPS := f.Int("rps", 0, "maximum number of requests per second (e.g. for rate limiting WAFs)")
@@ -66,9 +66,9 @@ func ParseFlags() (Flags, error) {
 		URL:       stringValue(URL),
 		TestsPath: stringValue(TestsPath),
 		Verbose:   boolValue(Verbose),
+		Verbose2:  boolValue(Verbose2),
 		LogsPath:  stringValue(LogsPath),
 		Title:     stringValue(Title),
-		Report:    boolValue(Report),
 		Template:  boolValue(Template),
 		Version:   boolValue(Version),
 		RPS:       intValue(RPS),

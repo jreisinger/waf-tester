@@ -111,13 +111,12 @@ func main() {
 		}
 
 		if flags.Verbose {
-			test.PrintVerbose()
-		} else {
 			test.Print()
+		}
+		if flags.Verbose2 {
+			test.PrintVerbose()
 		}
 	}
 
-	if flags.Report {
-		httptest.PrintReport(tests)
-	}
+	httptest.PrintReport(tests)
 }
