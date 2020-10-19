@@ -60,7 +60,7 @@ func GetTests(path string, title string, logspath string) ([]Test, error) {
 	return tests, nil
 }
 
-var client = &http.Client{Timeout: time.Second * 10}
+var client = &http.Client{Timeout: time.Second * 60}
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(URL string) {

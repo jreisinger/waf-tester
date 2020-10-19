@@ -78,6 +78,9 @@ func main() {
 		}
 	}()
 
+	// Limit concurrency of requests.
+	conc := make(chan bool, 30)
+
 	// Get the tests to execute from the channel. Send the executed ones down
 	// another channel. Spawn twice as many workers as the number of tests to
 	// execute.
@@ -85,11 +88,13 @@ func main() {
 		wg.Add(1)
 		go func(rps chan bool) {
 			defer wg.Done()
+			conc <- true
 			for t := range testsToExecuteCh {
 				rps <- true
 				t.Execute(flags.URL)
 				testsExecutedCh <- t
 			}
+			<-conc
 		}(rps)
 	}
 
