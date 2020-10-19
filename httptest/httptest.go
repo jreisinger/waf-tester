@@ -3,6 +3,8 @@ package httptest
 
 import (
 	"errors"
+	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -58,6 +60,8 @@ func GetTests(path string, title string, logspath string) ([]Test, error) {
 	return tests, nil
 }
 
+var client = &http.Client{Timeout: time.Second * 10}
+
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).
 func (t *Test) Execute(URL string) {
 	t.Executed = true
@@ -91,11 +95,14 @@ func (t *Test) Execute(URL string) {
 		req.Header.Set(k, v)
 	}
 
-	client := &http.Client{Timeout: time.Second * 5}
-
 	resp, err := client.Do(req)
 	if err != nil {
 		t.Err = err
+		return
+	}
+
+	_, err = io.Copy(ioutil.Discard, resp.Body)
+	if err != nil {
 		return
 	}
 	defer resp.Body.Close()
