@@ -16,9 +16,10 @@ type Flags struct {
 	Title       string
 	Template    bool
 	Version     bool
-	Rate        int
 	Print       string
+	Rate        int
 	Concurrency int
+	Timeout     int
 }
 
 const usage = `ABOUT
@@ -48,9 +49,10 @@ func ParseFlags() (Flags, error) {
 	Title := f.String("title", "", "execute only test with `TITLE`")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
-	Rate := f.Int("rate", 100, "maximum number of HTTP requests per second")
 	Print := f.String("print", "", "print info about tests with status `FAIL|OK|ERR`")
-	Concurrency := f.Int("conc", 10, "maximum number of concurrent HTTP requests")
+	Rate := f.Int("rate", 200, "maximum number of HTTP requests per second")
+	Concurrency := f.Int("conc", 20, "maximum number of concurrent HTTP requests")
+	Timeout := f.Int("timeout", 10, "timeout in seconds for HTTP requests, 0 means no timeout")
 
 	f.Usage = func() {
 		fmt.Fprint(flag.CommandLine.Output(), usage)
@@ -70,9 +72,10 @@ func ParseFlags() (Flags, error) {
 		Title:       stringValue(Title),
 		Template:    boolValue(Template),
 		Version:     boolValue(Version),
-		Rate:        intValue(Rate),
 		Print:       stringValue(Print),
+		Rate:        intValue(Rate),
 		Concurrency: intValue(Concurrency),
+		Timeout:     intValue(Timeout),
 	}
 
 	err = flags.validate()
@@ -94,6 +97,9 @@ func (f Flags) validate() error {
 	}
 	if f.Concurrency < 1 {
 		return errors.New("conc must be > 1")
+	}
+	if f.Timeout < 0 {
+		return errors.New("timeout must be > 0")
 	}
 	return nil
 }

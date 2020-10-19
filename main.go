@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"sync"
 	"time"
@@ -89,9 +90,10 @@ func main() {
 		go func(rate chan bool) {
 			defer wg.Done()
 			conc <- true
+			client := &http.Client{Timeout: time.Second * time.Duration(flags.Timeout)}
 			for t := range testsToExecuteCh {
 				rate <- true
-				t.Execute(flags.URL)
+				t.Execute(flags.URL, client)
 				testsExecutedCh <- t
 			}
 			<-conc
