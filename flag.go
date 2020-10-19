@@ -9,15 +9,16 @@ import (
 
 // Flags are all the available CLI flags (options).
 type Flags struct {
-	Verbose   bool
-	TestsPath string
-	LogsPath  string
-	URL       string
-	Title     string
-	Template  bool
-	Version   bool
-	RPS       int
-	Print     string
+	Verbose     bool
+	TestsPath   string
+	LogsPath    string
+	URL         string
+	Title       string
+	Template    bool
+	Version     bool
+	RPS         int
+	Print       string
+	Concurrency int
 }
 
 const usage = `ABOUT
@@ -47,8 +48,9 @@ func ParseFlags() (Flags, error) {
 	Title := f.String("title", "", "execute only test with `TITLE`")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
-	RPS := f.Int("rps", 100, "maximum number of requests (tests) per second")
+	RPS := f.Int("rps", 100, "maximum number of requests per second")
 	Print := f.String("print", "", "print info about tests with status `FAIL|OK|ERR`")
+	Concurrency := f.Int("conc", 10, "maximum number of concurrent requests")
 
 	f.Usage = func() {
 		fmt.Fprint(flag.CommandLine.Output(), usage)
@@ -61,15 +63,16 @@ func ParseFlags() (Flags, error) {
 	}
 
 	flags := Flags{
-		URL:       stringValue(URL),
-		TestsPath: stringValue(TestsPath),
-		Verbose:   boolValue(Verbose),
-		LogsPath:  stringValue(LogsPath),
-		Title:     stringValue(Title),
-		Template:  boolValue(Template),
-		Version:   boolValue(Version),
-		RPS:       intValue(RPS),
-		Print:     stringValue(Print),
+		URL:         stringValue(URL),
+		TestsPath:   stringValue(TestsPath),
+		Verbose:     boolValue(Verbose),
+		LogsPath:    stringValue(LogsPath),
+		Title:       stringValue(Title),
+		Template:    boolValue(Template),
+		Version:     boolValue(Version),
+		RPS:         intValue(RPS),
+		Print:       stringValue(Print),
+		Concurrency: intValue(Concurrency),
 	}
 
 	err = flags.validate()
@@ -88,6 +91,9 @@ func (f Flags) validate() error {
 	}
 	if f.RPS < 1 {
 		return errors.New("rps must be > 1")
+	}
+	if f.Concurrency < 1 {
+		return errors.New("conc must be > 1")
 	}
 	return nil
 }

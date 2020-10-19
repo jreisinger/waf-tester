@@ -79,7 +79,7 @@ func main() {
 	}()
 
 	// Limit concurrency of requests.
-	conc := make(chan bool, 30)
+	conc := make(chan bool, flags.Concurrency)
 
 	// Get the tests to execute from the channel. Send the executed ones down
 	// another channel. Spawn twice as many workers as the number of tests to
