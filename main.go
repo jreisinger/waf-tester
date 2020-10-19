@@ -60,16 +60,16 @@ func main() {
 	testsExecutedCh := make(chan *httptest.Test)
 
 	// Limit the number of requests (tests) per second.
-	rps := make(chan bool, flags.RPS)
-	for i := 0; i < cap(rps); i++ {
-		rps <- true
+	rate := make(chan bool, flags.Rate)
+	for i := 0; i < cap(rate); i++ {
+		rate <- true
 	}
 	// Leaky bucket.
 	go func() {
-		ticker := time.NewTicker(time.Duration(1000/flags.RPS) * time.Millisecond)
+		ticker := time.NewTicker(time.Duration(1000/flags.Rate) * time.Millisecond)
 		defer ticker.Stop()
 		for range ticker.C {
-			_, ok := <-rps
+			_, ok := <-rate
 			// If this isn't going to run indefinitely, signal
 			// this to return by closing the rate channel.
 			if !ok {
@@ -86,22 +86,22 @@ func main() {
 	// execute.
 	for i := 0; i < len(testsToExecute)*2; i++ {
 		wg.Add(1)
-		go func(rps chan bool) {
+		go func(rate chan bool) {
 			defer wg.Done()
 			conc <- true
 			for t := range testsToExecuteCh {
-				rps <- true
+				rate <- true
 				t.Execute(flags.URL)
 				testsExecutedCh <- t
 			}
 			<-conc
-		}(rps)
+		}(rate)
 	}
 
 	go func() {
 		wg.Wait()
 		close(testsExecutedCh)
-		close(rps)
+		close(rate)
 	}()
 
 	var testsExecuted httptest.Tests
