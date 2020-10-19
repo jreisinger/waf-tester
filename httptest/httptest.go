@@ -98,11 +98,15 @@ func (t *Test) Execute(URL string, client *http.Client) {
 		return
 	}
 
+	defer resp.Body.Close()
+
+	// Avoid connections in TIME_WAIT state. See
+	// http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/
+	// for more.
 	_, err = io.Copy(ioutil.Discard, resp.Body)
 	if err != nil {
 		return
 	}
-	defer resp.Body.Close()
 
 	t.StatusCode = resp.StatusCode
 	t.Status = resp.Status
