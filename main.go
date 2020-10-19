@@ -109,7 +109,7 @@ func main() {
 	var testsExecuted httptest.Tests
 
 	// Wait for all tests to finish so we can evaluate logs if needed.
-	bar := progressbar.Default(int64(len(testsToExecute)), "Running tests")
+	bar := progressbar.Default(int64(len(testsToExecute)), "Executing tests")
 	for i := range testsExecutedCh {
 		bar.Add(1)
 		testsExecuted = append(testsExecuted, i)
