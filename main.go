@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"sync"
 	"time"
@@ -82,6 +81,8 @@ func main() {
 	// Limit concurrency of requests.
 	conc := make(chan bool, flags.Concurrency)
 
+	client := httptest.NewHTTPClient(time.Second * time.Duration(flags.Timeout))
+
 	// Get the tests to execute from the channel. Send the executed ones down
 	// another channel. Spawn twice as many workers as the number of tests to
 	// execute.
@@ -90,7 +91,6 @@ func main() {
 		go func(rate chan bool) {
 			defer wg.Done()
 			conc <- true
-			client := &http.Client{Timeout: time.Second * time.Duration(flags.Timeout)}
 			for t := range testsToExecuteCh {
 				rate <- true
 				t.Execute(flags.URL, client)

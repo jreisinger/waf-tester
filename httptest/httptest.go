@@ -10,9 +10,17 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/jreisinger/waf-tester/yaml"
 )
+
+// NewHTTPClient creates an HTTP client. Clients and Transports are safe for
+// concurrent use by multiple goroutines and for efficiency should only be
+// created once and re-used. See https://golang.org/pkg/net/http/ for more.
+func NewHTTPClient(timeout time.Duration) *http.Client {
+	return &http.Client{Timeout: timeout}
+}
 
 // GetTests returns the list of available tests.
 func GetTests(path string, title string, logspath string) ([]Test, error) {
