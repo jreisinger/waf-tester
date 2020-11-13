@@ -37,7 +37,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	testsToExecute, err := httptest.GetTests(flags.TestsPath, flags.Execute, flags.LogsPath)
+	testsToExecute, err := httptest.GetTests(flags.TestsPath, flags.Execute, flags.NoExecute, flags.LogsPath)
 	if err != nil {
 		log.Fatalf("cannot get tests: %v", err)
 	}

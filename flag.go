@@ -14,6 +14,7 @@ type Flags struct {
 	LogsPath    string
 	URL         string
 	Execute     string
+	NoExecute   string
 	Template    bool
 	Version     bool
 	Print       string
@@ -47,6 +48,7 @@ func ParseFlags() (Flags, error) {
 	Verbose := f.Bool("verbose", false, "print more info about tests")
 	LogsPath := f.String("logs", "", "evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
 	Execute := f.String("exec", "", "execute only tests with `TITLE|TAG`")
+	NoExecute := f.String("noexec", "", "don't execute tests with `TITLE|TAG`")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
 	Print := f.String("print", "", "print info about tests with status `FAIL|OK|ERR`")
@@ -70,6 +72,7 @@ func ParseFlags() (Flags, error) {
 		Verbose:     boolValue(Verbose),
 		LogsPath:    stringValue(LogsPath),
 		Execute:     stringValue(Execute),
+		NoExecute:   stringValue(NoExecute),
 		Template:    boolValue(Template),
 		Version:     boolValue(Version),
 		Print:       stringValue(Print),
