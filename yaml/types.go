@@ -103,6 +103,7 @@ func Template() string {
 			{
 				Title: "SQLi",
 				Desc:  "This test expects HTTP response status is 403.",
+				Tags:  []string{"sqli", "get"},
 				Stages: []StageWrapper{
 					{Stage: Stage{
 						Input: Input{
@@ -120,6 +121,7 @@ func Template() string {
 			{
 				Title: "LFI",
 				Desc:  "Logs are expected to contain string 930100. If -logs is not used this test will be skipped.",
+				Tags:  []string{"lfi", "post"},
 				Stages: []StageWrapper{
 					{Stage: Stage{
 						Input: Input{
@@ -141,6 +143,7 @@ func Template() string {
 			{
 				Title: "RCE",
 				Desc:  "If both 'status' and 'log_contains' are defined only status is evaluated.",
+				Tags:  []string{"rce", "get"},
 				Stages: []StageWrapper{
 					{Stage: Stage{
 						Input: Input{
