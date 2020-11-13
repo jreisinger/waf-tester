@@ -7,6 +7,7 @@ type Test struct {
 	ID                  string
 	Title               string
 	Desc                string
+	Tags                []string
 	File                string
 	Method              string
 	Scheme              string

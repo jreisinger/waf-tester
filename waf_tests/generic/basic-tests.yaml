@@ -1,6 +1,9 @@
 ---
 tests:
   - test_title: RCE
+    tags:
+      - basic
+      - RCE
     stages:
       - stage:
           input:

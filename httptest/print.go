@@ -36,6 +36,7 @@ func (t *Test) PrintVerbose(flagPrint string) {
 	}
 	t.Print(flagPrint)
 	fmt.Printf(vformat, "DESC", t.Desc)
+	fmt.Printf(vformat, "TAGS", t.Tags)
 	fmt.Printf(vformat, "FILE", t.File)
 	fmt.Printf(vformat, "STATUS", t.Status)
 	fmt.Printf(vformat, "CODE", t.StatusCode)

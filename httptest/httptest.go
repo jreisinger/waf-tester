@@ -37,6 +37,7 @@ func GetTests(path string, title string, logspath string) ([]Test, error) {
 			t := &Test{
 				Title:               test.Title,
 				Desc:                test.Desc,
+				Tags:                test.Tags,
 				File:                test.File,
 				Method:              test.Stages[0].Stage.Input.Method,
 				Path:                test.Stages[0].Stage.Input.URI,
@@ -54,7 +55,7 @@ func GetTests(path string, title string, logspath string) ([]Test, error) {
 			}
 
 			// Skip tests not selected by -title CLI flag.
-			if title != "" && t.Title != title {
+			if title != "" && (t.Title != title && !stringInSlice(title, t.Tags)) {
 				continue
 			}
 

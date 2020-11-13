@@ -51,9 +51,10 @@ type Yaml struct {
 
 // Test represents a WAF test.
 type Test struct {
-	Title  string `yaml:"test_title"`
-	Desc   string `yaml:",omitempty"`
-	File   string `yaml:",omitempty"`
+	Title  string   `yaml:"test_title"`
+	Desc   string   `yaml:",omitempty"`
+	File   string   `yaml:",omitempty"`
+	Tags   []string `yaml:",omitempty"`
 	Stages []StageWrapper
 }
 
