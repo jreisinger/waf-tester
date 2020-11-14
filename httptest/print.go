@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	format  = "%-4v\t%-20v %-9v %v\n"
+	format  = "%v %v %v %v %v\n"
 	vformat = "  %-10v %v\n"
 )
 
@@ -39,7 +39,6 @@ func (t *Test) PrintVerbose(flagPrint string) {
 	}
 	t.Print(flagPrint)
 	fmt.Printf(vformat, "DESC", t.Desc)
-	fmt.Printf(vformat, "TAGS", t.Tags)
 	fmt.Printf(vformat, "FILE", t.File)
 	fmt.Printf(vformat, "STATUS", t.Status)
 	fmt.Printf(vformat, "CODE", t.StatusCode)
@@ -86,7 +85,7 @@ func (t *Test) Print(flagPrint string) {
 
 	testStatus := setTestStatusColor(t.TestStatus)
 
-	fmt.Printf(format, testStatus, t.Title, t.Method, t.URL)
+	fmt.Printf(format, testStatus, t.Title, t.Tags, t.Method, t.URL)
 }
 
 // PrintReport prints report about tests.
