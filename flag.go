@@ -58,7 +58,7 @@ func ParseFlags() (Flags, error) {
 	var NoExecute arrayFlags
 
 	URL := f.String("url", "http://localhost", "`URL` to test")
-	TestsPath := f.String("tests", "", "`DIR|FILE` containing tests")
+	TestsPath := f.String("tests", "waf_tests", "`DIR|FILE` containing tests")
 	Verbose := f.Bool("verbose", false, "print more info about tests")
 	LogsPath := f.String("logs", "", "evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
 	f.Var(&Execute, "exec", "execute only tests with `TITLE|TAG`")
