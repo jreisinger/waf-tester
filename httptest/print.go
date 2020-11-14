@@ -19,11 +19,13 @@ var (
 // Template for the report that is printed out.
 //
 
-const templ = `    {{.Transaction.TimeStamp}}
+const templ = `    {{.Transaction.TimeStamp}} | {{.Transaction.Producer.Modsecurity}} | {{.Transaction.Producer.Connector}} | {{.Transaction.Producer.Components}}
     --> {{.Transaction.ClientIP}}:{{.Transaction.ClientPort}} {{.Transaction.Request.Method}} {{.Transaction.Request.Headers.Host}} {{.Transaction.Request.Uri}}
     <-- {{.Transaction.HostIP}}:{{.Transaction.HostPort}} {{.Transaction.Response.HttpCode}}
-    {{.Transaction.Producer.Modsecurity}} | {{.Transaction.Producer.Connector}} | {{.Transaction.Producer.Components}}
-{{range .Transaction.Messages}}    {{.Details.RuleId}} | {{.Message}}
+{{range .Transaction.Messages}}    {{.Message}}
+      {{.Details.RuleId}} {{.Details.File}}
+      {{.Details.Match}}
+      {{.Details.Tags}}
 {{end}}`
 
 var report = template.Must(template.New("report").

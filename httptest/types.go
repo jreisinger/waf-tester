@@ -79,6 +79,8 @@ type Details struct {
 	File       string
 	LineNumber string
 	Data       string
+	Match      string
+	Tags       []string
 }
 
 func baseName(path string) string {
