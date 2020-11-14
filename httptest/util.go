@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"fmt"
 	"log"
+	"strings"
 )
 
 // https://yourbasic.org/golang/generate-uuid-guid/
@@ -47,12 +48,18 @@ func stringInSlice(s string, slice []string) bool {
 	return false
 }
 
-func (t *Test) addCustomHeader() {
+func (t *Test) addCustomHeaders(header []string) {
 	t.ID = genUUID()
 	if t.Headers == nil {
 		t.Headers = make(map[string]string)
 	}
 	t.Headers["waf-tester-id"] = t.ID
+
+	for _, h := range header {
+		parts := strings.Split(h, ":")
+		k, v := parts[0], parts[1]
+		t.Headers[k] = v
+	}
 }
 
 func (t *Test) fixHostHeader(host string) {

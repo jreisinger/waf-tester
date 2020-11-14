@@ -23,7 +23,7 @@ func NewHTTPClient(timeout time.Duration) *http.Client {
 }
 
 // GetTests returns the list of available tests.
-func GetTests(path string, exec, noexec []string, logspath string) ([]Test, error) {
+func GetTests(path string, exec, noexec, header []string, logspath string) ([]Test, error) {
 	var tests []Test
 
 	// Check path with tests exists.
@@ -64,7 +64,7 @@ func GetTests(path string, exec, noexec []string, logspath string) ([]Test, erro
 				continue
 			}
 
-			t.addCustomHeader()
+			t.addCustomHeaders(header)
 
 			tests = append(tests, *t)
 		}
