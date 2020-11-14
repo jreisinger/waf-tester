@@ -23,7 +23,7 @@ const templ = `    {{.Transaction.TimeStamp}}
     --> {{.Transaction.ClientIP}}:{{.Transaction.ClientPort}} {{.Transaction.Request.Method}} {{.Transaction.Request.Headers.Host}} {{.Transaction.Request.Uri}}
     <-- {{.Transaction.HostIP}}:{{.Transaction.HostPort}} {{.Transaction.Response.HttpCode}}
     {{.Transaction.Producer.Modsecurity}} | {{.Transaction.Producer.Connector}} | {{.Transaction.Producer.Components}}
-{{range .Transaction.Messages}}      {{.Details.RuleId}}|{{.Message}}
+{{range .Transaction.Messages}}    {{.Details.RuleId}} | {{.Message}}
 {{end}}`
 
 var report = template.Must(template.New("report").
@@ -42,8 +42,8 @@ func (t *Test) PrintVerbose(flagPrint string) {
 	fmt.Printf(vformat, "STATUS", t.Status)
 	fmt.Printf(vformat, "CODE", t.StatusCode)
 	fmt.Printf(vformat, "EXP_CODES", t.ExpectedStatusCodes)
-	fmt.Printf(vformat, "EXP_LOGS", t.LogContains)
-	fmt.Printf(vformat, "EXP_NOLOGS", t.LogContainsNot)
+	fmt.Printf(vformat, "EXP_LOG", t.LogContains)
+	fmt.Printf(vformat, "EXP_NOLOG", t.LogContainsNot)
 	fmt.Printf(vformat, "EXP_ERR", t.ExpectError)
 	fmt.Printf(vformat, "ERROR", t.Err)
 	fmt.Printf(vformat, "DATA", t.Data)
@@ -51,7 +51,7 @@ func (t *Test) PrintVerbose(flagPrint string) {
 	for k, v := range t.Headers {
 		fmt.Printf("    %s: %v\n", k, v)
 	}
-	fmt.Printf(vformat, "LOGS", "")
+	fmt.Printf(vformat, "LOG", "")
 	for _, l := range t.Logs {
 		if err := report.Execute(os.Stdout, l); err != nil {
 			log.Fatal(err)

@@ -145,7 +145,7 @@ func (t *Test) Evaluate(logspath string) {
 	}
 	if t.LogContains != "" || t.LogContainsNot != "" {
 		if logspath == "" {
-			t.Err = errors.New("can't evaluate test - no logfile supplied (LOGS)")
+			t.Err = errors.New("can't evaluate test - no logfile supplied (LOG)")
 			t.TestStatus = "ERR"
 			return
 		}
@@ -153,7 +153,7 @@ func (t *Test) Evaluate(logspath string) {
 		return
 	}
 
-	t.Err = errors.New("can't evaluate test - no expected (EXP_CODES, EXP_LOGS, EXP_NOLOGS) field defined")
+	t.Err = errors.New("can't evaluate test - no expected (EXP_CODES, EXP_LOG, EXP_NOLOG) field defined")
 	t.TestStatus = "ERR"
 }
 
