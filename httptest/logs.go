@@ -27,8 +27,7 @@ func foundInLogs(t *Test, id string) bool {
 type Tests []*Test
 
 // AddLogs adds related logs to a Test.
-func (ts *Tests) AddLogs(logspath string) {
-
+func (ts *Tests) AddLogs(logspath string) (logsFound int) {
 	logs, logsError := GetLogLines(logspath)
 	if logsError != nil {
 		log.Printf("problem getting log lines from %s: %v\n", logspath, logsError)
@@ -38,12 +37,16 @@ func (ts *Tests) AddLogs(logspath string) {
 	for _, t := range *ts {
 		for _, l := range logs {
 			if l.Transaction.Request.Headers.WafTesterID == t.ID {
-				//fmt.Println(l)
-				// Print a report.
+				logsFound++
 				t.Logs = append(t.Logs, l)
+				// WafTesterID is unique and we expect one log line per request.
+				// So we can quit after 1st finding.
+				break
 			}
 		}
 	}
+
+	return
 }
 
 // GetLogLines gets lines of WAF logs from URL or file.

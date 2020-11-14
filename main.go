@@ -116,7 +116,18 @@ func main() {
 	}
 
 	if flags.LogsPath != "" {
-		testsExecuted.AddLogs(flags.LogsPath)
+		var logsFound, i int
+		for {
+			i++
+			logsFound = testsExecuted.AddLogs(flags.LogsPath)
+			if logsFound >= len(testsExecuted) {
+				break
+			}
+			time.Sleep(time.Microsecond * 100) // wait a bit for logs to be written
+			if i > 10 {                        // don't wait forever
+				break
+			}
+		}
 	}
 
 	// Evaluate and print the tests.
