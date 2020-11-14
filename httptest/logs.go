@@ -34,13 +34,15 @@ func (ts *Tests) AddLogs(logspath string) (logsFound int) {
 		return
 	}
 
+	// WafTesterID is unique and I expect one log line per request.
 	for _, t := range *ts {
+		if len(t.Logs) > 0 { // dont append duplicate logs
+			break
+		}
 		for _, l := range logs {
 			if l.Transaction.Request.Headers.WafTesterID == t.ID {
 				logsFound++
 				t.Logs = append(t.Logs, l)
-				// WafTesterID is unique and we expect one log line per request.
-				// So we can quit after 1st finding.
 				break
 			}
 		}
