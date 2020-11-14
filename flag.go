@@ -13,8 +13,8 @@ type Flags struct {
 	TestsPath   string
 	LogsPath    string
 	URL         string
-	Execute     string
-	NoExecute   string
+	Execute     arrayFlags
+	NoExecute   arrayFlags
 	Template    bool
 	Version     bool
 	Print       string
@@ -39,16 +39,30 @@ OPTIONS
 
 `
 
+type arrayFlags []string
+
+func (a *arrayFlags) String() string {
+	return fmt.Sprintf("%s", *a)
+}
+
+func (a *arrayFlags) Set(value string) error {
+	*a = append(*a, value)
+	return nil
+}
+
 // ParseFlags validates the flags and parses them into Flags.
 func ParseFlags() (Flags, error) {
 	f := flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
+
+	var Execute arrayFlags
+	var NoExecute arrayFlags
 
 	URL := f.String("url", "http://localhost", "`URL` to test")
 	TestsPath := f.String("tests", "", "`DIR|FILE` containing tests")
 	Verbose := f.Bool("verbose", false, "print more info about tests")
 	LogsPath := f.String("logs", "", "evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
-	Execute := f.String("exec", "", "execute only tests with `TITLE|TAG`")
-	NoExecute := f.String("noexec", "", "don't execute tests with `TITLE|TAG`")
+	f.Var(&Execute, "exec", "execute only tests with `TITLE|TAG`")
+	f.Var(&NoExecute, "noexec", "don't execute tests with `TITLE|TAG`")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
 	Print := f.String("print", "", "print info about tests with status `FAIL|OK|ERR`")
@@ -71,8 +85,8 @@ func ParseFlags() (Flags, error) {
 		TestsPath:   stringValue(TestsPath),
 		Verbose:     boolValue(Verbose),
 		LogsPath:    stringValue(LogsPath),
-		Execute:     stringValue(Execute),
-		NoExecute:   stringValue(NoExecute),
+		Execute:     Execute,
+		NoExecute:   NoExecute,
 		Template:    boolValue(Template),
 		Version:     boolValue(Version),
 		Print:       stringValue(Print),

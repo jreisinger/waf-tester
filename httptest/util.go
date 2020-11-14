@@ -27,6 +27,17 @@ func intInSlice(n int, slice []int) bool {
 	return false
 }
 
+func sliceInSlice(slice1, slice2 []string) bool {
+	for _, s1 := range slice1 {
+		for _, s2 := range slice2 {
+			if s1 == s2 {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func stringInSlice(s string, slice []string) bool {
 	for _, r := range slice {
 		if s == r {

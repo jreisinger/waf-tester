@@ -23,7 +23,7 @@ func NewHTTPClient(timeout time.Duration) *http.Client {
 }
 
 // GetTests returns the list of available tests.
-func GetTests(path, exec, noexec, logspath string) ([]Test, error) {
+func GetTests(path string, exec, noexec []string, logspath string) ([]Test, error) {
 	var tests []Test
 
 	// Check path with tests exists.
@@ -55,12 +55,12 @@ func GetTests(path, exec, noexec, logspath string) ([]Test, error) {
 			}
 
 			// Skip tests not selected by -exec CLI flag.
-			if exec != "" && (t.Title != exec && !stringInSlice(exec, t.Tags)) {
+			if len(exec) > 0 && (!stringInSlice(t.Title, exec) && !sliceInSlice(exec, t.Tags)) {
 				continue
 			}
 
 			// Skip tests selected by -noexec CLI flag.
-			if noexec != "" && (t.Title == noexec || stringInSlice(noexec, t.Tags)) {
+			if len(noexec) > 0 && (stringInSlice(t.Title, noexec) || sliceInSlice(noexec, t.Tags)) {
 				continue
 			}
 
