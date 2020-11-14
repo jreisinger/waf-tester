@@ -45,6 +45,13 @@ type Transaction struct {
 	Messages   []Message
 	Request    Request
 	Response   Response
+	Producer   Producer
+}
+
+type Producer struct {
+	Modsecurity string
+	Connector   string
+	Components  []string
 }
 
 type Request struct {
