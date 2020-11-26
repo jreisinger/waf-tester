@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 )
 
 // Flags are all the available CLI flags (options).
@@ -46,7 +47,11 @@ func (a *arrayFlags) String() string {
 	return fmt.Sprintf("%s", *a)
 }
 func (a *arrayFlags) Set(value string) error {
-	*a = append(*a, value)
+	values := strings.Split(value, ",")
+	for i := range values {
+		values[i] = strings.TrimSpace(values[i])
+	}
+	*a = append(*a, values...)
 	return nil
 }
 
@@ -62,8 +67,8 @@ func ParseFlags() (Flags, error) {
 	TestsPath := f.String("tests", "waf_tests", "`DIR|FILE` containing tests")
 	Verbose := f.Bool("verbose", false, "print more info about tests")
 	LogsPath := f.String("logs", "", "evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
-	f.Var(&Execute, "exec", "execute only tests with `TITLE|TAG`")
-	f.Var(&NoExecute, "noexec", "don't execute tests with `TITLE|TAG`")
+	f.Var(&Execute, "exec", "execute only tests with `TITLE|TAG[,...]`")
+	f.Var(&NoExecute, "noexec", "don't execute tests with `TITLE|TAG[,...]`")
 	f.Var(&Header, "header", "add `KEY:VALUE[,...]` header to all requests (waf-tester-id is always added)")
 	Template := f.Bool("template", false, "print tests template and exit")
 	Version := f.Bool("version", false, "version")
