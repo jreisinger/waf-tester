@@ -63,15 +63,15 @@ func ParseFlags() (Flags, error) {
 	var NoExecute arrayFlags
 	var Header arrayFlags
 
-	URL := f.String("url", "http://localhost", "`URL` to test")
-	TestsPath := f.String("tests", "waf_tests", "`DIR|FILE` containing tests")
+	URL := f.String("url", "http://localhost", "run tests against `URL`")
+	TestsPath := f.String("tests", "waf_tests", "get tests from `DIR|FILE`")
 	Verbose := f.Bool("verbose", false, "print more info about tests")
 	LogsPath := f.String("logs", "", "evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
 	f.Var(&Execute, "exec", "execute only tests with `TITLE|TAG[,...]`")
 	f.Var(&NoExecute, "noexec", "don't execute tests with `TITLE|TAG[,...]`")
-	f.Var(&Header, "header", "add `KEY:VALUE[,...]` header to all requests (waf-tester-id is always added)")
+	f.Var(&Header, "header", "add `KEY:VALUE[,...]` header to all HTTP requests (waf-tester-id is always added)")
 	Template := f.Bool("template", false, "print tests template and exit")
-	Version := f.Bool("version", false, "version")
+	Version := f.Bool("version", false, "print version")
 	Print := f.String("print", "", "print info about tests with status `FAIL|OK|ERR`")
 	Rate := f.Int("rate", 200, "maximum number of HTTP requests per second")
 	Concurrency := f.Int("conc", 20, "maximum number of concurrent HTTP requests")
