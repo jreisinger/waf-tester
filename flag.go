@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -24,7 +23,8 @@ OPTIONS
 
 `
 
-// Flags are all the available CLI flags (options).
+// Flags are all the available CLI flags (options). I use a struct instead of
+// separate variables to keep all flags in one place.
 type Flags struct {
 	Verbose     bool
 	TestsPath   string
@@ -41,19 +41,20 @@ type Flags struct {
 	Timeout     int
 }
 
+// validate sanity checks selected flags.
 func (f Flags) validate() error {
 	if f.Print != "" &&
 		!(f.Print == "FAIL" || f.Print == "OK" || f.Print == "ERR") {
-		return errors.New("status must be FAIL, OK or ERR")
+		return fmt.Errorf("print: %v is not one of FAIL, OK or ERR", f.Print)
 	}
 	if f.Rate < 1 {
-		return errors.New("rate must be >= 1")
+		return fmt.Errorf("rate: %v is not >= 1", f.Rate)
 	}
 	if f.Concurrency < 1 {
-		return errors.New("conc must be >= 1")
+		return fmt.Errorf("conc: %v is not >= 1", f.Concurrency)
 	}
 	if f.Timeout < 0 {
-		return errors.New("timeout must be >= 0")
+		return fmt.Errorf("timeout: %v is not >= 0", f.Timeout)
 	}
 	return nil
 }
