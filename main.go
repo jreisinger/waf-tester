@@ -24,7 +24,7 @@ var Version = "dev"
 func main() {
 	flags, err := ParseFlags()
 	if err != nil {
-		log.Fatalf("cannot parse flags: %v", err)
+		log.Fatalf("error parsing flags: %v", err)
 	}
 
 	if flags.Version {

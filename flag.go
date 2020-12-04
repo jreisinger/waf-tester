@@ -8,6 +8,22 @@ import (
 	"strings"
 )
 
+const usage = `ABOUT
+
+waf-tester runs tests against a URL protected by a Web Application Firewall
+(WAF). The tests are HTTP requests defined in YAML format. Use '-template' to
+see how they look like.
+
+EXAMPLE
+
+# Generate and run tests.
+waf-tester -template > tests.yaml
+waf-tester -tests tests.yaml
+
+OPTIONS
+
+`
+
 // Flags are all the available CLI flags (options).
 type Flags struct {
 	Verbose     bool
@@ -25,33 +41,20 @@ type Flags struct {
 	Timeout     int
 }
 
-const usage = `ABOUT
-
-waf-tester runs tests against a URL protected by a Web Application Firewall
-(WAF). The tests are HTTP requests defined in YAML format. Use '-template' to
-see how they look like.
-
-EXAMPLE
-
-# Generate and run tests.
-waf-tester -template > tests.yaml
-waf-tester -tests tests.yaml
-
-OPTIONS
-
-`
-
-type arrayFlags []string
-
-func (a *arrayFlags) String() string {
-	return fmt.Sprintf("%s", *a)
-}
-func (a *arrayFlags) Set(value string) error {
-	values := strings.Split(value, ",")
-	for i := range values {
-		values[i] = strings.TrimSpace(values[i])
+func (f Flags) validate() error {
+	if f.Print != "" &&
+		!(f.Print == "FAIL" || f.Print == "OK" || f.Print == "ERR") {
+		return errors.New("status must be FAIL, OK or ERR")
 	}
-	*a = append(*a, values...)
+	if f.Rate < 1 {
+		return errors.New("rate must be >= 1")
+	}
+	if f.Concurrency < 1 {
+		return errors.New("conc must be >= 1")
+	}
+	if f.Timeout < 0 {
+		return errors.New("timeout must be >= 0")
+	}
 	return nil
 }
 
@@ -87,6 +90,10 @@ func ParseFlags() (Flags, error) {
 		return Flags{}, err
 	}
 
+	if len(f.Args()) != 0 {
+		return Flags{}, fmt.Errorf("unknown non-flag arguments: %s", strings.Join(f.Args(), " "))
+	}
+
 	flags := Flags{
 		URL:         stringValue(URL),
 		TestsPath:   stringValue(TestsPath),
@@ -107,25 +114,19 @@ func ParseFlags() (Flags, error) {
 	return flags, err
 }
 
-func (f Flags) validate() error {
-	if !f.Template && !f.Version {
-		if f.TestsPath == "" {
-			return errors.New("tests cannot be empty")
-		}
+// arrayFlags can be used multiple times and can take multiple values separated by a comma
+type arrayFlags []string
+
+func (a *arrayFlags) String() string {
+	return fmt.Sprintf("%s", *a)
+}
+
+func (a *arrayFlags) Set(value string) error {
+	values := strings.Split(value, ",")
+	for i := range values {
+		values[i] = strings.TrimSpace(values[i])
 	}
-	if f.Print != "" &&
-		!(f.Print == "FAIL" || f.Print == "OK" || f.Print == "ERR") {
-		return errors.New("status must be FAIL, OK or ERR")
-	}
-	if f.Rate < 1 {
-		return errors.New("rate must be > 1")
-	}
-	if f.Concurrency < 1 {
-		return errors.New("conc must be > 1")
-	}
-	if f.Timeout < 0 {
-		return errors.New("timeout must be > 0")
-	}
+	*a = append(*a, values...)
 	return nil
 }
 
