@@ -15,9 +15,9 @@ Download the latest [release](https://github.com/jreisinger/waf-tester/releases)
 Run some WAF tests against localhost:
 
 ```
-# Generate and run tests.
+# Generate tests and run them against localhost.
 waf-tester -template > tests.yaml
-waf-tester -tests tests.yaml
+waf-tester -verbose
 
 # Run tests from waf_tests folder and evaluate also logs (NOTE: -logs is kind of experimental).
 waf-tester -tests waf_tests/ -logs /tmp/var/log/modsec_audit.log

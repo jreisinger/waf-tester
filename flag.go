@@ -15,9 +15,8 @@ see how they look like.
 
 EXAMPLE
 
-# Generate and run tests.
-waf-tester -template > tests.yaml
-waf-tester -tests tests.yaml
+waf-tester -template > tests.yaml   # generate tests
+waf-tester -verbose                 # run them against localhost
 
 OPTIONS
 
@@ -68,7 +67,7 @@ func ParseFlags() (Flags, error) {
 	var Header arrayFlags
 
 	URL := f.String("url", "http://localhost", "run tests against `URL`")
-	TestsPath := f.String("tests", "waf_tests", "get tests from `DIR|FILE`")
+	TestsPath := f.String("tests", "tests.yaml", "get tests from `DIR|FILE`")
 	Verbose := f.Bool("verbose", false, "print more info about tests")
 	LogsPath := f.String("logs", "", "evaluate logs from `FILE|API` (e.g. modsec_audit.log or https://loki.example.com)")
 	f.Var(&Execute, "exec", "execute only tests with `TITLE|TAG[,...]`")
