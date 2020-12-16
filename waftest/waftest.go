@@ -1,5 +1,5 @@
-// Package httptest implements types and functions for testing WAFs.
-package httptest
+// Package waftest implements types and functions for testing WAFs.
+package waftest
 
 import (
 	"errors"
@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jreisinger/waf-tester/yaml"
+	"github.com/jreisinger/waf-tester/wafyaml"
 )
 
 // NewHTTPClient creates an HTTP client. Clients and Transports are safe for
@@ -31,7 +31,7 @@ func GetTests(path string, exec, noexec, header []string, logspath string) ([]Te
 		return tests, err
 	}
 
-	yamls := yaml.ParseFiles(path)
+	yamls := wafyaml.ParseFiles(path)
 	for _, yaml := range yamls {
 		for _, test := range yaml.Tests {
 			t := &Test{

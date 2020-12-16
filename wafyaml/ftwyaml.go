@@ -1,5 +1,5 @@
-// Package yaml parses HTTP tests written in YAML format.
-package yaml
+// Package wafyaml parses WAF tests written in YAML format.
+package wafyaml
 
 import (
 	"fmt"

@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/jreisinger/waf-tester/httptest"
-	"github.com/jreisinger/waf-tester/yaml"
+	"github.com/jreisinger/waf-tester/waftest"
+	"github.com/jreisinger/waf-tester/wafyaml"
 	"github.com/schollz/progressbar/v3"
 )
 
@@ -33,16 +33,16 @@ func main() {
 	}
 
 	if flags.Template {
-		fmt.Print(yaml.Template())
+		fmt.Print(wafyaml.Template())
 		os.Exit(0)
 	}
 
-	testsToExecute, err := httptest.GetTests(flags.TestsPath, flags.Execute, flags.NoExecute, flags.Header, flags.LogsPath)
+	testsToExecute, err := waftest.GetTests(flags.TestsPath, flags.Execute, flags.NoExecute, flags.Header, flags.LogsPath)
 	if err != nil {
 		log.Fatalf("cannot get tests: %v", err)
 	}
 
-	testsToExecuteCh := make(chan *httptest.Test)
+	testsToExecuteCh := make(chan *waftest.Test)
 
 	var wg sync.WaitGroup
 
@@ -57,7 +57,7 @@ func main() {
 		}
 	}()
 
-	testsExecutedCh := make(chan *httptest.Test)
+	testsExecutedCh := make(chan *waftest.Test)
 
 	// Limit the number of requests (tests) per second.
 	rate := make(chan bool, flags.Rate)
@@ -81,7 +81,7 @@ func main() {
 	// Limit concurrency of requests.
 	conc := make(chan bool, flags.Concurrency)
 
-	client := httptest.NewHTTPClient(time.Second * time.Duration(flags.Timeout))
+	client := waftest.NewHTTPClient(time.Second * time.Duration(flags.Timeout))
 
 	// Get the tests to execute from the channel. Send the executed ones down
 	// another channel. Spawn twice as many workers as the number of tests to
@@ -106,7 +106,7 @@ func main() {
 		close(rate)
 	}()
 
-	var testsExecuted httptest.Tests
+	var testsExecuted waftest.Tests
 
 	// Wait for all tests to finish so we can evaluate logs if needed.
 	bar := progressbar.Default(int64(len(testsToExecute)), "Executing tests")
@@ -145,5 +145,5 @@ func main() {
 		}
 	}
 
-	httptest.PrintReport(testsToExecute)
+	waftest.PrintReport(testsToExecute)
 }

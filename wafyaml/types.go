@@ -1,4 +1,4 @@
-package yaml
+package wafyaml
 
 import yaml "gopkg.in/yaml.v2"
 
