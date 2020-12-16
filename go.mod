@@ -3,19 +3,9 @@ module github.com/jreisinger/waf-tester
 go 1.13
 
 require (
-	github.com/cosiner/argv v0.0.1 // indirect
 	github.com/fatih/color v1.9.0
-	github.com/go-delve/delve v1.3.2 // indirect
-	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
-	github.com/mattn/go-isatty v0.0.12 // indirect
-	github.com/peterh/liner v1.1.0 // indirect
-	github.com/schollz/progressbar/v2 v2.15.0 // indirect
+	github.com/kr/pretty v0.1.0 // indirect
 	github.com/schollz/progressbar/v3 v3.6.1
-	github.com/sirupsen/logrus v1.4.2 // indirect
-	github.com/spf13/cobra v0.0.5 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
-	go.starlark.net v0.0.0-20191227232015-caa3e9aa5008 // indirect
-	golang.org/x/arch v0.0.0-20191126211547-368ea8f32fff // indirect
-	golang.org/x/tools v0.0.0-20200821200730-1e23e48ab93b // indirect
+	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/yaml.v2 v2.2.8
 )
