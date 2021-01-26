@@ -42,7 +42,7 @@ func (t *Test) PrintVerbose(flagPrint string) {
 	fmt.Printf(vformat, "FILE", t.File)
 	fmt.Printf(vformat, "STATUS", t.Status)
 	fmt.Printf(vformat, "CODE", t.StatusCode)
-	fmt.Printf(vformat, "EXP_CODES", t.ExpectedStatusCodes)
+	fmt.Printf(vformat, "EXP_STATUS", t.ExpectedStatusCodes)
 	fmt.Printf(vformat, "EXP_LOG", t.LogContains)
 	fmt.Printf(vformat, "EXP_NOLOG", t.LogContainsNot)
 	fmt.Printf(vformat, "EXP_ERR", t.ExpectError)

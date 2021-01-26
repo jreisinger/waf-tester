@@ -153,7 +153,7 @@ func (t *Test) Evaluate(logspath string) {
 		return
 	}
 
-	t.Err = errors.New("can't evaluate test - no expected (EXP_CODES, EXP_LOG, EXP_NOLOG) field defined")
+	t.Err = errors.New("can't evaluate test - no expected (EXP_STATUS, EXP_LOG, EXP_NOLOG) field defined")
 	t.TestStatus = "ERR"
 }
 

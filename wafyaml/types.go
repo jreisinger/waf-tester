@@ -102,7 +102,7 @@ func Template() string {
 		Tests: []Test{
 			{
 				Title: "SQLi",
-				Desc:  "This test expects HTTP response status is 403.",
+				Desc:  "This test expects HTTP response status 403.",
 				Tags:  []string{"sqli", "get"},
 				Stages: []StageWrapper{
 					{Stage: Stage{
