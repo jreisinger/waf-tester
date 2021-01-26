@@ -65,7 +65,7 @@ type StageWrapper struct {
 
 // Stage represents HTTP request and response.
 type Stage struct {
-	Input  Input
+	Input  Input `yaml:",omitempty"`
 	Output Output
 }
 
@@ -100,6 +100,18 @@ func (y Yaml) String() string {
 func Template() string {
 	return Yaml{
 		Tests: []Test{
+			{
+
+				Title: "Minimal test",
+				Stages: []StageWrapper{
+					{Stage: Stage{
+						Output: Output{
+							Status: IntArray{200},
+						},
+					},
+					},
+				},
+			},
 			{
 				Title: "SQLi",
 				Desc:  "This test expects HTTP response status 403.",
