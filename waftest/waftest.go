@@ -126,7 +126,8 @@ func (t *Test) Execute(URL string, client *http.Client) {
 	t.Status = resp.Status
 }
 
-// Evaluate sets overall TestStatus to OK|FAIL|ERR.
+// Evaluate evaluates a test from response status or logs. Then it sets overall
+// TestStatus to OK, FAIL or ERR.
 func (t *Test) Evaluate(logspath string) {
 	if !t.Executed {
 		return
@@ -140,7 +141,7 @@ func (t *Test) Evaluate(logspath string) {
 		return
 	}
 	if len(t.ExpectedStatusCodes) > 0 {
-		t.EvaluateFromResponseStatus()
+		t.evaluateFromResponseStatus()
 		return
 	}
 	if t.LogContains != "" || t.LogContainsNot != "" {
@@ -149,7 +150,7 @@ func (t *Test) Evaluate(logspath string) {
 			t.TestStatus = "ERR"
 			return
 		}
-		t.EvaluateFromWafLogs()
+		t.evaluateFromWafLogs()
 		return
 	}
 
@@ -157,9 +158,9 @@ func (t *Test) Evaluate(logspath string) {
 	t.TestStatus = "ERR"
 }
 
-// EvaluateFromResponseStatus evaluates a test by comparing the actual HTTP
+// evaluateFromResponseStatus evaluates a test by comparing the actual HTTP
 // response status code with the expected one.
-func (t *Test) EvaluateFromResponseStatus() {
+func (t *Test) evaluateFromResponseStatus() {
 	if len(t.ExpectedStatusCodes) == 0 {
 		return
 	}
@@ -171,9 +172,9 @@ func (t *Test) EvaluateFromResponseStatus() {
 	}
 }
 
-// EvaluateFromWafLogs evaluates a test by searching expected string in the WAF
+// evaluateFromWafLogs evaluates a test by searching expected string in the WAF
 // logs.
-func (t *Test) EvaluateFromWafLogs() {
+func (t *Test) evaluateFromWafLogs() {
 	// We have output.log_contains defined in the test.
 	if t.LogContains != "" {
 		re := regexp.MustCompile(`\d{6}`) // ex: id "941130"
