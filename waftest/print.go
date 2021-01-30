@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	format  = "%v %v %v %v %v\n"
+	format  = "%5s %-25s %-15s <%-15s %v>\n"
 	vformat = "  %-10v %v\n"
 )
 
@@ -85,7 +85,7 @@ func (t *Test) Print(flagPrint string) {
 
 	testStatus := setTestStatusColor(t.TestStatus)
 
-	fmt.Printf(format, testStatus, t.Title, t.Tags, t.Method, t.URL)
+	fmt.Printf(format, testStatus, t.Title, strings.Join(t.Tags, ", "), t.Method, t.URL)
 }
 
 // PrintReport prints report about tests.
