@@ -32,10 +32,12 @@ type Test struct {
 // JSON fields from the ModSecurity audit log that we are interested in.
 //
 
+// LogLine is a line from logs.
 type LogLine struct {
 	Transaction Transaction
 }
 
+// Transaction is transaction field in logs.
 type Transaction struct {
 	TimeStamp  string `json:"time_stamp"`
 	ClientIP   string `json:"client_ip"`
@@ -48,34 +50,40 @@ type Transaction struct {
 	Producer   Producer
 }
 
+// Producer is producer field in logs.
 type Producer struct {
 	Modsecurity string
 	Connector   string
 	Components  []string
 }
 
+// Request is request field in logs.
 type Request struct {
 	Method  string
-	Uri     string
+	URI     string
 	Headers Headers
 }
 
+// Headers is headers field in logs.
 type Headers struct {
 	Host        string
 	WafTesterID string `json:"waf-tester-id"`
 }
 
+// Response is response field in logs.
 type Response struct {
-	HttpCode int `json:"http_code"`
+	HTTPCode int `json:"http_code"`
 }
 
+// Message is message field in logs.
 type Message struct {
 	Message string
 	Details Details
 }
 
+// Details is details field in logs.
 type Details struct {
-	RuleId     string
+	RuleID     string
 	File       string
 	LineNumber string
 	Data       string

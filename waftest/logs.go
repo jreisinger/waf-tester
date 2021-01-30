@@ -16,7 +16,7 @@ import (
 func foundInLogs(t *Test, id string) bool {
 	for _, l := range t.Logs {
 		for _, m := range l.Transaction.Messages {
-			if m.Details.RuleId == id {
+			if m.Details.RuleID == id {
 				return true
 			}
 		}
@@ -24,6 +24,7 @@ func foundInLogs(t *Test, id string) bool {
 	return false
 }
 
+// Tests is a collection of Test.
 type Tests []*Test
 
 // AddLogs adds related logs to a Test.
@@ -36,7 +37,7 @@ func (ts *Tests) AddLogs(logspath string) (logsFound int) {
 
 	// WafTesterID is unique and I expect one log line per request.
 	for _, t := range *ts {
-		if len(t.Logs) > 0 { // dont append duplicate logs
+		if len(t.Logs) > 0 { // don't append duplicate logs
 			break
 		}
 		for _, l := range logs {
