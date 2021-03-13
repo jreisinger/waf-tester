@@ -65,12 +65,22 @@ func GetTests(path string, exec, noexec, header []string, logspath string) ([]Te
 			}
 
 			t.addCustomHeaders(header)
+			t.setDefaults()
 
 			tests = append(tests, *t)
 		}
 	}
 
 	return tests, nil
+}
+
+func (t *Test) setDefaults() {
+	switch {
+	case t.Method == "":
+		t.Method = "GET"
+	case t.Path == "":
+		t.Path = "/"
+	}
 }
 
 // Execute executes a Test. It fills in some of the Test fields (like URL, StatusCode).

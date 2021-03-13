@@ -102,7 +102,7 @@ func Template() string {
 		Tests: []Test{
 			{
 
-				Title: "Minimal test",
+				Title: "Minimal test that GETs / and expects 200.",
 				Stages: []StageWrapper{
 					{Stage: Stage{
 						Output: Output{
