@@ -15,8 +15,8 @@ see how they look like.
 
 EXAMPLE
 
-waf-tester -template > tests.yaml   # generate tests
-waf-tester -verbose                 # run them against localhost
+waf-tester -template > tests.yaml   # Generate tests ...
+waf-tester -url http://localhost    # ... and run them against localhost.
 
 OPTIONS
 
