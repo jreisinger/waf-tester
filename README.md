@@ -29,13 +29,8 @@ Consider using [waf-runner](https://github.com/jreisinger/waf-runner) to run a W
 
 ```
 vim main.go
-make install # version defaults to "dev" if VERSION envvar is not set
-
-make release # you'll find releases in releases/ directory
+make install
 ```
-
-Builds are done inside Docker container. Once you push to GitHub Travis will
-try and build a release for you and publish it on GitHub.
 
 Check test coverage:
 

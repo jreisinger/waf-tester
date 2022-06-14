@@ -1,10 +1,8 @@
-VERSION ?= dev
-
 test:
 	go clean -testcache && go test -race -cover ./...
 
-install: test
-	go install -ldflags "-X main.Version=${VERSION}"
-
 build: test
-	go build -ldflags "-X main.Version=${VERSION}"
+	goreleaser build --single-target --rm-dist
+
+install: build
+	cp dist/waf-tester_darwin_amd64/waf-tester ~/go/bin/
