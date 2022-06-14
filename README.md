@@ -29,7 +29,8 @@ Consider using [waf-runner](https://github.com/jreisinger/waf-runner) to run a W
 
 ```
 vim main.go
-make install
+make build      # see dist folder
+make install    # install into ~/go/bin
 ```
 
 Check test coverage:
