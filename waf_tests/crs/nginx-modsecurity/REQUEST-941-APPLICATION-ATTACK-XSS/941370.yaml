@@ -38,7 +38,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941370"
-          status: 405
+          status: 403
   -
     test_title: 941370-3
     desc: "Bypass using JavaScript global variables"

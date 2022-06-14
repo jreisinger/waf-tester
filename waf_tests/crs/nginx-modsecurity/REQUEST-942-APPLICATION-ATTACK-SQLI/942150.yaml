@@ -22,7 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-2
     desc: "Simple SQL injection"
@@ -40,7 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-3
     desc: "Simple SQL injection"
@@ -58,7 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-4
     desc: "Advanced SQL injection"
@@ -76,7 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-5
     stages:
@@ -93,7 +93,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-6
     desc: "Advanced SQL injection"
@@ -111,7 +111,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-7
     desc: "Simple SQL injection"
@@ -129,7 +129,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-8
     desc: "Simple SQL injection"
@@ -147,7 +147,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-9
     desc: "Simple SQL injection"
@@ -165,7 +165,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-10
     desc: "Advanced SQL injection"
@@ -183,7 +183,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-11
     desc: "Simple injection"
@@ -201,7 +201,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-12
     desc: "Advanced SQL injection"
@@ -219,7 +219,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-13
     desc: "Advanced SQL injection"
@@ -237,7 +237,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-14
     desc: "Advanced SQL injection"
@@ -255,7 +255,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-15
     desc: "Simple injection"
@@ -273,7 +273,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-16
     desc: "Simple injection"
@@ -291,7 +291,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-17
     desc: "Advanced injection"
@@ -309,7 +309,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-18
     desc: "Advanced injection"
@@ -327,7 +327,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403
   -
     test_title: 942150-19
     desc: "Simple injection"
@@ -345,4 +345,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942150"
-          status: 405
+          status: 403

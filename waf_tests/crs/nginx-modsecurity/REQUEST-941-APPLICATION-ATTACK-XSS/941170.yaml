@@ -38,4 +38,4 @@
           data: "payload=javascript:/*--></title></style></textarea></script></xmp><svg/onload='+/\"/+/onmouseover=1/+/[*/[]/+alert(1)//'></a>"
         output:
           log_contains: id "941170"
-          status: 405
+          status: 403

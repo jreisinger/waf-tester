@@ -41,7 +41,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-3
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -59,7 +59,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-4
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -77,7 +77,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-5
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -95,7 +95,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-6
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -113,7 +113,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-7
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -131,7 +131,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-8
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -149,7 +149,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-9
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -167,7 +167,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-10
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -185,7 +185,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-11
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -203,7 +203,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-12
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -221,7 +221,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-13
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -239,7 +239,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-14
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -257,7 +257,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-15
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -275,7 +275,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-16
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -293,7 +293,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-17
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -311,7 +311,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-18
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -329,7 +329,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-19
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -347,7 +347,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-20
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -365,7 +365,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-21
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -383,7 +383,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-22
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -401,7 +401,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-23
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -419,7 +419,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-24
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -437,7 +437,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-25
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -455,7 +455,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-26
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -473,7 +473,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-27
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -491,7 +491,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-28
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -509,7 +509,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-29
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -527,7 +527,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-30
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -545,7 +545,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-31
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -563,7 +563,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-32
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -581,7 +581,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-33
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -599,7 +599,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-34
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -617,7 +617,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-35
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -635,7 +635,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-36
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -653,7 +653,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403
   -
     test_title: 942190-37
     desc: "MSSQL Code Execution and Information gathering attempts"
@@ -671,4 +671,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942190"
-          status: 405
+          status: 403

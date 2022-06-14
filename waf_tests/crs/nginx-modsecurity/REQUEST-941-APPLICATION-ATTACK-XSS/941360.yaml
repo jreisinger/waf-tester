@@ -22,7 +22,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941360"
-          status: 405
+          status: 403
   -
     test_title: 941360-2
     desc: "JSFuck / Hieroglyphy payload obfuscation attack"
@@ -40,7 +40,7 @@
           version: HTTP/1.1
         output:
           log_contains: id "941360"
-          status: 405
+          status: 403
   -
     test_title: 941360-3
     desc: "JSFuck / Hieroglyphy payload obfuscation attack"
@@ -58,4 +58,4 @@
           version: HTTP/1.1
         output:
           log_contains: id "941360"
-          status: 405
+          status: 403

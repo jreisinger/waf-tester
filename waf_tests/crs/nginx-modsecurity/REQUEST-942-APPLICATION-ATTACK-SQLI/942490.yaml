@@ -21,7 +21,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-2
     desc: "classic SQL injection probings 3/3"
@@ -39,7 +39,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-3
     desc: "classic SQL injection probings 3/3"
@@ -57,7 +57,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-4
     desc: "classic SQL injection probings 3/3"
@@ -75,7 +75,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-5
     desc: "classic SQL injection probings 3/3"
@@ -93,7 +93,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-6
     desc: "classic SQL injection probings 3/3"
@@ -111,7 +111,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-7
     desc: "classic SQL injection probings 3/3"
@@ -129,7 +129,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-8
     desc: "classic SQL injection probings 3/3"
@@ -147,7 +147,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-9
     desc: "classic SQL injection probings 3/3"
@@ -165,7 +165,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-10
     desc: "classic SQL injection probings 3/3"
@@ -183,7 +183,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-11
     desc: "classic SQL injection probings 3/3"
@@ -201,7 +201,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-12
     desc: "classic SQL injection probings 3/3"
@@ -219,7 +219,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-13
     desc: "classic SQL injection probings 3/3"
@@ -237,7 +237,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-14
     desc: "classic SQL injection probings 3/3"
@@ -255,7 +255,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-15
     desc: "classic SQL injection probings 3/3"
@@ -273,7 +273,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-16
     desc: "classic SQL injection probings 3/3"
@@ -291,7 +291,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-17
     desc: "classic SQL injection probings 3/3"
@@ -309,7 +309,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-18
     desc: "classic SQL injection probings 3/3"
@@ -327,7 +327,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-19
     desc: "classic SQL injection probings 3/3"
@@ -345,7 +345,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-20
     desc: "classic SQL injection probings 3/3"
@@ -363,7 +363,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-21
     desc: "classic SQL injection probings 3/3"
@@ -381,7 +381,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403
   -
     test_title: 942490-22
     desc: "classic SQL injection probings 3/3"
@@ -399,4 +399,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942490"
-          status: 405
+          status: 403

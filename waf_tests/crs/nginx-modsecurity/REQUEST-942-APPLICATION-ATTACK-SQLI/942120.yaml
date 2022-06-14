@@ -22,7 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-3
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -40,7 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-4
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -58,7 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-5
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -76,7 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-6
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -94,7 +94,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-7
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -112,7 +112,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-8
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -130,7 +130,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-9
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -148,7 +148,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-10
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -166,7 +166,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-11
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -184,7 +184,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-12
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -202,7 +202,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-13
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -220,7 +220,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-14
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -238,7 +238,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-15
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -256,7 +256,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-16
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -274,7 +274,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-17
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -292,7 +292,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-18
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -310,7 +310,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-19
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -328,7 +328,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-20
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -346,7 +346,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403
   -
     test_title: 942120-21
     desc: "SQL Injection Attack: SQL Operator Detected"
@@ -364,4 +364,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942120"
-          status: 405
+          status: 403

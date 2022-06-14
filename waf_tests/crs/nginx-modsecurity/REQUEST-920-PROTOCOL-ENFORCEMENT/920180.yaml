@@ -64,5 +64,5 @@
             uri: /
             version: HTTP/1.0
           output:
-            status: 405
+            status: 403
             log_contains: id "920180"

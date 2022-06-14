@@ -22,7 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-2
     desc: "Simple SQL injection"
@@ -40,7 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-3
     desc: "Simple SQL injection"
@@ -58,7 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-4
     desc: "Basic SQL injection"
@@ -76,7 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-5
     desc: "Simple SQL injection"
@@ -94,7 +94,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-6
     desc: "Simple SQL injection"
@@ -112,7 +112,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-7
     desc: "Advanced SQL injection"
@@ -130,7 +130,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-8
     desc: "Simple SQL Injection"
@@ -148,7 +148,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-9
     desc: "Simple SQL injection"
@@ -166,7 +166,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-10
     desc: "Advanced SQL Injection"
@@ -184,7 +184,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-11
     desc: "Simple function call"
@@ -202,7 +202,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-12
     desc: "Advanced SQL injection"
@@ -220,7 +220,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-13
     desc: "Advanced injection"
@@ -238,7 +238,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403
   -
     test_title: 942100-14
     desc: "Advanced SQL injection"
@@ -256,4 +256,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942100"
-          status: 405
+          status: 403

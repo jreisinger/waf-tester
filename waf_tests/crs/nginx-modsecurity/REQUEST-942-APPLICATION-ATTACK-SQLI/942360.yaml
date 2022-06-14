@@ -22,7 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-2
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -40,7 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-3
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -58,7 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-4
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -76,7 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-5
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -94,7 +94,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-6
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -112,7 +112,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-7
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -130,7 +130,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-8
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -148,7 +148,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-9
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -166,7 +166,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-10
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -184,7 +184,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-11
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -202,7 +202,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-12
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -220,7 +220,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-13
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -238,7 +238,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-14
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -256,7 +256,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-15
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -274,7 +274,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-16
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -292,7 +292,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-17
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -310,7 +310,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-18
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -328,7 +328,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-19
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -346,7 +346,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-20
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -364,7 +364,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-21
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -382,7 +382,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-22
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -400,7 +400,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-23
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -418,7 +418,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-24
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -436,7 +436,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-25
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -454,7 +454,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-26
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -472,7 +472,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-27
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -490,7 +490,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-28
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -508,7 +508,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-29
     desc: "Detects concatenated basic SQL injection and SQLLFI attempts"
@@ -526,7 +526,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942360"
-          status: 405
+          status: 403
   -
     test_title: 942360-30
     desc: GH issue 1580
@@ -546,4 +546,4 @@
           version: HTTP/1.0
         output:
           no_log_contains: id "942360"
-          status: 405
+          status: 403

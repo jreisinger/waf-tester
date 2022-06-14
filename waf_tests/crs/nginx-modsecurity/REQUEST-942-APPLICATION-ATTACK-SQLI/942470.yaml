@@ -22,7 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
   -
     test_title: 942470-2
     desc: "SQL Injection Attack"
@@ -40,7 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
   -
     test_title: 942470-3
     desc: "SQL Injection Attack"
@@ -58,7 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
   -
     test_title: 942470-4
     desc: "SQL Injection Attack"
@@ -76,7 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
   -
     test_title: 942470-5
     desc: "SQL Injection Attack"
@@ -94,7 +94,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
   -
     test_title: 942470-6
     desc: "SQL Injection Attack"
@@ -112,7 +112,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
   -
     test_title: 942470-7
     desc: "SQL Injection Attack"
@@ -130,7 +130,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
   -
     test_title: 942470-8
     desc: "SQL Injection Attack"
@@ -148,7 +148,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
   -
     test_title: 942470-9
     desc: "SQL Injection Attack"
@@ -166,7 +166,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
   -
     test_title: 942470-10
     desc: "SQL Injection Attack"
@@ -184,5 +184,5 @@
           version: HTTP/1.0
         output:
           log_contains: id "942470"
-          status: 405
+          status: 403
 

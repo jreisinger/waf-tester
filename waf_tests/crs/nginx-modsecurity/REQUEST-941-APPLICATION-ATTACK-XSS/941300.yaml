@@ -38,4 +38,4 @@
           data: "payload=<object data=\"javascript:alert(1)\"></a>"
         output:
           log_contains: id "941300"
-          status: 405
+          status: 403

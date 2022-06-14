@@ -38,7 +38,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942160"
-          status: 405
+          status: 403
   -
     test_title: 942160-3
     desc: "SQL Injection Attack: Common DB Names Detected"
@@ -56,7 +56,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942160"
-          status: 405
+          status: 403
   -
     test_title: 942160-4
     desc: "SQL Injection Attack: Common DB Names Detected"
@@ -74,7 +74,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942160"
-          status: 405
+          status: 403
   -
     test_title: 942160-5
     desc: "SQL Injection Attack: Common DB Names Detected"
@@ -92,7 +92,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942160"
-          status: 405
+          status: 403
   -
     test_title: 942160-6
     desc: "SQL Injection Attack: Common DB Names Detected"
@@ -110,7 +110,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942160"
-          status: 405
+          status: 403
   -
     test_title: 942160-7
     desc: "SQL Injection Attack: Common DB Names Detected"
@@ -128,7 +128,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942160"
-          status: 405
+          status: 403
   -
     test_title: 942160-8
     desc: "SQL Injection Attack: Common DB Names Detected"
@@ -146,7 +146,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942160"
-          status: 405
+          status: 403
   -
     test_title: 942160-9
     desc: "SQL Injection Attack: Common DB Names Detected"
@@ -164,4 +164,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942160"
-          status: 405
+          status: 403

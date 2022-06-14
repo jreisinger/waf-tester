@@ -22,4 +22,4 @@
           data: "payload=<iframe srcdoc=\"<img src=1 onerror=alert(1)>\"></iframe></a>"
         output:
           log_contains: id "941330"
-          status: 405
+          status: 403

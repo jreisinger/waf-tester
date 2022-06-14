@@ -63,7 +63,7 @@
               data: "test=value"
             output:
               no_log_contains: "id \"911100\""
-              status: 405
+              status: 403
     -
       test_title: 911100-5
       stages:

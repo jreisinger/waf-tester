@@ -22,7 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-3
     desc: "Basic SQL authentication bypass"
@@ -40,7 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-4
     desc: "Basic SQL authentication bypass"
@@ -58,7 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-5
     desc: "Basic SQL authentication bypass"
@@ -76,7 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-6
     desc: "Advanced SQL authentication bypass"
@@ -94,7 +94,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-7
     desc: "Embedded shell execution"
@@ -112,7 +112,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-8
     desc: "Embedded shell execution"
@@ -130,7 +130,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-9
     desc: "Embedded shell execution"
@@ -148,7 +148,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-10
     desc: "Embedded shell execution"
@@ -166,7 +166,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-11
     desc: "Advanced embedded shell execution"
@@ -184,7 +184,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-12
     desc: "Advanced embedded shell execution"
@@ -202,7 +202,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-13
     desc: "Advanced embedded shell execution"
@@ -220,7 +220,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-14
     desc: "Advanced embedded shell execution"
@@ -238,7 +238,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-15
     desc: "Advanced embedded shell execution"
@@ -256,7 +256,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-16
     desc: "Advanced embedded shell execution"
@@ -274,7 +274,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-17
     desc: "Advanced embedded shell execution"
@@ -292,7 +292,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-18
     desc: "Traces of XSS"
@@ -310,7 +310,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-19
     desc: "Advanced SQL authentication bypass"
@@ -328,7 +328,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-20
     desc: "Advanced embedded shell execution"
@@ -346,7 +346,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-21
     desc: "Advanced embedded shell execution"
@@ -364,7 +364,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403
   -
     test_title: 942260-22
     desc: "Traces of XSS"
@@ -382,4 +382,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942260"
-          status: 405
+          status: 403

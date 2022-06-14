@@ -22,7 +22,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-2
     desc: "SQL Injection Attack"
@@ -40,7 +40,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-3
     desc: "SQL Injection Attack"
@@ -58,7 +58,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-4
     desc: "SQL Injection Attack"
@@ -76,7 +76,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-5
     desc: "SQL Injection Attack"
@@ -94,7 +94,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-6
     desc: "SQL Injection Attack"
@@ -112,7 +112,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-7
     desc: "SQL Injection Attack"
@@ -130,7 +130,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-8
     desc: "SQL Injection Attack"
@@ -148,7 +148,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-9
     desc: "SQL Injection Attack"
@@ -166,7 +166,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-10
     desc: "SQL Injection Attack"
@@ -184,7 +184,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-11
     desc: "SQL Injection Attack"
@@ -202,7 +202,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-12
     desc: "SQL Injection Attack"
@@ -220,7 +220,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-13
     desc: "SQL Injection Attack"
@@ -238,7 +238,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-14
     desc: "SQL Injection Attack"
@@ -256,7 +256,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-15
     desc: "SQL Injection Attack"
@@ -274,7 +274,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-16
     desc: "SQL Injection Attack"
@@ -292,7 +292,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-17
     desc: "SQL Injection Attack"
@@ -310,7 +310,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-18
     desc: "SQL Injection Attack"
@@ -328,7 +328,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-19
     desc: "SQL Injection Attack"
@@ -346,7 +346,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-20
     desc: "SQL Injection Attack"
@@ -364,7 +364,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-21
     desc: "SQL Injection Attack"
@@ -382,7 +382,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-22
     desc: "SQL Injection Attack"
@@ -400,7 +400,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-23
     desc: "SQL Injection Attack"
@@ -418,7 +418,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-24
     desc: "SQL Injection Attack"
@@ -436,7 +436,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-25
     desc: "SQL Injection Attack"
@@ -454,7 +454,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-26
     desc: "SQL Injection Attack"
@@ -472,7 +472,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-27
     desc: "SQL Injection Attack"
@@ -490,7 +490,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-28
     desc: "SQL Injection Attack"
@@ -508,7 +508,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-29
     desc: "SQL Injection Attack"
@@ -526,7 +526,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-30
     desc: "SQL Injection Attack"
@@ -544,7 +544,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-31
     desc: "SQL Injection Attack"
@@ -562,7 +562,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-32
     desc: "SQL Injection Attack"
@@ -580,7 +580,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-33
     desc: "SQL Injection Attack"
@@ -598,7 +598,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-34
     desc: "SQL Injection Attack"
@@ -616,7 +616,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-35
     desc: "SQL Injection Attack"
@@ -634,7 +634,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-36
     desc: "SQL Injection Attack"
@@ -652,7 +652,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-37
     desc: "SQL Injection Attack"
@@ -670,7 +670,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-38
     desc: "SQL Injection Attack"
@@ -688,7 +688,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-39
     desc: "SQL Injection Attack"
@@ -706,7 +706,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-40
     desc: "SQL Injection Attack"
@@ -724,7 +724,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-41
     desc: "SQL Injection Attack"
@@ -742,7 +742,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-42
     desc: "SQL Injection Attack"
@@ -760,7 +760,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-43
     desc: "SQL Injection Attack"
@@ -778,7 +778,7 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
   -
     test_title: 942380-44
     desc: "SQL Injection Attack"
@@ -796,4 +796,4 @@
           version: HTTP/1.0
         output:
           log_contains: id "942380"
-          status: 405
+          status: 403
