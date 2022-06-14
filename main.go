@@ -18,8 +18,13 @@ func init() {
 	log.SetFlags(0) // no timestamp
 }
 
-// Version is the default version.
-var Version = "dev"
+// Take from https://goreleaser.com/cookbooks/using-main.version
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+	builtBy = "unknown"
+)
 
 func main() {
 	flags, err := ParseFlags()
@@ -28,7 +33,8 @@ func main() {
 	}
 
 	if flags.Version {
-		fmt.Println(Version)
+		fmt.Printf("waf-tester %s, commit %s, built at %s by %s\n",
+			version, commit, date, builtBy)
 		os.Exit(0)
 	}
 
