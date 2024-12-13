@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/jreisinger/waf-tester.svg?branch=master)](https://travis-ci.org/jreisinger/waf-tester)
-
 ## About
 
 waf-tester runs tests against a URL protected by a Web Application Firewall (WAF). The tests are HTTP requests defined in YAML format based on [FTW format](https://github.com/CRS-support/ftw/blob/master/docs/YAMLFormat.md). Use '-template' to see how they look like.
