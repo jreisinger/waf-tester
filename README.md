@@ -8,7 +8,7 @@ The tests are evaluated by comparing the HTTP response status or WAF logs agains
 
 ## Installation
 
-Download the latest [release](https://github.com/jreisinger/waf-tester/releases) for your operating system and architecture or `make install`.
+`make install`
 
 ## Sample usage
 
